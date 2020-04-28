@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9cd87f007dcd9d8cf647fb718b0384f8",
+    "content-hash": "dee936970e14074802934c6ba06268cc",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -328,6 +328,42 @@
                 "html"
             ],
             "time": "2019-10-28T03:44:26+00:00"
+        },
+        {
+            "name": "kosuha606/virtual-model",
+            "version": "1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kosuha606/virtual-model.git",
+                "reference": "03a4d7ae1b6608109f7d4725cd86f290bdd99e6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kosuha606/virtual-model/zipball/03a4d7ae1b6608109f7d4725cd86f290bdd99e6c",
+                "reference": "03a4d7ae1b6608109f7d4725cd86f290bdd99e6c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "6.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "kosuha606\\VirtualModel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Eugene Kosuhin",
+                    "email": "kosuha606@gmail.com"
+                }
+            ],
+            "description": "VirtualModel",
+            "time": "2020-04-28T11:48:01+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

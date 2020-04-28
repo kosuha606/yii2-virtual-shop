@@ -1,17 +1,42 @@
 <?php
 
+use app\virtualProviders\ActiveRecordProvider;
+use app\virtualProviders\LoadWebVirtualProvidersComponent;
+use kosuha606\VirtualModel\Example\Product\Product;
+use kosuha606\VirtualModel\Example\Shop\Model\Action;
+use kosuha606\VirtualModel\Example\Shop\Model\Delivery;
+use kosuha606\VirtualModel\Example\Shop\Model\Order;
+use kosuha606\VirtualModel\Example\Shop\Model\OrderReserve;
+use kosuha606\VirtualModel\Example\Shop\Model\Payment;
+use kosuha606\VirtualModel\Example\Shop\Model\ProductRests;
+use kosuha606\VirtualModel\Example\Shop\Model\Promocode;
+use yii\db\ActiveRecord;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'providers_loader'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'providers_loader' => [
+            'class' => LoadWebVirtualProvidersComponent::class,
+            'arRelations' => [
+                Action::class => \app\models\Action::class,
+                Delivery::class => \app\models\Delivery::class,
+                Order::class => \app\models\Order::class,
+                OrderReserve::class => \app\models\OrderReserve::class,
+                Payment::class => \app\models\Payment::class,
+                Product::class => \app\models\Product::class,
+                ProductRests::class => \app\models\Product::class,
+                Promocode::class => \app\models\Promocode::class
+            ]
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'Giq-5QZlBkAbp2-i3hdj72z897J8_8r1',
