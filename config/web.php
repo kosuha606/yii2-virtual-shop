@@ -1,15 +1,15 @@
 <?php
 
+use app\virtualModels\Model\Action;
+use app\virtualModels\Model\Delivery;
+use app\virtualModels\Model\Order;
+use app\virtualModels\Model\OrderReserve;
+use app\virtualModels\Model\Payment;
+use app\virtualModels\Model\Product;
+use app\virtualModels\Model\ProductRests;
+use app\virtualModels\Model\Promocode;
 use app\virtualProviders\ActiveRecordProvider;
 use app\virtualProviders\LoadWebVirtualProvidersComponent;
-use kosuha606\VirtualModel\Example\Product\Product;
-use kosuha606\VirtualModel\Example\Shop\Model\Action;
-use kosuha606\VirtualModel\Example\Shop\Model\Delivery;
-use kosuha606\VirtualModel\Example\Shop\Model\Order;
-use kosuha606\VirtualModel\Example\Shop\Model\OrderReserve;
-use kosuha606\VirtualModel\Example\Shop\Model\Payment;
-use kosuha606\VirtualModel\Example\Shop\Model\ProductRests;
-use kosuha606\VirtualModel\Example\Shop\Model\Promocode;
 use yii\db\ActiveRecord;
 
 $params = require __DIR__ . '/params.php';

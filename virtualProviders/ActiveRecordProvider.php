@@ -38,6 +38,22 @@ class ActiveRecordProvider extends VirtualModelProvider
             }
         }
 
+        if (isset($config['orderBy'])) {
+
+        }
+
+        if (isset($config['groupBy'])) {
+
+        }
+
+        if (isset($config['limit'])) {
+
+        }
+
+        if (isset($config['offset'])) {
+
+        }
+
         $model = $query->asArray()->one();
 
         return $model;

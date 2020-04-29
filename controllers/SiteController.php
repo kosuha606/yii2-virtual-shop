@@ -2,13 +2,14 @@
 
 namespace app\controllers;
 
+use app\virtualModels\Model\Product;
+use app\virtualModels\ServiceManager;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends Controller
 {
@@ -58,10 +59,15 @@ class SiteController extends Controller
      * Displays homepage.
      *
      * @return string
+     * @throws \Exception
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $products = Product::many([
+            'where' => ['all']
+        ]);
+
+        return $this->render('index', ['products' => $products]);
     }
 
     /**
@@ -102,9 +108,16 @@ class SiteController extends Controller
      * Displays about page.
      *
      * @return string
+     * @throws \Exception
      */
     public function actionCart()
     {
+        if (Yii::$app->request->isPost) {
+            $productId = Yii::$app->request->post('product_id');
+            $qty = Yii::$app->request->post('qty');
+            ServiceManager::getInstance()->cartBuilder->addProductById($productId, $qty);
+        }
+
         return $this->render('cart');
     }
 }

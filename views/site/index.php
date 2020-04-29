@@ -2,6 +2,12 @@
 
 /* @var $this yii\web\View */
 
+use kosuha606\VirtualModel\Example\Shop\Model\Product;
+use yii\helpers\Url;
+use yii\widgets\ActiveForm;
+
+/** @var Product[] $products */
+
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
@@ -13,16 +19,21 @@ $this->title = 'My Yii Application';
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
+            <?php foreach ($products as $product) { ?>
+                <div class="col-lg-4">
+                    <?php $form = ActiveForm::begin(['action' => Url::toRoute('/site/cart'), 'method' => 'post']); ?>
+                    <h2><?= $product->name ?></h2>
+                    <p>
+                        <?= $product->sale_price ?> руб.
+                    </p>
+                    <div>
+                        <input type="hidden" name="qty" value="1">
+                        <input type="hidden" name="product_id" value="<?= $product->id ?>">
+                        <button class="btn btn-default">В корзину</button>
+                    </div>
+                    <?php ActiveForm::end(); ?>
+                </div>
+            <?php } ?>
         </div>
 
     </div>
