@@ -11,7 +11,7 @@ use app\virtualModels\Services\ProductService;
 /**
  * Продукт
  */
-class Product extends VirtualModel
+class ProductVm extends VirtualModel
 {
     /** @var ProductService */
     private $productService;

@@ -4,16 +4,16 @@ namespace app\virtualModels\Services;
 
 
 use kosuha606\VirtualModel\VirtualModelManager;
-use app\virtualModels\Model\User;
+use app\virtualModels\Model\UserVm;
 
 class UserService
 {
-    /** @var User */
+    /** @var UserVm */
     private $user;
 
     public function login($userId)
     {
-        $user = VirtualModelManager::getInstance()->getProvider()->one(User::class, [
+        $user = VirtualModelManager::getInstance()->getProvider()->one(UserVm::class, [
             'where' => [
                 ['=', 'id', $userId]
             ]
@@ -26,7 +26,7 @@ class UserService
         return $this->user;
     }
 
-    public function setUser(User $user)
+    public function setUser(UserVm $user)
     {
         $this->user = $user;
     }

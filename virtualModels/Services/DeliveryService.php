@@ -4,13 +4,13 @@ namespace app\virtualModels\Services;
 
 
 use kosuha606\VirtualModel\VirtualModelManager;
-use app\virtualModels\Model\Delivery;
+use app\virtualModels\Model\DeliveryVm;
 
 class DeliveryService
 {
     public function findDeliveryById($id)
     {
-        $delivery = VirtualModelManager::getInstance()->getProvider()->one(Delivery::class, [
+        $delivery = VirtualModelManager::getInstance()->getProvider()->one(DeliveryVm::class, [
             'where' => [
                 ['=', 'id', $id]
             ]

@@ -8,7 +8,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * Пользователь
  * @package kosuha606\Model\iteration2\model
  */
-class User extends VirtualModel
+class UserVm extends VirtualModel
 {
     public function attributes(): array
     {

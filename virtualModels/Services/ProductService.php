@@ -4,8 +4,8 @@ namespace app\virtualModels\Services;
 
 
 use kosuha606\VirtualModel\VirtualModelManager;
-use app\virtualModels\Model\Action;
-use app\virtualModels\Model\Product;
+use app\virtualModels\Model\ActionVm;
+use app\virtualModels\Model\ProductVm;
 
 class ProductService
 {
@@ -20,12 +20,12 @@ class ProductService
     }
 
     /**
-     * @return Action[]
+     * @return ActionVm[]
      * @throws \Exception
      */
     public function findAllActions()
     {
-        $actions = VirtualModelManager::getInstance()->getProvider()->many(Action::class, [
+        $actions = VirtualModelManager::getInstance()->getProvider()->many(ActionVm::class, [
             'where' => [
                 ['all']
             ]
@@ -35,13 +35,13 @@ class ProductService
     }
 
     /**
-     * @return Product
+     * @return ProductVm
      * @throws \Exception
      */
     public function findProductById($productId)
     {
-        /** @var Product $product */
-        $product = Product::one([
+        /** @var ProductVm $product */
+        $product = ProductVm::one([
             'where' => [
                 ['=', 'id', $productId]
             ]
@@ -51,7 +51,7 @@ class ProductService
     }
 
     /**
-     * @param Product $product
+     * @param ProductVm $product
      * @param $qty
      * @return bool
      * @throws \Exception

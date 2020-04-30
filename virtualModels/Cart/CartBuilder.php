@@ -4,8 +4,8 @@ namespace app\virtualModels\Cart;
 
 
 use app\virtualModels\Model\Cart;
-use app\virtualModels\Model\Delivery;
-use app\virtualModels\Model\Payment;
+use app\virtualModels\Model\DeliveryVm;
+use app\virtualModels\Model\PaymentVm;
 use app\virtualModels\Services\CartService;
 use app\virtualModels\Services\ProductService;
 
@@ -60,14 +60,14 @@ class CartBuilder
 
     public function setPaymentById($paymentId)
     {
-        /** @var Payment $payment */
+        /** @var PaymentVm $payment */
         $payment = $this->cartService->getPaymentById($paymentId);
         $this->cart->setPayment($payment);
     }
 
     public function setDeliveryById($deliveryId)
     {
-        /** @var Delivery $delivery */
+        /** @var DeliveryVm $delivery */
         $delivery = $this->cartService->getDeliveryById($deliveryId);
         $this->cart->setDelivery($delivery);
     }

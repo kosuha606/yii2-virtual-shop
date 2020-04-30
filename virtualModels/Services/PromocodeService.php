@@ -3,18 +3,18 @@
 namespace app\virtualModels\Services;
 
 use kosuha606\VirtualModel\VirtualModelManager;
-use app\virtualModels\Model\Promocode;
+use app\virtualModels\Model\PromocodeVm;
 
 class PromocodeService
 {
     /**
      * @param $id
-     * @return Promocode
+     * @return PromocodeVm
      */
     public function findPromocodeById($id)
     {
-        /** @var Promocode $promocode */
-        $promocode = VirtualModelManager::getInstance()->getProvider()->one(Promocode::class, [
+        /** @var PromocodeVm $promocode */
+        $promocode = VirtualModelManager::getInstance()->getProvider()->one(PromocodeVm::class, [
             'where' => [
                 ['=', 'id', $id]
             ]

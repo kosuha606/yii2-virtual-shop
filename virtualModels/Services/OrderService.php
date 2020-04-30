@@ -5,8 +5,8 @@ namespace app\virtualModels\Services;
 
 use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModel\VirtualModelManager;
-use app\virtualModels\Model\OrderReserve;
-use app\virtualModels\Model\Product;
+use app\virtualModels\Model\OrderReserveVm;
+use app\virtualModels\Model\ProductVm;
 
 class OrderService
 {
@@ -19,11 +19,11 @@ class OrderService
     }
 
     /**
-     * @param Product $product
+     * @param ProductVm $product
      * @return int
      * @throws \Exception
      */
-    public function findOrderReserveQtyByProduct(Product $product)
+    public function findOrderReserveQtyByProduct(ProductVm $product)
     {
         $reservedQty = 0;
 
@@ -42,12 +42,12 @@ class OrderService
     }
 
     /**
-     * @return OrderReserve[]
+     * @return OrderReserveVm[]
      * @throws \Exception
      */
     public function getOrderReserve()
     {
-        $items = VirtualModelManager::getInstance()->getProvider()->many(OrderReserve::class, [
+        $items = VirtualModelManager::getInstance()->getProvider()->many(OrderReserveVm::class, [
             'where' => [
                 ['all']
             ]

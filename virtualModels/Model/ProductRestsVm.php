@@ -5,15 +5,15 @@ namespace app\virtualModels\Model;
 use kosuha606\VirtualModel\VirtualModel;
 
 /**
- * Резерв продуктов в заказах
+ * Остаток по продукту
  * @package kosuha606\Model\iteration2\model
+ * Остаток по продукту
  */
-class OrderReserve extends VirtualModel
+class ProductRestsVm extends VirtualModel
 {
     public function attributes(): array
     {
         return [
-            'orderId',
             'productId',
             'qty',
             'userType',

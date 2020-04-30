@@ -1,13 +1,13 @@
 <?php
 
-use app\virtualModels\Model\Action;
-use app\virtualModels\Model\Delivery;
-use app\virtualModels\Model\Order;
-use app\virtualModels\Model\OrderReserve;
-use app\virtualModels\Model\Payment;
-use app\virtualModels\Model\Product;
-use app\virtualModels\Model\ProductRests;
-use app\virtualModels\Model\Promocode;
+use app\virtualModels\Model\ActionVm;
+use app\virtualModels\Model\DeliveryVm;
+use app\virtualModels\Model\OrderVm;
+use app\virtualModels\Model\OrderReserveVm;
+use app\virtualModels\Model\PaymentVm;
+use app\virtualModels\Model\ProductVm;
+use app\virtualModels\Model\ProductRestsVm;
+use app\virtualModels\Model\PromocodeVm;
 use app\virtualProviders\ActiveRecordProvider;
 use app\virtualProviders\LoadWebVirtualProvidersComponent;
 use yii\db\ActiveRecord;
@@ -29,14 +29,14 @@ $config = [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,
             'arRelations' => [
-                Action::class => \app\models\Action::class,
-                Delivery::class => \app\models\Delivery::class,
-                Order::class => \app\models\Order::class,
-                OrderReserve::class => \app\models\OrderReserve::class,
-                Payment::class => \app\models\Payment::class,
-                Product::class => \app\models\Product::class,
-                ProductRests::class => \app\models\Product::class,
-                Promocode::class => \app\models\Promocode::class
+                ActionVm::class => \app\models\Action::class,
+                DeliveryVm::class => \app\models\Delivery::class,
+                OrderVm::class => \app\models\Order::class,
+                OrderReserveVm::class => \app\models\OrderReserve::class,
+                PaymentVm::class => \app\models\Payment::class,
+                ProductVm::class => \app\models\Product::class,
+                ProductRestsVm::class => \app\models\Product::class,
+                PromocodeVm::class => \app\models\Promocode::class
             ]
         ],
         'request' => [

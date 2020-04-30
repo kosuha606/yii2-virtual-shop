@@ -19,17 +19,17 @@ class Cart
     public $items = [];
 
     /**
-     * @var Promocode
+     * @var PromocodeVm
      */
     public $promocode;
 
     /**
-     * @var Delivery
+     * @var DeliveryVm
      */
     public $delivery;
 
     /**
-     * @var Payment
+     * @var PaymentVm
      */
     public $payment;
 
@@ -52,7 +52,7 @@ class Cart
         return $this->cartService->calculateTotals($this);
     }
 
-    public function applyPromocode(Promocode $promocode)
+    public function applyPromocode(PromocodeVm $promocode)
     {
         $this->promocode = $promocode;
     }
@@ -67,11 +67,11 @@ class Cart
     }
 
     /**
-     * @param Product $product
+     * @param ProductVm $product
      * @param int $qty
      * @throws \Exception
      */
-    public function addProduct(Product $product, $qty = 1)
+    public function addProduct(ProductVm $product, $qty = 1)
     {
         if ($product->hasFreeRests($qty)) {
             $this->items[] = new CartItem([
@@ -85,17 +85,17 @@ class Cart
     }
 
     /**
-     * @param Delivery $delivery
+     * @param DeliveryVm $delivery
      */
-    public function setDelivery(Delivery $delivery): void
+    public function setDelivery(DeliveryVm $delivery): void
     {
         $this->delivery = $delivery;
     }
 
     /**
-     * @param Payment $payment
+     * @param PaymentVm $payment
      */
-    public function setPayment(Payment $payment): void
+    public function setPayment(PaymentVm $payment): void
     {
         $this->payment = $payment;
     }

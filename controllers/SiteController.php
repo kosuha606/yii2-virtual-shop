@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\virtualModels\Model\Product;
+use app\virtualModels\Model\ProductVm;
 use app\virtualModels\ServiceManager;
 use Yii;
 use yii\filters\AccessControl;
@@ -63,7 +63,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $products = Product::many([
+        $products = ProductVm::many([
             'where' => ['all']
         ]);
 

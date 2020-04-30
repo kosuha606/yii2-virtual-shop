@@ -1,15 +1,15 @@
 <?php
 
 use kosuha606\VirtualModel\Example\MemoryModelProvider;
-use app\virtualModels\Model\Action;
+use app\virtualModels\Model\ActionVm;
 use app\virtualModels\Model\Cart;
-use app\virtualModels\Model\Delivery;
-use app\virtualModels\Model\OrderReserve;
-use app\virtualModels\Model\Payment;
-use app\virtualModels\Model\Product;
-use app\virtualModels\Model\ProductRests;
-use app\virtualModels\Model\Promocode;
-use app\virtualModels\Model\User;
+use app\virtualModels\Model\DeliveryVm;
+use app\virtualModels\Model\OrderReserveVm;
+use app\virtualModels\Model\PaymentVm;
+use app\virtualModels\Model\ProductVm;
+use app\virtualModels\Model\ProductRestsVm;
+use app\virtualModels\Model\PromocodeVm;
+use app\virtualModels\Model\UserVm;
 use app\virtualModels\ServiceManager;
 use kosuha606\VirtualModel\VirtualModelManager;
 use phpDocumentor\Reflection\Types\Void_;
@@ -146,7 +146,7 @@ class ShopTest extends TestCase
             $personalDiscount = $config['personalDiscount'];
         }
 
-        $user = User::create(
+        $user = UserVm::create(
             [
                 'personalDiscount' => $personalDiscount,
             ]
@@ -156,41 +156,41 @@ class ShopTest extends TestCase
         $actions = [];
         if (isset($config['actions'])) {
             foreach ($config['actions'] as $action) {
-                $this->provider->memoryStorage[Action::class][] = $action;
-                $actions[] = Action::create($action);
+                $this->provider->memoryStorage[ActionVm::class][] = $action;
+                $actions[] = ActionVm::create($action);
             }
         }
 
         if (isset($config['orderReserve'])) {
             foreach ($config['orderReserve'] as $item) {
-                $this->provider->memoryStorage[OrderReserve::class][] = $item;
+                $this->provider->memoryStorage[OrderReserveVm::class][] = $item;
             }
         }
 
         foreach ($products as $product) {
             $rests = [];
             foreach ($product['rests'] as $qty) {
-                $rests[] = ProductRests::create(['qty' => $qty]);
+                $rests[] = ProductRestsVm::create(['qty' => $qty]);
             }
             $product['rests'] = $rests;
             $product['actions'] = $actions;
             try {
-                $cart->addProduct(Product::create($product), $product['qty']);
+                $cart->addProduct(ProductVm::create($product), $product['qty']);
             } catch (\Exception $exception) {
                 $this->assertEquals('Нет доступных остатков по продукту', $exception->getMessage());
             }
         }
 
         if (isset($config['promocode'])) {
-            $cart->applyPromocode(Promocode::create($config['promocode']));
+            $cart->applyPromocode(PromocodeVm::create($config['promocode']));
         }
 
         if (isset($config['delivery'])) {
-            $cart->setDelivery(Delivery::create($config['delivery']));
+            $cart->setDelivery(DeliveryVm::create($config['delivery']));
         }
 
         if (isset($config['payment'])) {
-            $cart->setPayment(Payment::create($config['payment']));
+            $cart->setPayment(PaymentVm::create($config['payment']));
         }
 
         $totals = $cart->getTotals();

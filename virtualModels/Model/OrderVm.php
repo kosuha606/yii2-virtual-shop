@@ -4,7 +4,7 @@ namespace app\virtualModels\Model;
 
 use kosuha606\VirtualModel\VirtualModel;
 
-class Order extends VirtualModel
+class OrderVm extends VirtualModel
 {
     public function attributes(): array
     {

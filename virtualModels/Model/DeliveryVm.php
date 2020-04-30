@@ -5,17 +5,17 @@ namespace app\virtualModels\Model;
 use kosuha606\VirtualModel\VirtualModel;
 
 /**
- * Акция для продукта
+ * Вариант доставки
  * @package kosuha606\Model\iteration2\model
  */
-class Action extends VirtualModel
+class DeliveryVm extends VirtualModel
 {
     public function attributes(): array
     {
         return [
             'id',
-            'productId',
-            'percent',
+            'price',
+            'description',
             'userType',
         ];
     }
