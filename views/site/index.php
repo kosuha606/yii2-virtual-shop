@@ -26,10 +26,16 @@ $this->title = 'My Yii Application';
                     <p>
                         <?= $product->sale_price ?> руб.
                     </p>
-                    <div>
-                        <input type="hidden" name="qty" value="1">
-                        <input type="hidden" name="product_id" value="<?= $product->id ?>">
-                        <button class="btn btn-default">В корзину</button>
+                    <input type="hidden" name="product_id" value="<?= $product->id ?>">
+                    <div class="row">
+                        <div class="form-group mb-3">
+                            <div class="col-sm-3">
+                                <button class="btn btn-default">В корзину</button>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="number" name="qty" value="1">
+                            </div>
+                        </div>
                     </div>
                     <?php ActiveForm::end(); ?>
                 </div>

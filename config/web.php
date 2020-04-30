@@ -1,5 +1,13 @@
 <?php
 
+use app\models\Action;
+use app\models\Delivery;
+use app\models\Order;
+use app\models\OrderReserve;
+use app\models\Payment;
+use app\models\Product;
+use app\models\ProductRests;
+use app\models\Promocode;
 use app\virtualModels\Model\ActionVm;
 use app\virtualModels\Model\DeliveryVm;
 use app\virtualModels\Model\OrderVm;
@@ -8,7 +16,6 @@ use app\virtualModels\Model\PaymentVm;
 use app\virtualModels\Model\ProductVm;
 use app\virtualModels\Model\ProductRestsVm;
 use app\virtualModels\Model\PromocodeVm;
-use app\virtualProviders\ActiveRecordProvider;
 use app\virtualProviders\LoadWebVirtualProvidersComponent;
 use yii\db\ActiveRecord;
 
@@ -29,14 +36,14 @@ $config = [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,
             'arRelations' => [
-                ActionVm::class => \app\models\Action::class,
-                DeliveryVm::class => \app\models\Delivery::class,
-                OrderVm::class => \app\models\Order::class,
-                OrderReserveVm::class => \app\models\OrderReserve::class,
-                PaymentVm::class => \app\models\Payment::class,
-                ProductVm::class => \app\models\Product::class,
-                ProductRestsVm::class => \app\models\Product::class,
-                PromocodeVm::class => \app\models\Promocode::class
+                ActionVm::class => Action::class,
+                DeliveryVm::class => Delivery::class,
+                OrderVm::class => Order::class,
+                OrderReserveVm::class => OrderReserve::class,
+                PaymentVm::class => Payment::class,
+                ProductVm::class => Product::class,
+                ProductRestsVm::class => ProductRests::class,
+                PromocodeVm::class => Promocode::class
             ]
         ],
         'request' => [

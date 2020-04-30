@@ -41,6 +41,24 @@ class ProductVm extends VirtualModel
     }
 
     /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getRests()
+    {
+        if (!$this->attributes['rests']) {
+            $rests = ProductRestsVm::many([
+                'where' => [
+                    ['=', 'id', $this->id]
+                ]
+            ]);
+            $this->setAttribute('rests', $rests);
+        }
+
+        return $this->attributes['rests'];
+    }
+
+    /**
      * Проверяет имеются ли свободные остатки по
      * продукту
      * @param $qty

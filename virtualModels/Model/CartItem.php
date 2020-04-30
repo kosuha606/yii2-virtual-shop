@@ -12,6 +12,8 @@ class CartItem
 
     public $productId;
 
+    public $name;
+
     public $qty;
 
     public function __construct($data = [])

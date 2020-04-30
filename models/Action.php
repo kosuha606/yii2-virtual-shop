@@ -4,6 +4,7 @@ namespace app\models;
 
 use kosuha606\VirtualModel\VirtualModel;
 use yii\db\ActiveRecord;
+use yii\helpers\Json;
 
 /**
  * Акция для продукта
@@ -20,11 +21,18 @@ class Action extends ActiveRecord
     {
         return [
             [
-                'productId',
+                'productIds',
                 'percent',
                 'userType',
             ],
             'required',
         ];
+    }
+
+    public function getProductIds()
+    {
+        $result = Json::decode($this->attributes['productIds']);
+
+        return $result;
     }
 }

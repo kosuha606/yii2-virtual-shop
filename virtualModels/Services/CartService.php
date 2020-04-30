@@ -47,7 +47,7 @@ class CartService
             $price += $cart->delivery->price;
         }
 
-        if ($user->personalDiscount) {
+        if ($user && $user->personalDiscount) {
             $price -= $price*($user->personalDiscount/100);
         }
 

@@ -14,9 +14,20 @@ class ActionVm extends VirtualModel
     {
         return [
             'id',
-            'productId',
+            'productIds',
             'percent',
             'userType',
         ];
+    }
+
+    public function getProductIds()
+    {
+        if (is_array($this->attributes['productIds'])) {
+            $result = $this->attributes['productIds'];
+        } else {
+            $result = json_decode($this->attributes['productIds'], JSON_UNESCAPED_UNICODE);
+        }
+
+        return $result;
     }
 }

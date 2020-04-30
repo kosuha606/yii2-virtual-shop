@@ -4,7 +4,9 @@ namespace app\virtualProviders;
 
 use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModel\VirtualModelProvider;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Query;
 
 class ActiveRecordProvider extends VirtualModelProvider
 {
@@ -28,31 +30,7 @@ class ActiveRecordProvider extends VirtualModelProvider
         $arClass = $this->relations[$modelClass];
         $query = $arClass::find();
 
-        if (isset($config['where'])) {
-            foreach ($config['where'] as $whereConfig) {
-                switch ($whereConfig[0]) {
-                    case '=':
-                        $query->andWhere([$whereConfig[1] => $whereConfig[2]]);
-                        break;
-                }
-            }
-        }
-
-        if (isset($config['orderBy'])) {
-
-        }
-
-        if (isset($config['groupBy'])) {
-
-        }
-
-        if (isset($config['limit'])) {
-
-        }
-
-        if (isset($config['offset'])) {
-
-        }
+        $this->processQuery($query, $config);
 
         $model = $query->asArray()->one();
 
@@ -72,6 +50,19 @@ class ActiveRecordProvider extends VirtualModelProvider
         $arClass = $this->relations[$modelClass];
         $query = $arClass::find();
 
+        $this->processQuery($query, $config);
+
+        $models = $query->asArray()->all();
+
+        return $models;
+    }
+
+    /**
+     * @param $query
+     * @param $config
+     */
+    protected function processQuery(ActiveQuery $query, $config)
+    {
         if (isset($config['where'])) {
             foreach ($config['where'] as $whereConfig) {
                 switch ($whereConfig[0]) {
@@ -82,9 +73,21 @@ class ActiveRecordProvider extends VirtualModelProvider
             }
         }
 
-        $models = $query->asArray()->all();
+        if (isset($config['orderBy'])) {
+            $query->orderBy($config['orderBy']);
+        }
 
-        return $models;
+        if (isset($config['groupBy'])) {
+            $query->groupBy($config['groupBy']);
+        }
+
+        if (isset($config['limit'])) {
+            $query->limit($config['limit']);
+        }
+
+        if (isset($config['offset'])) {
+            $query->offset($config['offset']);
+        }
     }
 
     /**

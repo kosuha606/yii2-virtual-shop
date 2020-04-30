@@ -77,6 +77,7 @@ class Cart
             $this->items[] = new CartItem([
                 'price' => $product->sale_price,
                 'productId' => $product->id,
+                'name' => $product->name,
                 'qty' => $qty
             ]);
         } else {

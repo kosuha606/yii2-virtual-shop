@@ -21,12 +21,12 @@ class m200428_201759_data extends Migration
     public function safeUp()
     {
         $this->insert(Action::tableName(), [
-            'productId' => 1,
+            'productIds' => '[1]',
             'percent' => 10,
             'userType' => 'b2c',
         ]);
         $this->insert(Action::tableName(), [
-            'productId' => 2,
+            'productIds' => '[1]',
             'percent' => 10,
             'userType' => 'b2c',
         ]);
@@ -52,6 +52,7 @@ class m200428_201759_data extends Migration
         ]);
 
         $this->insert(Product::tableName(), [
+            'id' => 1,
             'name' => 'VirtualModel',
             'price' => '100',
             'price2B' => 50,
@@ -60,11 +61,24 @@ class m200428_201759_data extends Migration
         ]);
 
         $this->insert(Product::tableName(), [
+            'id' => 2,
             'name' => 'Yii2Shop',
             'price' => '100',
             'price2B' => 50,
             'actions' => '',
             'rests' => '',
+        ]);
+
+        $this->insert(ProductRests::tableName(), [
+            'productId' => 1,
+            'qty' => 10,
+            'userType' => 'b2c',
+        ]);
+
+        $this->insert(ProductRests::tableName(), [
+            'productId' => 2,
+            'qty' => 10,
+            'userType' => 'b2c',
         ]);
     }
 

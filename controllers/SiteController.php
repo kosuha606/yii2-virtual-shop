@@ -117,7 +117,8 @@ class SiteController extends Controller
             $qty = Yii::$app->request->post('qty');
             ServiceManager::getInstance()->cartBuilder->addProductById($productId, $qty);
         }
+        $cart = ServiceManager::getInstance()->cartBuilder->getCart();
 
-        return $this->render('cart');
+        return $this->render('cart', ['cart' => $cart]);
     }
 }

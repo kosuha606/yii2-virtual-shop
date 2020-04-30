@@ -22,7 +22,7 @@ class m200428_201758_models extends Migration
     {
         $this->createTable(Action::tableName(), [
             'id' => $this->primaryKey(),
-            'productId' => $this->integer(11),
+            'productIds' => $this->string(255),
             'percent' => $this->integer(11),
             'userType' => $this->string(255),
         ]);

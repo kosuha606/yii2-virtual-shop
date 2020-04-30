@@ -25,16 +25,16 @@ class ShopTest extends TestCase
         return [
             'Просто заказ без акций и тп' => [
                 'products' => [
-                    ['id' => 1, 'price' => 400, 'rests' => [10], 'qty' => 1,],
-                    ['id' => 2, 'price' => 500, 'rests' => [10], 'qty' => 1,],
+                    ['id' => 1, 'name' => 'First', 'price' => 400, 'rests' => [10], 'qty' => 1,],
+                    ['id' => 2, 'name' => 'Second', 'price' => 500, 'rests' => [10], 'qty' => 1,],
                 ],
                 'expectedTotal' => 900,
                 'config' => [],
             ],
             'с акцией' => [
                 'products' => [
-                    ['id' => 1, 'price' => 400, 'rests' => [10], 'qty' => 1,],
-                    ['id' => 2, 'price' => 500, 'rests' => [10], 'qty' => 1,],
+                    ['id' => 1, 'name' => 'First', 'price' => 400, 'rests' => [10], 'qty' => 1,],
+                    ['id' => 2, 'name' => 'Second', 'price' => 500, 'rests' => [10], 'qty' => 1,],
                 ],
                 'expectedTotal' => 540,
                 'config' => [
@@ -48,8 +48,8 @@ class ShopTest extends TestCase
             ],
             'с промокодом' => [
                 'products' => [
-                    ['id' => 1, 'price' => 400, 'rests' => [10], 'qty' => 1,],
-                    ['id' => 2, 'price' => 500, 'rests' => [10], 'qty' => 1,],
+                    ['id' => 1, 'name' => 'First', 'price' => 400, 'rests' => [10], 'qty' => 1,],
+                    ['id' => 2, 'name' => 'Second', 'price' => 500, 'rests' => [10], 'qty' => 1,],
                 ],
                 'expectedTotal' => 800,
                 'config' => [
@@ -58,16 +58,16 @@ class ShopTest extends TestCase
             ],
             'Персональная скидка' => [
                 'products' => [
-                    ['id' => 1, 'price' => 400, 'rests' => [10], 'qty' => 1,],
-                    ['id' => 2, 'price' => 500, 'rests' => [10], 'qty' => 1,],
+                    ['id' => 1, 'name' => 'First', 'price' => 400, 'rests' => [10], 'qty' => 1,],
+                    ['id' => 2, 'name' => 'Second', 'price' => 500, 'rests' => [10], 'qty' => 1,],
                 ],
                 'expectedTotal' => 900,
                 'config' => [],
             ],
             'С доставкой' => [
                 'products' => [
-                    ['id' => 1, 'price' => 400, 'rests' => [10], 'qty' => 1,],
-                    ['id' => 2, 'price' => 500, 'rests' => [10], 'qty' => 1,],
+                    ['id' => 1, 'name' => 'First', 'price' => 400, 'rests' => [10], 'qty' => 1,],
+                    ['id' => 2, 'name' => 'Second', 'price' => 500, 'rests' => [10], 'qty' => 1,],
                 ],
                 'expectedTotal' => 1000,
                 'config' => [
@@ -78,8 +78,8 @@ class ShopTest extends TestCase
             ],
             'С оплатой' => [
                 'products' => [
-                    ['id' => 1, 'price' => 400, 'rests' => [10], 'qty' => 1,],
-                    ['id' => 2, 'price' => 500, 'rests' => [10], 'qty' => 1,],
+                    ['id' => 1, 'name' => 'First', 'price' => 400, 'rests' => [10], 'qty' => 1,],
+                    ['id' => 2, 'name' => 'Second', 'price' => 500, 'rests' => [10], 'qty' => 1,],
                 ],
                 'expectedTotal' => 955,
                 'config' => [
@@ -90,16 +90,16 @@ class ShopTest extends TestCase
             ],
             'Колво больше 1' => [
                 'products' => [
-                    ['id' => 1, 'price' => 400, 'rests' => [10], 'qty' => 3,],
-                    ['id' => 2, 'price' => 500, 'rests' => [10], 'qty' => 2,],
+                    ['id' => 1, 'name' => 'First', 'price' => 400, 'rests' => [10], 'qty' => 3,],
+                    ['id' => 2, 'name' => 'Second', 'price' => 500, 'rests' => [10], 'qty' => 2,],
                 ],
                 'expectedTotal' => 2200,
                 'config' => [],
             ],
             'Недостаточные остатки' => [
                 'products' => [
-                    ['id' => 1, 'price' => 400, 'rests' => [10], 'qty' => 1,],
-                    ['id' => 2, 'price' => 500, 'rests' => [10], 'qty' => 2,]
+                    ['id' => 1, 'name' => 'First', 'price' => 400, 'rests' => [10], 'qty' => 1,],
+                    ['id' => 2, 'name' => 'Second', 'price' => 500, 'rests' => [10], 'qty' => 2,],
                 ],
                 'expectedTotal' => 0,
                 'config' => [
