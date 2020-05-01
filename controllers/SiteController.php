@@ -56,6 +56,19 @@ class SiteController extends Controller
     }
 
     /**
+     * @param $action
+     * @return bool
+     * @throws \yii\web\BadRequestHttpException
+     */
+    public function beforeAction($action)
+    {
+        $cartData = Yii::$app->session->get('cart');
+        ServiceManager::getInstance()->cartBuilder->unserialize($cartData);
+
+        return parent::beforeAction($action);
+    }
+
+    /**
      * Displays homepage.
      *
      * @return string
@@ -68,6 +81,24 @@ class SiteController extends Controller
         ]);
 
         return $this->render('index', ['products' => $products]);
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    public function actionView()
+    {
+        $id = Yii::$app->request->get('id');
+        $product = ProductVm::one([
+            'where' => [
+                ['=', 'id', $id]
+            ]
+        ]);
+
+        return $this->render('view', [
+            'product' => $product
+        ]);
     }
 
     /**
@@ -116,9 +147,23 @@ class SiteController extends Controller
             $productId = Yii::$app->request->post('product_id');
             $qty = Yii::$app->request->post('qty');
             ServiceManager::getInstance()->cartBuilder->addProductById($productId, $qty);
+            Yii::$app->session->set('cart', ServiceManager::getInstance()->cartBuilder->serialize());
+            Yii::$app->session->addFlash('success', 'Успешно добавлено в корзину');
+
+            return $this->redirect(['/site/cart']);
         }
         $cart = ServiceManager::getInstance()->cartBuilder->getCart();
 
         return $this->render('cart', ['cart' => $cart]);
+    }
+
+    public function actionDelivery()
+    {
+        return $this->render('delivery');
+    }
+
+    public function actionCheckout()
+    {
+        return $this->render('checkout');
     }
 }

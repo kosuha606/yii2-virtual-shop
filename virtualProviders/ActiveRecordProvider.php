@@ -6,7 +6,6 @@ use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModel\VirtualModelProvider;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use yii\db\Query;
 
 class ActiveRecordProvider extends VirtualModelProvider
 {
@@ -18,6 +17,44 @@ class ActiveRecordProvider extends VirtualModelProvider
     }
 
     /**
+     * @throws \Exception
+     */
+    public function flush()
+    {
+        /** @var VirtualModel $model */
+        foreach ($this->persistedModels as $model) {
+            $modelClass = get_class($model);
+            $this->ensureHaveRelation($modelClass);
+            $arConfig = $this->relations[$modelClass];
+            $arClass = $arConfig['ar'];
+            /** @var ActiveRecord $ar */
+            $ar = new $arClass();
+            $ar->setAttributes($model->getAttributes());
+            $ar->save();
+        }
+
+        parent::flush();
+    }
+
+    /**
+     * @param VirtualModel $model
+     * @throws \Exception
+     * @throws \Throwable
+     */
+    public function delete(VirtualModel $model)
+    {
+        $modelClass = get_class($model);
+        $this->ensureHaveRelation($modelClass);
+        $arConfig = $this->relations[$modelClass];
+        /** @var ActiveRecord $arClass */
+        $arClass = $arConfig['ar'];
+        $ar = $arClass::findOne($model->id);
+        $ar->delete();
+
+        parent::delete($model);
+    }
+
+    /**
      * @param $modelClass
      * @param $config
      * @return mixed|void
@@ -26,42 +63,30 @@ class ActiveRecordProvider extends VirtualModelProvider
     protected function findOne($modelClass, $config)
     {
         $this->ensureHaveRelation($modelClass);
+        $arConfig = $this->relations[$modelClass];
         /** @var ActiveRecord $arClass */
-        $arClass = $this->relations[$modelClass];
+        $arClass = $arConfig['ar'];
         $query = $arClass::find();
 
-        $this->processQuery($query, $config);
+        $this->processQuery($query, $config, $arConfig);
 
         $model = $query->asArray()->one();
 
         return $model;
     }
 
-    /**
-     * @param $modelClass
-     * @param $config
-     * @return mixed|void
-     * @throws \Exception
-     */
-    protected function findMany($modelClass, $config)
+    private function ensureHaveRelation($modelClass)
     {
-        $this->ensureHaveRelation($modelClass);
-        /** @var ActiveRecord $arClass */
-        $arClass = $this->relations[$modelClass];
-        $query = $arClass::find();
-
-        $this->processQuery($query, $config);
-
-        $models = $query->asArray()->all();
-
-        return $models;
+        if (!isset($this->relations[$modelClass])) {
+            throw new \Exception("No such relation for class $modelClass in ActiveRecordProvider");
+        }
     }
 
     /**
      * @param $query
      * @param $config
      */
-    protected function processQuery(ActiveQuery $query, $config)
+    protected function processQuery(ActiveQuery $query, $config, $arConfig)
     {
         if (isset($config['where'])) {
             foreach ($config['where'] as $whereConfig) {
@@ -70,6 +95,12 @@ class ActiveRecordProvider extends VirtualModelProvider
                         $query->andWhere([$whereConfig[1] => $whereConfig[2]]);
                         break;
                 }
+            }
+        }
+
+        if (isset($arConfig['with'])) {
+            foreach ($arConfig['with'] as $with) {
+                $query->with($with);
             }
         }
 
@@ -91,45 +122,23 @@ class ActiveRecordProvider extends VirtualModelProvider
     }
 
     /**
+     * @param $modelClass
+     * @param $config
+     * @return mixed|void
      * @throws \Exception
      */
-    public function flush()
+    protected function findMany($modelClass, $config)
     {
-        /** @var VirtualModel $model */
-        foreach ($this->persistedModels as $model) {
-            $modelClass = get_class($model);
-            $this->ensureHaveRelation($modelClass);
-            $arClass = $this->relations[$modelClass];
-            /** @var ActiveRecord $ar */
-            $ar = new $arClass();
-            $ar->setAttributes($model->getAttributes());
-            $ar->save();
-        }
-
-        parent::flush();
-    }
-
-    /**
-     * @param VirtualModel $model
-     * @throws \Exception
-     * @throws \Throwable
-     */
-    public function delete(VirtualModel $model)
-    {
-        $modelClass = get_class($model);
         $this->ensureHaveRelation($modelClass);
+        $arConfig = $this->relations[$modelClass];
         /** @var ActiveRecord $arClass */
-        $arClass = $this->relations[$modelClass];
-        $ar = $arClass::findOne($model->id);
-        $ar->delete();
+        $arClass = $arConfig['ar'];
+        $query = $arClass::find();
 
-        parent::delete($model);
-    }
+        $this->processQuery($query, $config, $arConfig);
 
-    private function ensureHaveRelation($modelClass)
-    {
-        if (!isset($this->relations[$modelClass])) {
-            throw new \Exception("No such relation for class $modelClass in ActiveRecordProvider");
-        }
+        $models = $query->asArray()->all();
+
+        return $models;
     }
 }

@@ -6,6 +6,7 @@ namespace app\virtualModels\Cart;
 use app\virtualModels\Model\Cart;
 use app\virtualModels\Model\DeliveryVm;
 use app\virtualModels\Model\PaymentVm;
+use app\virtualModels\Model\PromocodeVm;
 use app\virtualModels\Services\CartService;
 use app\virtualModels\Services\ProductService;
 
@@ -38,6 +39,57 @@ class CartBuilder
         $this->cart = new Cart($cartService);
         $this->cartService = $cartService;
         $this->productService = $productService;
+    }
+
+    public function serialize(): array
+    {
+        $result = [];
+
+        foreach ($this->cart->items as $item) {
+            $result['products'][$item->productId] = $item->qty;
+        }
+
+        if ($this->cart->payment) {
+            $result['payment'] = $this->cart->payment->id;
+        }
+
+        if ($this->cart->delivery) {
+            $result['delivery'] = $this->cart->delivery->id;
+        }
+
+        if ($this->cart->promocode) {
+            $result['promocode'] = $this->cart->promocode->id;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param array $cartArray
+     * @return Cart
+     * @throws \Exception
+     */
+    public function unserialize($cartArray = []): Cart
+    {
+        if (isset($cartArray['products'])) {
+            foreach ($cartArray['products'] as $productId => $qty) {
+                $this->addProductById($productId, $qty);
+            }
+        }
+
+        if (isset($cartArray['promocode'])) {
+            $this->setPromocodeById($cartArray['promocode']);
+        }
+
+        if (isset($cartArray['payment'])) {
+            $this->setPaymentById($cartArray['payment']);
+        }
+
+        if (isset($cartArray['delivery'])) {
+            $this->setDeliveryById($cartArray['delivery']);
+        }
+
+        return $this->cart;
     }
 
     /**

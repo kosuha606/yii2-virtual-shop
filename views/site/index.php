@@ -22,7 +22,11 @@ $this->title = 'My Yii Application';
             <?php foreach ($products as $product) { ?>
                 <div class="col-lg-4">
                     <?php $form = ActiveForm::begin(['action' => Url::toRoute('/site/cart'), 'method' => 'post']); ?>
-                    <h2><?= $product->name ?></h2>
+                    <h2>
+                        <a href="<?= Url::toRoute(['site/view', 'id' => $product->id]) ?>">
+                            <?= $product->name ?>
+                        </a>
+                    </h2>
                     <p>
                         <?= $product->sale_price ?> руб.
                     </p>

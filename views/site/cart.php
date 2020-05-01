@@ -5,6 +5,7 @@
 
 use app\virtualModels\Model\Cart;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = 'Корзина';
 $this->params['breadcrumbs'][] = $this->title;
@@ -24,6 +25,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <td>
             <?= $item->qty ?> шт.
         </td>
+        <td>
+            <?= $item->price ?> руб.
+        </td>
+        <td>
+            <a href="#">
+                Удалить
+            </a>
+        </td>
     </tr>
     <?php } ?>
 </table>
@@ -32,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <table class="table table-bordered">
     <tr>
         <th>
-            Итого к оплате
+            Итого
         </th>
         <td>
             <?= $cart->getTotals() ?>
@@ -40,3 +49,5 @@ $this->params['breadcrumbs'][] = $this->title;
         </td>
     </tr>
 </table>
+
+<a class="btn btn-primary" href="<?= Url::toRoute(['site/delivery']) ?>">Далее</a>

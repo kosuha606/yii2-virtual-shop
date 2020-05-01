@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\virtualModels\ServiceManager;
 use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -11,6 +12,9 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+
+$cart = ServiceManager::getInstance()->cartBuilder->getCart();
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -39,7 +43,10 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Каталог', 'url' => ['/site/index']],
-            ['label' => 'Корзина', 'url' => ['/site/cart']],
+            [
+                'label' => 'В корзине: ' . $cart->getAmount() . ' шт. на ' . $cart->getTotals() . ' руб.',
+                'url' => ['/site/cart'],
+            ],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Вход', 'url' => ['/site/login']]
             ) : (
@@ -51,7 +58,7 @@ AppAsset::register($this);
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+            ),
         ],
     ]);
     NavBar::end();

@@ -7,11 +7,16 @@ use app\virtualModels\Model\PaymentVm;
 
 class PaymentService
 {
+    /**
+     * @param $id
+     * @return PaymentVm
+     * @throws \Exception
+     */
     public function findPaymentById($id)
     {
-        $payment = VirtualModelManager::getInstance()->getProvider()->one(PaymentVm::class, [
+        $payment = PaymentVm::one([
             'where' => [
-                ['all']
+                ['=', 'id', $id]
             ]
         ]);
 

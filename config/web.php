@@ -36,14 +36,30 @@ $config = [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,
             'arRelations' => [
-                ActionVm::class => Action::class,
-                DeliveryVm::class => Delivery::class,
-                OrderVm::class => Order::class,
-                OrderReserveVm::class => OrderReserve::class,
-                PaymentVm::class => Payment::class,
-                ProductVm::class => Product::class,
-                ProductRestsVm::class => ProductRests::class,
-                PromocodeVm::class => Promocode::class
+                ActionVm::class => [
+                    'ar' => Action::class,
+                ],
+                DeliveryVm::class => [
+                    'ar' => Delivery::class,
+                ],
+                OrderVm::class => [
+                    'ar' => Order::class,
+                ],
+                OrderReserveVm::class => [
+                    'ar' => OrderReserve::class,
+                ],
+                PaymentVm::class => [
+                    'ar' => Payment::class,
+                ],
+                ProductVm::class => [
+                    'ar' => Product::class,
+                ],
+                ProductRestsVm::class => [
+                    'ar' => ProductRests::class,
+                ],
+                PromocodeVm::class => [
+                    'ar' => Promocode::class
+                ],
             ]
         ],
         'request' => [

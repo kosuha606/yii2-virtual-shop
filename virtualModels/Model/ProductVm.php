@@ -53,6 +53,11 @@ class ProductVm extends VirtualModel
                 ]
             ]);
             $this->setAttribute('rests', $rests);
+        } elseif (isset($this->attributes['rests'][0])
+            && is_array($this->attributes['rests'][0])
+        ) {
+            $rests = ProductRestsVm::createMany($this->attributes['rests']);
+            $this->setAttribute('rests', $rests);
         }
 
         return $this->attributes['rests'];

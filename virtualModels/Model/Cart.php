@@ -100,4 +100,20 @@ class Cart
     {
         $this->payment = $payment;
     }
+
+    public function getCountProducts()
+    {
+        return count($this->items);
+    }
+
+    public function getAmount()
+    {
+        $amount = 0;
+
+        foreach ($this->items as $item) {
+            $amount += $item->qty;
+        }
+
+        return $amount;
+    }
 }
