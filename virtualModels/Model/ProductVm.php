@@ -10,6 +10,7 @@ use app\virtualModels\Services\ProductService;
 
 /**
  * Продукт
+ * @property $rests
  */
 class ProductVm extends VirtualModel
 {
@@ -49,8 +50,8 @@ class ProductVm extends VirtualModel
         if (!$this->attributes['rests']) {
             $rests = ProductRestsVm::many([
                 'where' => [
-                    ['=', 'id', $this->id]
-                ]
+                    ['=', 'id', $this->id],
+                ],
             ]);
             $this->setAttribute('rests', $rests);
         } elseif (isset($this->attributes['rests'][0])
@@ -74,6 +75,21 @@ class ProductVm extends VirtualModel
     public function hasFreeRests($qty)
     {
         return $this->productService->hasFreeRests($this, $qty);
+    }
+
+    /**
+     *
+     */
+    public function maxRestAmount()
+    {
+        $rests = $this->rests;
+        $amount = 0;
+        /** @var ProductRestsVm $rest */
+        foreach ($rests as $rest) {
+            $amount += $rest->qty;
+        }
+
+        return $amount;
     }
 
     /**

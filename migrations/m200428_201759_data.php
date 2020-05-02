@@ -8,6 +8,7 @@ use app\models\Payment;
 use app\models\Product;
 use app\models\ProductRests;
 use app\models\Promocode;
+use app\models\User;
 use yii\db\Migration;
 
 /**
@@ -86,6 +87,13 @@ class m200428_201759_data extends Migration
             'code' => 'demo',
             'userType' => 'b2c',
         ]);
+
+
+        $user = new User();
+        $user->password = 'admin';
+        $user->username = 'admin';
+        $user->email = 'admin@admin.com';
+        $user->save();
     }
 
     /**

@@ -44,13 +44,19 @@ $cart = ServiceManager::getInstance()->cartBuilder->getCart();
         'items' => [
             ['label' => 'Каталог', 'url' => ['/site/index']],
             [
-                'label' => 'В корзине: ' . $cart->getAmount() . ' шт. на ' . $cart->getTotals() . ' руб.',
+                'label' => $cart->getAmount()
+                    ? ('В корзине: ' . $cart->getAmount() . ' шт. на ' . $cart->getTotals() . ' руб.')
+                    : 'Корзина'
+                ,
                 'url' => ['/cart/index'],
             ],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Вход', 'url' => ['/site/login']]
+                ['label' => 'Вход', 'url' => ['/guest/login']]
             ) : (
                 '<li>'
+                .Html::a('Кабинет', ['cabinet/orders'])
+                . '</li>'
+                .'<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
                     'Выход (' . Yii::$app->user->identity->username . ')',
@@ -75,9 +81,18 @@ $cart = ServiceManager::getInstance()->cartBuilder->getCart();
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; kosuha606 <?= date('Y') ?></p>
+        <p class="pull-left">
+            <a target="_blank" href="https://github.com/kosuha606">
+                &copy; kosuha606
+            </a>
+            <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right">
+            Based on
+            <a target="_blank" href="https://github.com/kosuha606/virtual-model">
+                VirtualModel
+            </a>
+        </p>
     </div>
 </footer>
 

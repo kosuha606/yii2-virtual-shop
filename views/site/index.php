@@ -2,11 +2,12 @@
 
 /* @var $this yii\web\View */
 
+use app\virtualModels\Model\ProductVm;
 use kosuha606\VirtualModel\Example\Shop\Model\Product;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
-/** @var Product[] $products */
+/** @var ProductVm[] $products */
 
 $this->title = 'My Yii Application';
 ?>
@@ -37,7 +38,7 @@ $this->title = 'My Yii Application';
                                 <button class="btn btn-default">В корзину</button>
                             </div>
                             <div class="col-sm-9">
-                                <input class="form-control" type="number" name="qty" value="1">
+                                <input class="form-control" type="number" max="<?= $product->maxRestAmount() ?>" name="qty" value="1">
                             </div>
                         </div>
                     </div>

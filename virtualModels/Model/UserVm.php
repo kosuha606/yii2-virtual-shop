@@ -17,6 +17,7 @@ class UserVm extends VirtualModel
             'name',
             'role',
             'personalDiscount',
+            'password',
         ];
     }
 

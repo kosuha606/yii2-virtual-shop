@@ -8,6 +8,7 @@ use app\models\Payment;
 use app\models\Product;
 use app\models\ProductRests;
 use app\models\Promocode;
+use app\models\User;
 use app\virtualModels\Model\ActionVm;
 use app\virtualModels\Model\DeliveryVm;
 use app\virtualModels\Model\OrderVm;
@@ -16,6 +17,7 @@ use app\virtualModels\Model\PaymentVm;
 use app\virtualModels\Model\ProductVm;
 use app\virtualModels\Model\ProductRestsVm;
 use app\virtualModels\Model\PromocodeVm;
+use app\virtualModels\Model\UserVm;
 use app\virtualProviders\LoadWebVirtualProvidersComponent;
 use yii\db\ActiveRecord;
 
@@ -24,7 +26,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'Virtual Shop',
+    'name' => 'VirtualShop',
     'language' => 'ru-RU',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', 'providers_loader'],
@@ -60,6 +62,9 @@ $config = [
                 PromocodeVm::class => [
                     'ar' => Promocode::class
                 ],
+                UserVm::class => [
+                    'ar' => User::class,
+                ]
             ]
         ],
         'request' => [

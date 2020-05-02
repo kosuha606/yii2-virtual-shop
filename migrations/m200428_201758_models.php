@@ -8,6 +8,7 @@ use app\models\Payment;
 use app\models\Product;
 use app\models\ProductRests;
 use app\models\Promocode;
+use app\models\User;
 use yii\db\Migration;
 
 /**
@@ -20,6 +21,15 @@ class m200428_201758_models extends Migration
      */
     public function safeUp()
     {
+        $this->createTable(User::tableName(), [
+            'id' => $this->primaryKey(),
+            'username' => $this->string(255),
+            'email' => $this->string(255),
+            'password' => $this->string(255),
+            'authKey' => $this->string(255),
+            'accessToekn' => $this->string(255),
+        ]);
+
         $this->createTable(Action::tableName(), [
             'id' => $this->primaryKey(),
             'productIds' => $this->string(255),
