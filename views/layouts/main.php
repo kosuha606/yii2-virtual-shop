@@ -45,7 +45,7 @@ $cart = ServiceManager::getInstance()->cartBuilder->getCart();
             ['label' => 'Каталог', 'url' => ['/site/index']],
             [
                 'label' => 'В корзине: ' . $cart->getAmount() . ' шт. на ' . $cart->getTotals() . ' руб.',
-                'url' => ['/site/cart'],
+                'url' => ['/cart/index'],
             ],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Вход', 'url' => ['/site/login']]

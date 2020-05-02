@@ -7,6 +7,7 @@ use kosuha606\VirtualModel\VirtualModel;
 /**
  * Вариант доставки
  * @package kosuha606\Model\iteration2\model
+ * @property $description
  */
 class DeliveryVm extends VirtualModel
 {

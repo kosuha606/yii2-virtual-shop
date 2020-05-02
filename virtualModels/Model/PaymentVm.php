@@ -7,6 +7,8 @@ use kosuha606\VirtualModel\VirtualModel;
 /**
  * Вариант оплаты
  * @package kosuha606\Model\iteration2\model
+ * @property $description
+ * @property $comission
  */
 class PaymentVm extends VirtualModel
 {

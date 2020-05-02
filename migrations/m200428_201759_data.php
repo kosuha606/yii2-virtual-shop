@@ -80,6 +80,12 @@ class m200428_201759_data extends Migration
             'qty' => 10,
             'userType' => 'b2c',
         ]);
+
+        $this->insert(Promocode::tableName(), [
+            'amount' => 100,
+            'code' => 'demo',
+            'userType' => 'b2c',
+        ]);
     }
 
     /**

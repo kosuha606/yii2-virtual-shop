@@ -66,6 +66,17 @@ class Cart
         return $this->cartService->calculateTotals($this);
     }
 
+    public function getProductsTotal()
+    {
+        $price = 0;
+
+        foreach ($this->items as $item) {
+            $price += $item->getTotal();
+        }
+
+        return $price;
+    }
+
     /**
      * @param ProductVm $product
      * @param int $qty
@@ -73,6 +84,11 @@ class Cart
      */
     public function addProduct(ProductVm $product, $qty = 1)
     {
+        if ($qty <= 0) {
+            // Не разрешаем никому ставить кол-во меньше 0
+            $qty = 1;
+        }
+
         if ($product->hasFreeRests($qty)) {
             $this->items[] = new CartItem([
                 'price' => $product->sale_price,
@@ -83,6 +99,26 @@ class Cart
         } else {
             throw new \Exception('Нет доступных остатков по продукту');
         }
+    }
+
+    public function deleteProduct(ProductVm $product)
+    {
+        $newItems = [];
+        $productFound = false;
+
+        foreach ($this->items as $item) {
+            if ($item->productId != $product->id) {
+                $newItems[] = $item;
+            } else {
+                $productFound = true;
+            }
+        }
+
+        if (!$productFound) {
+            throw new \Exception("Продукт {$product->id} не найден в корзине");
+        }
+
+        $this->items = $newItems;
     }
 
     /**
@@ -115,5 +151,15 @@ class Cart
         }
 
         return $amount;
+    }
+
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    public function hasItems()
+    {
+        return count($this->items) > 0;
     }
 }

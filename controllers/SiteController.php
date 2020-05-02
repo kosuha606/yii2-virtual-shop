@@ -134,36 +134,4 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     * @throws \Exception
-     */
-    public function actionCart()
-    {
-        if (Yii::$app->request->isPost) {
-            $productId = Yii::$app->request->post('product_id');
-            $qty = Yii::$app->request->post('qty');
-            ServiceManager::getInstance()->cartBuilder->addProductById($productId, $qty);
-            Yii::$app->session->set('cart', ServiceManager::getInstance()->cartBuilder->serialize());
-            Yii::$app->session->addFlash('success', 'Успешно добавлено в корзину');
-
-            return $this->redirect(['/site/cart']);
-        }
-        $cart = ServiceManager::getInstance()->cartBuilder->getCart();
-
-        return $this->render('cart', ['cart' => $cart]);
-    }
-
-    public function actionDelivery()
-    {
-        return $this->render('delivery');
-    }
-
-    public function actionCheckout()
-    {
-        return $this->render('checkout');
-    }
 }

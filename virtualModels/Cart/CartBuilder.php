@@ -104,9 +104,49 @@ class CartBuilder
         $this->cart->addProduct($product, $qty);
     }
 
+    /**
+     * @param $productId
+     * @throws \Exception
+     */
+    public function deleteProductById($productId)
+    {
+        $product = $this->productService->findProductById($productId);
+        $this->cart->deleteProduct($product);
+    }
+
+    /**
+     * @param $promocodeId
+     */
     public function setPromocodeById($promocodeId)
     {
         $promocode = $this->cartService->getPromocodeById($promocodeId);
+        $this->cart->applyPromocode($promocode);
+    }
+
+    public function clear()
+    {
+        $this->cart->items = [];
+        $this->cart->promocode = null;
+        $this->cart->payment = null;
+        $this->cart->delivery = null;
+    }
+
+    /**
+     * @param $code
+     * @throws \Exception
+     */
+    public function setPromocodeByCode($code)
+    {
+        $promocode = PromocodeVm::one([
+            'where' => [
+                ['=', 'code', $code]
+            ]
+        ]);
+
+        if (!$promocode) {
+            throw new \Exception("Нет промокода $code");
+        }
+
         $this->cart->applyPromocode($promocode);
     }
 
