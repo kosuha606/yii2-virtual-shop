@@ -1,6 +1,6 @@
 <?php
 
-use app\controllers\CrudController;
+use app\virtualModels\Controllers\CrudController;
 use app\virtualModels\Model\ProductVm;
 use kosuha606\VirtualModel\Example\MemoryModelProvider;
 use kosuha606\VirtualModel\VirtualModelManager;

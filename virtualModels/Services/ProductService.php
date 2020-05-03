@@ -72,6 +72,20 @@ class ProductService
         return $totalFreeQty >= $qty;
     }
 
+    public function maxAvailableRestAmount(ProductVm $productVm)
+    {
+        $reservedInOrdersQty = $this->orderService->findOrderReserveQtyByProduct($productVm);
+        $maxRestAmount = $productVm->maxRestAmount();
+
+        $amount = $maxRestAmount - $reservedInOrdersQty;
+
+        if ($amount <= 0) {
+            $amount = 0;
+        }
+
+        return $amount;
+    }
+
     public function calculateProductSalePrice($product)
     {
         $price = $product->price;

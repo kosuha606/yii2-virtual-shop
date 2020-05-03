@@ -45,7 +45,7 @@ $this->title = 'My Yii Application';
                                             <button class="btn btn-default">В корзину</button>
                                         </div>
                                         <div class="col-sm-8">
-                                            <input class="form-control" type="number" max="<?= $product->maxRestAmount() ?>" name="qty" value="1">
+                                            <input class="form-control" type="number" min="0" max="<?= $product->maxAvailableRestAmount() ?>" name="qty" value="1">
                                         </div>
                                     </div>
                                 </div>

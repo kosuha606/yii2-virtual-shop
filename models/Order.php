@@ -17,13 +17,16 @@ class Order extends ActiveRecord
         return [
             [
                 [
-                    'user_id',
                     'orderData',
                     'total',
                     'userType',
                 ],
                 'required',
             ],
+            [
+                'user_id',
+                'safe'
+            ]
         ];
     }
 }

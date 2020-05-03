@@ -49,7 +49,7 @@ class m200428_201758_models extends Migration
             'id' => $this->primaryKey(),
             'orderData' => $this->text(),
             'total' => $this->string(255),
-            'user_id' => $this->integer(11),
+            'user_id' => $this->integer(11)->null(),
             'userType' => $this->string(255),
             'reserve' => $this->text(),
         ]);

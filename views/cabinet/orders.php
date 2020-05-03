@@ -17,6 +17,9 @@ use yii\helpers\Html;
     <div class="col-md-9">
 
         <table class="table table-bordered table-striped">
+            <?php if (!$orders) { ?>
+                <b>Нету товаров</b>
+            <?php } ?>
             <?php foreach ($orders as $order) { ?>
             <tr>
                 <td width="1%" class="text-nowrap">

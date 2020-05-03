@@ -5,10 +5,26 @@ namespace app\controllers;
 use app\virtualModels\Model\OrderVm;
 use app\virtualModels\ServiceManager;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class CabinetController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * @param $action
      * @return bool

@@ -78,6 +78,14 @@ class ProductVm extends VirtualModel
     }
 
     /**
+     * @return int
+     */
+    public function maxAvailableRestAmount()
+    {
+        return $this->productService->maxAvailableRestAmount($this);
+    }
+
+    /**
      *
      */
     public function maxRestAmount()
