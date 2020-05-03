@@ -28,6 +28,7 @@ class m200428_201758_models extends Migration
             'password' => $this->string(255),
             'authKey' => $this->string(255),
             'accessToekn' => $this->string(255),
+            'personalDiscount' => $this->integer(2),
         ]);
 
         $this->createTable(Action::tableName(), [
@@ -46,7 +47,9 @@ class m200428_201758_models extends Migration
 
         $this->createTable(Order::tableName(), [
             'id' => $this->primaryKey(),
-            'items' => $this->text(),
+            'orderData' => $this->text(),
+            'total' => $this->string(255),
+            'user_id' => $this->integer(11),
             'userType' => $this->string(255),
             'reserve' => $this->text(),
         ]);

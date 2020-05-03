@@ -4,6 +4,7 @@
 /** @var array $cartData */
 
 use app\virtualModels\Model\Cart;
+use yii\helpers\Html;
 
 ?>
 
@@ -15,6 +16,7 @@ use app\virtualModels\Model\Cart;
     <pre>
         <?php var_dump($cartData) ?>
     </pre>
+    <?= Html::a('Перейти в заказы', ['cabinet/orders']) ?>
 <?php } else { ?>
     Ваша корзина пуста
 <?php } ?>

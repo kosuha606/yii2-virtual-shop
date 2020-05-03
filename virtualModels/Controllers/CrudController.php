@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\virtualModels\Controllers;
 
 use kosuha606\VirtualModel\VirtualModel;
 use yii\web\Controller;

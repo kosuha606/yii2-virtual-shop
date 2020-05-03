@@ -19,6 +19,7 @@ use app\virtualModels\Services\UserService;
  * @property DeliveryService $deliveryService
  * @property PromocodeService $promocodeService
  * @property CartBuilder $cartBuilder
+ * @property OrderService $orderService
  */
 class ServiceManager
 {

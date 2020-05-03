@@ -7,6 +7,7 @@ use kosuha606\VirtualModel\VirtualModel;
 /**
  * Пользователь
  * @package kosuha606\Model\iteration2\model
+ * @property $id
  */
 class UserVm extends VirtualModel
 {
@@ -19,6 +20,12 @@ class UserVm extends VirtualModel
             'personalDiscount',
             'password',
         ];
+    }
+
+    public function setAttributes($attributes)
+    {
+        $attributes['personalDiscount'] = 0;
+        return parent::setAttributes($attributes);
     }
 
     public function isB2C()

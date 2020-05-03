@@ -20,12 +20,14 @@ class OrderReserve extends ActiveRecord
     {
         return [
             [
-                'orderId',
-                'productId',
-                'qty',
-                'userType',
+                [
+                    'orderId',
+                    'productId',
+                    'qty',
+                    'userType',
+                ],
+                'required',
             ],
-            'required',
         ];
     }
 }

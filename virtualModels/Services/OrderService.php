@@ -3,6 +3,9 @@
 namespace app\virtualModels\Services;
 
 
+use app\virtualModels\Model\Cart;
+use app\virtualModels\Model\OrderVm;
+use app\virtualModels\Model\UserVm;
 use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModel\VirtualModelManager;
 use app\virtualModels\Model\OrderReserveVm;
@@ -16,6 +19,53 @@ class OrderService
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
+    }
+
+    /**
+     * @param Cart $cart
+     * @param UserVm $user
+     * @throws \Exception
+     */
+    public function buildOrder(Cart $cart, UserVm $user)
+    {
+        $data = [
+            'items' => [],
+            'payment' => $cart->payment->toArray(),
+            'delivery' => $cart->delivery->toArray(),
+        ];
+
+        if ($cart->promocode) {
+            $data['promocode'] = $cart->promocode->toArray();
+        }
+
+        foreach ($cart->items as $item) {
+            $data['items'][] = [
+                'product_id' => $item->productId,
+                'price' => $item->price,
+                'qty' => $item->qty,
+                'name' => $item->name,
+            ];
+        }
+
+        $order = OrderVm::create([
+            'user_id' => $user->id,
+            'orderData' => $data,
+            'total' => $cart->getTotals(),
+            'userType' => 'b2c',
+        ]);
+        $ids = $order->save();
+
+        foreach ($ids as $id) {
+            foreach ($cart->items as $item) {
+                $orderReserve = OrderReserveVm::create([
+                    'orderId' => $id,
+                    'productId' => $item->productId,
+                    'qty' => $item->qty,
+                    'userType' => 'b2c',
+                ]);
+                $orderReserve->save();
+            }
+        }
     }
 
     /**

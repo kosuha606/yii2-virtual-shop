@@ -29,6 +29,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
                     'password',
                     'authKey',
                     'accessToekn',
+                    'personalDiscount',
                 ],
                 'safe'
             ],

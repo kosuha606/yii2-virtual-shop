@@ -39,6 +39,8 @@ class CartController extends Controller
         $cartData = Yii::$app->session->get(self::CART_SESS_KEY);
         ServiceManager::getInstance()->cartBuilder->unserialize($cartData);
 
+        ServiceManager::getInstance()->userService->login(Yii::$app->user->id);
+
         return parent::beforeAction($action);
     }
 
@@ -105,6 +107,10 @@ class CartController extends Controller
         ]);
     }
 
+    /**
+     * @return string
+     * @throws \Exception
+     */
     public function actionComplete()
     {
         Yii::$app->session->set(self::CART_SESS_KEY, null);
@@ -112,8 +118,12 @@ class CartController extends Controller
         $cartData = [];
 
         if ($cartBuilder->getCart()->hasItems()) {
-            // TODO создание заказа
             $cartData = Yii::$app->request->post('cart_data');
+            $cartBuilder->clear();
+            $cartBuilder->unserialize(json_decode($cartData, true));
+            $cart = $cartBuilder->getCart();
+            $user = ServiceManager::getInstance()->userService->current();
+            ServiceManager::getInstance()->orderService->buildOrder($cart, $user);
         }
 
         return $this->render('complete', [

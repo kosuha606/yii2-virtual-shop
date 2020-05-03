@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\virtualModels\Controllers\CrudController;
+use app\virtualModels\ServiceManager;
 use kosuha606\VirtualModel\VirtualModel;
 use yii\web\Controller;
 use Yii;
@@ -10,6 +12,13 @@ class AdminController extends Controller
 {
     /** @var CrudController */
     private $crud;
+
+    public function beforeAction($action)
+    {
+        ServiceManager::getInstance()->userService->login(Yii::$app->user->id);
+
+        return parent::beforeAction($action);
+    }
 
     public function init()
     {

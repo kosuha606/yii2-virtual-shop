@@ -21,6 +21,7 @@ class ActiveRecordProvider extends VirtualModelProvider
      */
     public function flush()
     {
+        $ids = [];
         /** @var VirtualModel $model */
         foreach ($this->persistedModels as $model) {
             $modelClass = get_class($model);
@@ -31,9 +32,12 @@ class ActiveRecordProvider extends VirtualModelProvider
             $ar = new $arClass();
             $ar->setAttributes($model->getAttributes());
             $ar->save();
+            $ids[] = $ar->id;
         }
 
         parent::flush();
+
+        return $ids;
     }
 
     /**

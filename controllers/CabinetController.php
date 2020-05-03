@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\virtualModels\Model\OrderVm;
 use app\virtualModels\ServiceManager;
 use Yii;
 use yii\web\Controller;
@@ -19,12 +20,24 @@ class CabinetController extends Controller
         $cartData = Yii::$app->session->get('cart');
         ServiceManager::getInstance()->cartBuilder->unserialize($cartData);
 
+        ServiceManager::getInstance()->userService->login(Yii::$app->user->id);
+
         return parent::beforeAction($action);
     }
 
     public function actionOrders()
     {
-        return $this->render('orders');
+        $user = ServiceManager::getInstance()->userService->current();
+        $orders = OrderVm::many([
+            'where' => [
+                ['=', 'user_id', $user->id]
+            ],
+            'orderBy' => ['id' => SORT_DESC]
+        ]);
+
+        return $this->render('orders', [
+            'orders' => $orders
+        ]);
     }
 
     public function actionFavorites()
