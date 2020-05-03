@@ -78,7 +78,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $products = ProductVm::many([
+        $products = ServiceManager::getInstance()->productService->loadProductsWithActions([
             'where' => ['all']
         ]);
 

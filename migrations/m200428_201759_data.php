@@ -54,7 +54,7 @@ class m200428_201759_data extends Migration
 
         $this->insert(Product::tableName(), [
             'id' => 1,
-            'name' => 'VirtualModel',
+            'name' => 'Яблоки',
             'price' => '100',
             'price2B' => 50,
             'actions' => '',
@@ -63,8 +63,17 @@ class m200428_201759_data extends Migration
 
         $this->insert(Product::tableName(), [
             'id' => 2,
-            'name' => 'Yii2Shop',
+            'name' => 'Апельсины',
             'price' => '100',
+            'price2B' => 50,
+            'actions' => '',
+            'rests' => '',
+        ]);
+
+        $this->insert(Product::tableName(), [
+            'id' => 3,
+            'name' => 'Бананы',
+            'price' => '50',
             'price2B' => 50,
             'actions' => '',
             'rests' => '',
@@ -79,6 +88,12 @@ class m200428_201759_data extends Migration
         $this->insert(ProductRests::tableName(), [
             'productId' => 2,
             'qty' => 10,
+            'userType' => 'b2c',
+        ]);
+
+        $this->insert(ProductRests::tableName(), [
+            'productId' => 3,
+            'qty' => 100,
             'userType' => 'b2c',
         ]);
 

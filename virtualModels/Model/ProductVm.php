@@ -17,6 +17,8 @@ class ProductVm extends VirtualModel
     /** @var ProductService */
     private $productService;
 
+    public $hasDiscount = false;
+
     /**
      * Виртуальный атритут за который действительно продается товар
      * @var int
@@ -39,6 +41,19 @@ class ProductVm extends VirtualModel
     {
         $this->productService = ServiceManager::getInstance()->productService;
         parent::__construct($environment);
+    }
+
+    public function setAttribute($name, $value)
+    {
+        $result = parent::setAttribute($name, $value);
+
+        if ($name === 'actions') {
+            if ($this->price != $this->getSalePrice()) {
+                $this->hasDiscount = true;
+            }
+        }
+
+        return $result;
     }
 
     /**

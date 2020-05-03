@@ -19,6 +19,9 @@ class ProductService
      */
     private $favoriteService;
 
+    /** @var ActionVm[] */
+    private $actions = [];
+
     public function __construct(OrderService $orderService, FavoriteService $favoriteService)
     {
         $this->orderService = $orderService;
@@ -31,13 +34,15 @@ class ProductService
      */
     public function findAllActions()
     {
-        $actions = VirtualModelManager::getInstance()->getProvider()->many(ActionVm::class, [
-            'where' => [
-                ['all']
-            ]
-        ]);
+        if (!$this->actions) {
+            $this->actions = VirtualModelManager::getInstance()->getProvider()->many(ActionVm::class, [
+                'where' => [
+                    ['all']
+                ]
+            ]);
+        }
 
-        return $actions;
+        return $this->actions;
     }
 
     /**
@@ -54,6 +59,24 @@ class ProductService
         ]);
 
         return $product;
+    }
+
+    /**
+     * @param array $config
+     * @return array
+     * @throws \Exception
+     */
+    public function loadProductsWithActions($config = [])
+    {
+        $products = ProductVm::many([
+            'where' => ['all']
+        ]);
+
+        foreach ($products as &$product) {
+            $product->actions = $this->findAllActions();
+        }
+
+        return $products;
     }
 
     /**

@@ -145,4 +145,17 @@ class ActiveRecordProvider extends VirtualModelProvider
 
         return $models;
     }
+
+    public function count($modelClass, $config)
+    {
+        $this->ensureHaveRelation($modelClass);
+        $arConfig = $this->relations[$modelClass];
+        /** @var ActiveRecord $arClass */
+        $arClass = $arConfig['ar'];
+        $query = $arClass::find();
+
+        $this->processQuery($query, $config, $arConfig);
+
+        return $query->count();
+    }
 }

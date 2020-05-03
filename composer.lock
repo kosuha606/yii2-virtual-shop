@@ -335,12 +335,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kosuha606/virtual-model.git",
-                "reference": "9f3dad0d822e42f7e2f7427e267cfb7066a7eeb8"
+                "reference": "d0e386cd7c989e19b7057f077068063cf54abbfd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kosuha606/virtual-model/zipball/9f3dad0d822e42f7e2f7427e267cfb7066a7eeb8",
-                "reference": "9f3dad0d822e42f7e2f7427e267cfb7066a7eeb8",
+                "url": "https://api.github.com/repos/kosuha606/virtual-model/zipball/d0e386cd7c989e19b7057f077068063cf54abbfd",
+                "reference": "d0e386cd7c989e19b7057f077068063cf54abbfd",
                 "shasum": ""
             },
             "require": {
@@ -363,7 +363,7 @@
                 }
             ],
             "description": "VirtualModel",
-            "time": "2020-05-03T11:20:39+00:00"
+            "time": "2020-05-03T17:32:37+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

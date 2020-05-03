@@ -32,9 +32,17 @@ $this->title = 'My Yii Application';
                                     <?= $product->name ?>
                                 </a>
                             </h2>
-                            <p>
-                                <?= $product->sale_price ?> руб.
-                            </p>
+                            <?php if ($product->hasDiscount) { ?>
+                                <span class="badge">Скидка</span>
+                                <p>
+                                    <strike><?= $product->price ?> руб.</strike>
+                                    <?= $product->sale_price ?> руб.
+                                </p>
+                            <?php } else { ?>
+                                <p>
+                                    <?= $product->price ?> руб.
+                                </p>
+                            <?php } ?>
                             <?= $this->render('_tofavorite', ['product' => $product]) ?>
                             <hr>
                             <?php $form = ActiveForm::begin(['action' => Url::toRoute('/cart/index'), 'method' => 'post']); ?>
