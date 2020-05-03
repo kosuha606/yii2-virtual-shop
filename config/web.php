@@ -2,6 +2,7 @@
 
 use app\models\Action;
 use app\models\Delivery;
+use app\models\Favorite;
 use app\models\Order;
 use app\models\OrderReserve;
 use app\models\Payment;
@@ -11,6 +12,7 @@ use app\models\Promocode;
 use app\models\User;
 use app\virtualModels\Model\ActionVm;
 use app\virtualModels\Model\DeliveryVm;
+use app\virtualModels\Model\FavoriteVm;
 use app\virtualModels\Model\OrderVm;
 use app\virtualModels\Model\OrderReserveVm;
 use app\virtualModels\Model\PaymentVm;
@@ -40,6 +42,10 @@ $config = [
             'arRelations' => [
                 ActionVm::class => [
                     'ar' => Action::class,
+                ],
+                FavoriteVm::class => [
+                    'ar' => Favorite::class,
+                    'with' => ['product', 'user']
                 ],
                 DeliveryVm::class => [
                     'ar' => Delivery::class,

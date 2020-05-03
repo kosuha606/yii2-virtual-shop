@@ -27,9 +27,7 @@ $this->title = 'My Yii Application';
             <div class="col-md-9">
                 <div class="row">
                     <?php foreach ($products as $product) { ?>
-                        <div class="col-lg-4">
-                            <?php $form = ActiveForm::begin(['action' => Url::toRoute('/cart/index'), 'method' => 'post']); ?>
-                            <h2>
+                        <div class="col-lg-4"><h2>
                                 <a href="<?= Url::toRoute(['site/view', 'id' => $product->id]) ?>">
                                     <?= $product->name ?>
                                 </a>
@@ -37,6 +35,10 @@ $this->title = 'My Yii Application';
                             <p>
                                 <?= $product->sale_price ?> руб.
                             </p>
+                            <?= $this->render('_tofavorite', ['product' => $product]) ?>
+                            <hr>
+                            <?php $form = ActiveForm::begin(['action' => Url::toRoute('/cart/index'), 'method' => 'post']); ?>
+
                             <?php if ($product->hasFreeRests(1)) { ?>
                                 <input type="hidden" name="product_id" value="<?= $product->id ?>">
                                 <div class="row">

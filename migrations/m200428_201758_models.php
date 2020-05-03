@@ -2,6 +2,7 @@
 
 use app\models\Action;
 use app\models\Delivery;
+use app\models\Favorite;
 use app\models\Order;
 use app\models\OrderReserve;
 use app\models\Payment;
@@ -29,6 +30,12 @@ class m200428_201758_models extends Migration
             'authKey' => $this->string(255),
             'accessToekn' => $this->string(255),
             'personalDiscount' => $this->integer(2),
+        ]);
+
+        $this->createTable(Favorite::tableName(), [
+            'id' => $this->primaryKey(),
+            'user_id' => $this->integer(11),
+            'product_id' => $this->integer(11),
         ]);
 
         $this->createTable(Action::tableName(), [

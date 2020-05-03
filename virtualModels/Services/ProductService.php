@@ -3,6 +3,7 @@
 namespace app\virtualModels\Services;
 
 
+use app\virtualModels\ServiceManager;
 use kosuha606\VirtualModel\VirtualModelManager;
 use app\virtualModels\Model\ActionVm;
 use app\virtualModels\Model\ProductVm;
@@ -13,10 +14,15 @@ class ProductService
      * @var OrderService
      */
     private $orderService;
+    /**
+     * @var FavoriteService
+     */
+    private $favoriteService;
 
-    public function __construct(OrderService $orderService)
+    public function __construct(OrderService $orderService, FavoriteService $favoriteService)
     {
         $this->orderService = $orderService;
+        $this->favoriteService = $favoriteService;
     }
 
     /**
@@ -70,6 +76,21 @@ class ProductService
         $totalFreeQty -= $reservedInOrdersQty;
 
         return $totalFreeQty >= $qty;
+    }
+
+    /**
+     * @param ProductVm $product
+     * @return bool
+     * @throws \Exception
+     */
+    public function isInFavorite(ProductVm $product)
+    {
+        $user = ServiceManager::getInstance()->userService->current();
+        if (!$user) {
+            return false;
+        }
+
+        return $this->favoriteService->hasFavorite($user, $product);
     }
 
     public function maxAvailableRestAmount(ProductVm $productVm)

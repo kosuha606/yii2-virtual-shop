@@ -86,6 +86,15 @@ class ProductVm extends VirtualModel
     }
 
     /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function isInFavorite()
+    {
+        return $this->productService->isInFavorite($this);
+    }
+
+    /**
      *
      */
     public function maxRestAmount()

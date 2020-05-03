@@ -5,6 +5,7 @@ namespace app\virtualModels;
 use app\virtualModels\Cart\CartBuilder;
 use app\virtualModels\Services\CartService;
 use app\virtualModels\Services\DeliveryService;
+use app\virtualModels\Services\FavoriteService;
 use app\virtualModels\Services\OrderService;
 use app\virtualModels\Services\PaymentService;
 use app\virtualModels\Services\ProductService;
@@ -20,6 +21,7 @@ use app\virtualModels\Services\UserService;
  * @property PromocodeService $promocodeService
  * @property CartBuilder $cartBuilder
  * @property OrderService $orderService
+ * @property FavoriteService $favoriteService
  */
 class ServiceManager
 {
@@ -38,8 +40,12 @@ class ServiceManager
         $this->services['paymentService'] = new PaymentService();
         $this->services['deliveryService'] = new DeliveryService();
         $this->services['promocodeService'] = new PromocodeService();
+        $this->services['favoriteService'] = new FavoriteService();
         $this->services['orderService'] = new OrderService($this->services['userService']);
-        $this->services['productService'] = new ProductService($this->services['orderService']);
+        $this->services['productService'] = new ProductService(
+            $this->services['orderService'],
+            $this->services['favoriteService']
+        );
         $this->services['cartService'] = new CartService(
             $this->services['orderService'],
             $this->services['paymentService'],
