@@ -113,3 +113,16 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+
+.products {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 -30px;
+}
+
+.product-item {
+    width: 33.3333%;
+    padding: 15px;
+}

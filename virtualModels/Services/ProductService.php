@@ -3,6 +3,8 @@
 namespace app\virtualModels\Services;
 
 
+use app\virtualModels\Classes\Pagination;
+use app\virtualModels\Dto\LoadProductsDTO;
 use app\virtualModels\ServiceManager;
 use kosuha606\VirtualModel\VirtualModelManager;
 use app\virtualModels\Model\ActionVm;
@@ -63,20 +65,48 @@ class ProductService
 
     /**
      * @param array $config
-     * @return array
+     * @return LoadProductsDTO
      * @throws \Exception
      */
-    public function loadProductsWithActions($config = [])
-    {
+    public function loadProductsWithActions(
+        $filters = [],
+        $page = 1,
+        $itemsPerPage = 10,
+        $orderBy = 'id'
+    ) {
+        $whereConfig = [['all']];
+
+        if ($filters) {
+            $whereConfig = [];
+
+            foreach ($filters as $key => $value) {
+                $whereConfig[] = ['=', $key, $value];
+            }
+        }
+
+        $productsCount = ProductVm::count(['where' => $whereConfig]);
+
+        $pagination = new Pagination($page, $itemsPerPage);
+        $pagination->totals = $productsCount;
+
+        $orderDirection = SORT_ASC;
+        if (strpos($orderBy, '_reverse') !== false) {
+            $orderBy = str_replace('_reverse', '', $orderBy);
+            $orderDirection = SORT_DESC;
+        }
+
         $products = ProductVm::many([
-            'where' => ['all']
+            'where' => $whereConfig,
+            'limit' => $pagination->getLimit(),
+            'offset' => $pagination->getOffset(),
+            'orderBy' => $orderBy ? [$orderBy => $orderDirection] : null
         ]);
 
         foreach ($products as &$product) {
             $product->actions = $this->findAllActions();
         }
 
-        return $products;
+        return new LoadProductsDTO($products, $pagination);
     }
 
     /**

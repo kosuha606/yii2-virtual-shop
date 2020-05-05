@@ -78,11 +78,20 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $products = ServiceManager::getInstance()->productService->loadProductsWithActions([
-            'where' => ['all']
-        ]);
+        $page = Yii::$app->request->get('page');
+        $order = Yii::$app->request->get('order');
 
-        return $this->render('index', ['products' => $products]);
+        $dto = ServiceManager::getInstance()->productService->loadProductsWithActions(
+            [],
+            $page,
+            6,
+            $order
+        );
+
+        return $this->render('index', [
+            'products' => $dto->products,
+            'pagination' => $dto->pagination
+        ]);
     }
 
     /**

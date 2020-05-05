@@ -21,14 +21,16 @@ class m200428_201759_data extends Migration
      */
     public function safeUp()
     {
+        $data = require_once __DIR__.'/data.php';
+
         $this->insert(Action::tableName(), [
-            'productIds' => '[1]',
+            'productIds' => '[2, 3]',
             'percent' => 10,
             'userType' => 'b2c',
         ]);
         $this->insert(Action::tableName(), [
-            'productIds' => '[1]',
-            'percent' => 10,
+            'productIds' => '[4, 5]',
+            'percent' => 20,
             'userType' => 'b2c',
         ]);
         $this->insert(Delivery::tableName(), [
@@ -52,50 +54,15 @@ class m200428_201759_data extends Migration
             'userType' => 'b2c',
         ]);
 
-        $this->insert(Product::tableName(), [
-            'id' => 1,
-            'name' => 'Яблоки',
-            'price' => '100',
-            'price2B' => 50,
-            'actions' => '',
-            'rests' => '',
-        ]);
+        foreach ($data['products'] as $product) {
+            $this->insert(Product::tableName(), $product);
 
-        $this->insert(Product::tableName(), [
-            'id' => 2,
-            'name' => 'Апельсины',
-            'price' => '100',
-            'price2B' => 50,
-            'actions' => '',
-            'rests' => '',
-        ]);
-
-        $this->insert(Product::tableName(), [
-            'id' => 3,
-            'name' => 'Бананы',
-            'price' => '50',
-            'price2B' => 50,
-            'actions' => '',
-            'rests' => '',
-        ]);
-
-        $this->insert(ProductRests::tableName(), [
-            'productId' => 1,
-            'qty' => 10,
-            'userType' => 'b2c',
-        ]);
-
-        $this->insert(ProductRests::tableName(), [
-            'productId' => 2,
-            'qty' => 10,
-            'userType' => 'b2c',
-        ]);
-
-        $this->insert(ProductRests::tableName(), [
-            'productId' => 3,
-            'qty' => 100,
-            'userType' => 'b2c',
-        ]);
+            $this->insert(ProductRests::tableName(), [
+                'productId' => $product['id'],
+                'qty' => 10,
+                'userType' => 'b2c',
+            ]);
+        }
 
         $this->insert(Promocode::tableName(), [
             'amount' => 100,

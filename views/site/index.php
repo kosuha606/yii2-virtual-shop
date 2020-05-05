@@ -2,14 +2,24 @@
 
 /* @var $this yii\web\View */
 
+use app\virtualModels\Classes\Pagination;
 use app\virtualModels\Model\ProductVm;
 use kosuha606\VirtualModel\Example\Shop\Model\Product;
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
+use yii\widgets\ActiveForm;use yii\widgets\LinkPager;
 
 /** @var ProductVm[] $products */
+/** @var Pagination $pagination */
 
 $this->title = 'My Yii Application';
+
+$pagerPagination = new \yii\data\Pagination([
+    'totalCount' => $pagination->totals,
+    'defaultPageSize' => $pagination->itemPerPage,
+]);
+
+$order = Yii::$app->request->get('order');
+
 ?>
 <div class="site-index">
 
@@ -26,8 +36,29 @@ $this->title = 'My Yii Application';
             </div>
             <div class="col-md-9">
                 <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4">
+                        <form method="get">
+                            <div class="form-group">
+                                <div class="col-sm-8">
+                                    <select name="order" class="form-control">
+                                        <option <?= $order == 'id' ? 'selected' : '' ?> value="id">По умолчанию</option>
+                                        <option <?= $order == 'name' ? 'selected' : '' ?> value="name">По имени &uarr;</option>
+                                        <option <?= $order == 'name_reverse' ? 'selected' : '' ?> value="name_reverse">По имени &darr;</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button class="btn btn-default">Применить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="products">
                     <?php foreach ($products as $product) { ?>
-                        <div class="col-lg-4"><h2>
+                        <div class="product-item">
+                            <h2>
                                 <a href="<?= Url::toRoute(['site/view', 'id' => $product->id]) ?>">
                                     <?= $product->name ?>
                                 </a>
@@ -66,6 +97,10 @@ $this->title = 'My Yii Application';
                         </div>
                     <?php } ?>
                 </div>
+
+                <?= LinkPager::widget([
+                        'pagination' => $pagerPagination,
+                    ])  ?>
             </div>
         </div>
 
