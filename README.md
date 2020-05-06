@@ -1,4 +1,6 @@
 # Yii2 Virtual Shop
 
-Пример виртулального магазина из пакета 
-virtual-model из папки Examples
+Here is an example of virtual shop what based on my virtual-model package
+
+You can see live demo here:
+http://shop.kosuha606.ru
