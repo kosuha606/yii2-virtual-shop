@@ -12,9 +12,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h1><?= $product->name ?></h1>
 
-<p>
-    Цена: <?= $product->sale_price ?> руб.
-</p>
+
+<?php if ($product->sale_price && $product->hasDiscount) { ?>
+    <span class="badge">Скидка</span>
+    <p>
+        <strike><?= $product->price ?> руб.</strike>
+        <?= $product->sale_price ?> руб.
+    </p>
+<?php } else { ?>
+    <p>
+        Цена: <?= $product->price ?> руб.
+    </p>
+<?php } ?>
 <?php $form = ActiveForm::begin(['action' => Url::toRoute('/cart/index'), 'method' => 'post']); ?>
 <input type="hidden" name="product_id" value="<?= $product->id ?>">
 <div class="row">

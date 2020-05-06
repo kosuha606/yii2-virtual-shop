@@ -19,6 +19,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h1>
     Корзина
+
+    <?php if ($cart->hasItems()) { ?>
+    <small>
+        <small>
+            <a href="<?= Url::toRoute(['cart/clearall']) ?>">
+                удалить все товары
+            </a>
+        </small>
+    </small>
+    <?php } ?>
 </h1>
 
 <?php if ($cart->hasItems()) { ?>

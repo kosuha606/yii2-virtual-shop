@@ -3,6 +3,8 @@
 use app\models\Action;
 use app\models\Delivery;
 use app\models\Favorite;
+use app\models\FilterCategory;
+use app\models\FilterProduct;
 use app\models\Order;
 use app\models\OrderReserve;
 use app\models\Payment;
@@ -13,6 +15,8 @@ use app\models\User;
 use app\virtualModels\Model\ActionVm;
 use app\virtualModels\Model\DeliveryVm;
 use app\virtualModels\Model\FavoriteVm;
+use app\virtualModels\Model\FilterCategoryVm;
+use app\virtualModels\Model\FilterProductVm;
 use app\virtualModels\Model\OrderVm;
 use app\virtualModels\Model\OrderReserveVm;
 use app\virtualModels\Model\PaymentVm;
@@ -28,7 +32,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'VirtualShop',
+    'name' => 'VirtualShop <sub>demo</sub>',
     'language' => 'ru-RU',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', 'providers_loader'],
@@ -40,6 +44,12 @@ $config = [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,
             'arRelations' => [
+                FilterProductVm::class => [
+                    'ar' => FilterProduct::class
+                ],
+                FilterCategoryVm::class => [
+                    'ar' => FilterCategory::class
+                ],
                 ActionVm::class => [
                     'ar' => Action::class,
                 ],

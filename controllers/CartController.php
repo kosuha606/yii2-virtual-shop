@@ -57,7 +57,7 @@ class CartController extends Controller
             Yii::$app->session->set(self::CART_SESS_KEY, ServiceManager::getInstance()->cartBuilder->serialize());
             Yii::$app->session->addFlash('success', 'Успешно добавлено в корзину');
 
-            return $this->redirect(['/cart/index']);
+            return $this->goHome();
         }
         $cart = ServiceManager::getInstance()->cartBuilder->getCart();
         $deliveries = DeliveryVm::many([
@@ -141,8 +141,17 @@ class CartController extends Controller
         $id = Yii::$app->request->get('id');
         ServiceManager::getInstance()->cartBuilder->deleteProductById($id);
         Yii::$app->session->set(self::CART_SESS_KEY, ServiceManager::getInstance()->cartBuilder->serialize());
-        Yii::$app->session->addFlash('success', 'Успешно удалено из корзину');
+        Yii::$app->session->addFlash('success', 'Успешно удалено из корзины');
 
         return $this->redirect(['/cart/index']);
+    }
+
+    public function actionClearall()
+    {
+        ServiceManager::getInstance()->cartBuilder->clear();
+        Yii::$app->session->set(self::CART_SESS_KEY, ServiceManager::getInstance()->cartBuilder->serialize());
+        Yii::$app->session->addFlash('success', 'Из корзины удалены все товары');
+
+        return $this->redirect(['cart/index']);
     }
 }

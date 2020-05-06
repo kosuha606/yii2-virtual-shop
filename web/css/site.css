@@ -120,9 +120,29 @@ a.desc:after {
     flex-direction: row;
     flex-wrap: wrap;
     margin: 0 -30px;
+    padding: 0 15px;
 }
 
 .product-item {
     width: 33.3333%;
     padding: 15px;
+}
+
+.breadcrumb {
+    background: transparent;
+    padding: 8px 0;
+}
+
+.navbar-inverse .btn-link,
+.navbar-inverse .navbar-nav > li > a,
+.navbar-inverse .navbar-brand {
+    color: #f2f2f2;
+}
+
+.navbar {
+    background: #3851ad;
+}
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    color: #fff;
+    background-color: #293b7d;
 }

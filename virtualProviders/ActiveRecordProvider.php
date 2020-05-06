@@ -102,6 +102,10 @@ class ActiveRecordProvider extends VirtualModelProvider
             }
         }
 
+        if (isset($config['select'])) {
+            $query->select($config['select']);
+        }
+
         if (isset($arConfig['with'])) {
             foreach ($arConfig['with'] as $with) {
                 $query->with($with);

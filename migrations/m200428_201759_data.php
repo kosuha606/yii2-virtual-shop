@@ -2,6 +2,8 @@
 
 use app\models\Action;
 use app\models\Delivery;
+use app\models\FilterCategory;
+use app\models\FilterProduct;
 use app\models\Order;
 use app\models\OrderReserve;
 use app\models\Payment;
@@ -22,6 +24,22 @@ class m200428_201759_data extends Migration
     public function safeUp()
     {
         $data = require_once __DIR__.'/data.php';
+
+
+        $this->insert(FilterCategory::tableName(), [
+            'id' => 1,
+            'name' => 'Тип',
+        ]);
+
+        $this->insert(FilterCategory::tableName(), [
+            'id' => 2,
+            'name' => 'Цвет',
+        ]);
+
+        $this->insert(FilterCategory::tableName(), [
+            'id' => 3,
+            'name' => 'Размер',
+        ]);
 
         $this->insert(Action::tableName(), [
             'productIds' => '[2, 3]',
@@ -55,6 +73,9 @@ class m200428_201759_data extends Migration
         ]);
 
         foreach ($data['products'] as $product) {
+            $filters = $product['filters'];
+            unset($product['filters']);
+
             $this->insert(Product::tableName(), $product);
 
             $this->insert(ProductRests::tableName(), [
@@ -62,6 +83,14 @@ class m200428_201759_data extends Migration
                 'qty' => 10,
                 'userType' => 'b2c',
             ]);
+
+            foreach ($filters as $filterCategoryId => $value) {
+                $this->insert(FilterProduct::tableName(), [
+                    'category_id' => $filterCategoryId,
+                    'product_id' => $product['id'],
+                    'value' => $value,
+                ]);
+            }
         }
 
         $this->insert(Promocode::tableName(), [

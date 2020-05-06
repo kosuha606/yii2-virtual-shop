@@ -127,9 +127,14 @@ class ProductVm extends VirtualModel
     /**
      * Получить цену за которую нужно продать товар
      * @return float|int
+     * @throws \Exception
      */
     public function getSalePrice()
     {
+        if (!$this->actions) {
+            $this->actions = ActionVm::many(['where' => [['all']]]);
+        }
+
         return $this->productService->calculateProductSalePrice($this);
     }
 }

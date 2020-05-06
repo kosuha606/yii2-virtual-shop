@@ -3,6 +3,8 @@
 use app\models\Action;
 use app\models\Delivery;
 use app\models\Favorite;
+use app\models\FilterCategory;
+use app\models\FilterProduct;
 use app\models\Order;
 use app\models\OrderReserve;
 use app\models\Payment;
@@ -22,6 +24,18 @@ class m200428_201758_models extends Migration
      */
     public function safeUp()
     {
+        $this->createTable(FilterProduct::tableName(), [
+            'id' => $this->primaryKey(),
+            'category_id' => $this->integer(11),
+            'product_id' => $this->integer(11),
+            'value' => $this->string(),
+        ]);
+
+        $this->createTable(FilterCategory::tableName(), [
+            'id' => $this->primaryKey(),
+            'name' => $this->string(),
+        ]);
+
         $this->createTable(User::tableName(), [
             'id' => $this->primaryKey(),
             'username' => $this->string(255),

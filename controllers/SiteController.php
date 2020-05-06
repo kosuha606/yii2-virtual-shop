@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\virtualModels\Model\FilterCategoryVm;
+use app\virtualModels\Model\FilterProductVm;
 use app\virtualModels\Model\ProductVm;
 use app\virtualModels\ServiceManager;
 use Yii;
@@ -81,6 +83,18 @@ class SiteController extends Controller
         $page = Yii::$app->request->get('page');
         $order = Yii::$app->request->get('order');
 
+        $filtersData = [];
+        /** @var FilterCategoryVm[] $filterCategories */
+        $filterCategories = FilterCategoryVm::many(['where' => [['all']]]);
+
+        foreach ($filterCategories as $filterCategory) {
+            $filtersData[$filterCategory->name] = FilterProductVm::many([
+                'select' => 'min(category_id) as category_id, value',
+                'where' => [['=', 'category_id', $filterCategory->id]],
+                'groupBy' => 'value',
+            ]);
+        }
+
         $dto = ServiceManager::getInstance()->productService->loadProductsWithActions(
             [],
             $page,
@@ -90,7 +104,8 @@ class SiteController extends Controller
 
         return $this->render('index', [
             'products' => $dto->products,
-            'pagination' => $dto->pagination
+            'pagination' => $dto->pagination,
+            'filtersData' => $filtersData,
         ]);
     }
 
