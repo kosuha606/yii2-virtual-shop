@@ -3,8 +3,10 @@
 /* @var $this yii\web\View */
 
 use app\virtualModels\Classes\Pagination;
+use app\virtualModels\Model\FilterProductVm;
 use app\virtualModels\Model\ProductVm;
 use kosuha606\VirtualModel\Example\Shop\Model\Product;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
@@ -35,11 +37,16 @@ $order = Yii::$app->request->get('order');
                 <form method="get">
                     <?php foreach ($filtersData as $categoryName => $filterProducts) { ?>
                         <h3><?= $categoryName ?></h3>
-                        <?php foreach ($filterProducts as $filterProduct) { ?>
+                        <?php
+                        /** @var FilterProductVm $filterProduct */
+                        foreach ($filterProducts as $filterProduct) { ?>
                             <div>
                                 <label for="<?= $filterProduct->value ?>">
-                                    <input id="<?= $filterProduct->value ?>" type="checkbox" name="filter"
-                                           value="<?= $filterProduct->value ?>">
+                                    <input id="<?= $filterProduct->value ?>"
+                                           type="checkbox"
+                                           <?= $filterProduct->isActive() ? 'checked' : '' ?>
+                                           name="filter[]"
+                                           value="<?= $filterProduct->getKey() ?>">
                                     <?= $filterProduct->value ?>
                                 </label>
                             </div>
@@ -49,6 +56,9 @@ $order = Yii::$app->request->get('order');
                     <button class="btn btn-default">
                         Применить
                     </button>
+                    <div>
+                        <?= Html::a('Сбросить', ['site/index']) ?>
+                    </div>
                 </form>
             </div>
             <div class="col-md-9">

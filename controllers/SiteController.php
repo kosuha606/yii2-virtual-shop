@@ -2,10 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\FilterProduct;
 use app\virtualModels\Model\FilterCategoryVm;
 use app\virtualModels\Model\FilterProductVm;
 use app\virtualModels\Model\ProductVm;
 use app\virtualModels\ServiceManager;
+use kosuha606\VirtualModel\VirtualModel;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -89,14 +91,45 @@ class SiteController extends Controller
 
         foreach ($filterCategories as $filterCategory) {
             $filtersData[$filterCategory->name] = FilterProductVm::many([
-                'select' => 'min(category_id) as category_id, value',
+                'select' => 'category_id, value',
                 'where' => [['=', 'category_id', $filterCategory->id]],
-                'groupBy' => 'value',
+                'groupBy' => 'value, category_id',
             ]);
         }
 
+        $filters = [];
+
+        // @TODO Вынести применение фильтро в отдельный метод и написать тесты
+        if ($filtersGet = Yii::$app->request->get('filter')) {
+            $filters['id'] = [];
+            $filterProducts = [];
+            foreach ($filtersGet as $item) {
+                list($value, $categoryId) = explode('_', $item);
+                $nextFilterProducts = $this->getProductIds(FilterProductVm::many([
+                    'where' => [
+                        ['=', 'value', $value],
+                        ['=', 'category_id', $categoryId],
+                    ],
+                ]));
+
+                if (isset($filterProducts[$categoryId])) {
+                    $filterProducts[$categoryId] = array_merge($filterProducts[$categoryId], $nextFilterProducts);
+                } else {
+                    $filterProducts[$categoryId] = $nextFilterProducts;
+                }
+            }
+
+            foreach ($filterProducts as $filterProduct) {
+                if (!$filters['id']) {
+                    $filters['id'] = $filterProduct;
+                } else {
+                    $filters['id'] = array_intersect($filters['id'], $filterProduct);
+                }
+            }
+        }
+
         $dto = ServiceManager::getInstance()->productService->loadProductsWithActions(
-            [],
+            $filters,
             $page,
             6,
             $order
@@ -110,6 +143,21 @@ class SiteController extends Controller
     }
 
     /**
+     * @param FilterProductVm[] $items
+     * @return array
+     */
+    private function getProductIds($items)
+    {
+        $result = [];
+
+        foreach ($items as $item) {
+            $result[] = $item->product_id;
+        }
+
+        return $result;
+    }
+
+    /**
      * @return string
      * @throws \Exception
      */
@@ -118,12 +166,12 @@ class SiteController extends Controller
         $id = Yii::$app->request->get('id');
         $product = ProductVm::one([
             'where' => [
-                ['=', 'id', $id]
-            ]
+                ['=', 'id', $id],
+            ],
         ]);
 
         return $this->render('view', [
-            'product' => $product
+            'product' => $product,
         ]);
     }
 
