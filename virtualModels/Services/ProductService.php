@@ -5,6 +5,7 @@ namespace app\virtualModels\Services;
 
 use app\virtualModels\Classes\Pagination;
 use app\virtualModels\Dto\LoadProductsDTO;
+use app\virtualModels\Model\FilterProductVm;
 use app\virtualModels\ServiceManager;
 use kosuha606\VirtualModel\VirtualModelManager;
 use app\virtualModels\Model\ActionVm;
@@ -173,5 +174,61 @@ class ProductService
         }
 
         return $price;
+    }
+
+    /**
+     * @param $getFilters
+     * @return mixed
+     * @throws \Exception
+     */
+    public function processGetFilters($getFilters = [])
+    {
+        $filters['id'] = [];
+        $filterProducts = [];
+
+        if (!$getFilters) {
+            return [];
+        }
+
+        foreach ($getFilters as $item) {
+            list($value, $categoryId) = explode('_', $item);
+            $nextFilterProducts = $this->getProductIds(FilterProductVm::many([
+                'where' => [
+                    ['=', 'value', $value],
+                    ['=', 'category_id', $categoryId],
+                ],
+            ]));
+
+            if (isset($filterProducts[$categoryId])) {
+                $filterProducts[$categoryId] = array_merge($filterProducts[$categoryId], $nextFilterProducts);
+            } else {
+                $filterProducts[$categoryId] = $nextFilterProducts;
+            }
+        }
+
+        foreach ($filterProducts as $filterProduct) {
+            if (!$filters['id']) {
+                $filters['id'] = $filterProduct;
+            } else {
+                $filters['id'] = array_intersect($filters['id'], $filterProduct);
+            }
+        }
+
+        return $filters;
+    }
+
+    /**
+     * @param $items
+     * @return array
+     */
+    private function getProductIds($items)
+    {
+        $result = [];
+
+        foreach ($items as $item) {
+            $result[] = $item->product_id;
+        }
+
+        return $result;
     }
 }

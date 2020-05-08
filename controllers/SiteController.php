@@ -97,36 +97,9 @@ class SiteController extends Controller
             ]);
         }
 
-        $filters = [];
-
-        // @TODO Вынести применение фильтро в отдельный метод и написать тесты
-        if ($filtersGet = Yii::$app->request->get('filter')) {
-            $filters['id'] = [];
-            $filterProducts = [];
-            foreach ($filtersGet as $item) {
-                list($value, $categoryId) = explode('_', $item);
-                $nextFilterProducts = $this->getProductIds(FilterProductVm::many([
-                    'where' => [
-                        ['=', 'value', $value],
-                        ['=', 'category_id', $categoryId],
-                    ],
-                ]));
-
-                if (isset($filterProducts[$categoryId])) {
-                    $filterProducts[$categoryId] = array_merge($filterProducts[$categoryId], $nextFilterProducts);
-                } else {
-                    $filterProducts[$categoryId] = $nextFilterProducts;
-                }
-            }
-
-            foreach ($filterProducts as $filterProduct) {
-                if (!$filters['id']) {
-                    $filters['id'] = $filterProduct;
-                } else {
-                    $filters['id'] = array_intersect($filters['id'], $filterProduct);
-                }
-            }
-        }
+        $filters = ServiceManager::getInstance()->productService->processGetFilters(
+            Yii::$app->request->get('filter')
+        );
 
         $dto = ServiceManager::getInstance()->productService->loadProductsWithActions(
             $filters,
@@ -140,21 +113,6 @@ class SiteController extends Controller
             'pagination' => $dto->pagination,
             'filtersData' => $filtersData,
         ]);
-    }
-
-    /**
-     * @param FilterProductVm[] $items
-     * @return array
-     */
-    private function getProductIds($items)
-    {
-        $result = [];
-
-        foreach ($items as $item) {
-            $result[] = $item->product_id;
-        }
-
-        return $result;
     }
 
     /**
