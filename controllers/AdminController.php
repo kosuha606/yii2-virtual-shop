@@ -2,66 +2,85 @@
 
 namespace app\controllers;
 
+use app\virtualModels\Admin\Interfaces\AdminControllerInterface;
+use app\virtualModels\Admin\Processors\AdminRequestProcessor;
 use app\virtualModels\Controllers\CrudController;
-use app\virtualModels\ServiceManager;
+use app\virtualModels\Services\UserService;
 use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModelHelppack\ServiceManager;
 use yii\web\Controller;
 use Yii;
 
-class AdminController extends Controller
+class AdminController extends Controller implements AdminControllerInterface
 {
-    /** @var CrudController */
-    private $crud;
+    public $layout = 'admin';
 
+    public $menu = [];
+
+    /**
+     * @param $action
+     * @return bool
+     * @throws \yii\web\BadRequestHttpException
+     */
     public function beforeAction($action)
     {
-        ServiceManager::getInstance()->userService->login(Yii::$app->user->id);
+        ServiceManager::getInstance()->get(UserService::class)->login(Yii::$app->user->id);
 
         return parent::beforeAction($action);
     }
 
-    public function init()
+    public function actionIndex()
     {
-        $this->crud = new CrudController();
-        parent::init();
+        return $this->redirect('/admin/order/list');
     }
 
     /**
      * @return string
      * @throws \Exception
      */
-    public function actionList()
+    public function actionProcessor()
     {
-        $modelClass = Yii::$app->request->get('model');
-        $list = $this->crud->actionList($modelClass, [['all']]);
+        $controller = Yii::$app->request->get('route');
+        $action = Yii::$app->request->get('act');
 
-        return $this->render('list', $list);
+        $post = Yii::$app->request->post();
+        $delete = false;
+
+        if (isset($post['delete'])) {
+            $delete = $post['delete'];
+            unset($post['delete']);
+        }
+
+        $requestData = [
+            'get' => Yii::$app->request->get(),
+            'post' => $post,
+            'delete' => $delete,
+        ];
+
+        if (Yii::$app->request->get('sortField')) {
+            $requestData['get']['order'] = [
+                Yii::$app->request->get('sortField') => Yii::$app->request->get('sortDir') == 'desc' ? SORT_DESC : SORT_ASC,
+            ];
+        }
+
+        $processor = ServiceManager::getInstance()->get(AdminRequestProcessor::class);
+        $processor->loadConfig(__DIR__.'/../config/routes');
+        $processor->setController($this);
+
+        $response = $processor->process($controller, $action, $requestData);
+        $this->menu = $processor->getMenu();
+
+        if (Yii::$app->request->isAjax) {
+            return $this->asJson($response->json);
+        }
+
+        return $this->render('processor', [
+            'response' => $response
+        ]);
     }
 
-    /**
-     * @return string
-     * @throws \Exception
-     */
-    public function actionDetail()
+    public function renderView($view, $args)
     {
-        $id = Yii::$app->request->get('id');
-        /** @var VirtualModel $modelClass */
-        $modelClass = Yii::$app->request->get('model');
-
-        $item = $modelClass::create();
-
-        if ($id) {
-            $item = $this->crud->actionView($id);
-        }
-
-        if (Yii::$app->request->isPost) {
-            if ($id) {
-                $item = $this->crud->actionEdit($modelClass, Yii::$app->request->post(), $id);
-            } else {
-                $item = $this->crud->actionEdit($modelClass, Yii::$app->request->post());
-            }
-        }
-
-        return $this->render('detail', $item);
+        return $this->renderPartial($view, $args);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace app\virtualModels\Controllers;
 
+use app\virtualModels\Classes\Pagination;
 use kosuha606\VirtualModel\VirtualModel;
 use yii\web\Controller;
 
@@ -14,15 +15,23 @@ class CrudController
      * @return array
      * @throws \Exception
      */
-    public function actionList($modelClass, $filter = [], $page = 1, $itemPerPage = 999)
+    public function actionList($modelClass, Pagination $pagination, $filter = [], $orderBy = [])
     {
-        /** @var VirtualModel $modelClass */
-        $offset = ($page-1)*$itemPerPage;
+        try {
+            $total = $modelClass::count([
+                'where' => $filter
+            ]);
+            $pagination->totals = $total;
+        } catch (\Exception $exception) {
+            $pagination->totals = 999;
+        }
 
+        /** @var VirtualModel $modelClass */
         $models = $modelClass::many([
             'where' => $filter,
-            'limit' => $itemPerPage,
-            'offset' => $offset,
+            'orderBy' => $orderBy,
+            'limit' => $pagination->getLimit(),
+            'offset' => $pagination->getOffset(),
         ]);
 
         return $models;
@@ -34,14 +43,20 @@ class CrudController
      * @return VirtualModel
      * @throws \Exception
      */
-    public function actionView($modelClass, $id)
+    public function actionView($modelClass, $id, $data = [])
     {
         /** @var VirtualModel $modelClass */
-        return $modelClass::one([
+        $model = $modelClass::one([
             'where' => [
                 ['=', 'id', $id]
             ]
         ]);
+
+        if ($data) {
+            $model = $this->actionEdit($modelClass, $data, $id);
+        }
+
+        return $model;
     }
 
     /**
@@ -66,7 +81,8 @@ class CrudController
         } else {
             $model = $modelClass::create($data);
         }
+        $model->save();
 
-        return $model->save();
+        return $model;
     }
 }

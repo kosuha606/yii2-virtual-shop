@@ -114,14 +114,15 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/admin' => '/admin/index',
+                '/admin/<route>/<act>' => '/admin/processor'
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
