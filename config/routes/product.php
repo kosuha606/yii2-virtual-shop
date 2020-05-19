@@ -1,6 +1,7 @@
 <?php
 
 use app\virtualModels\Model\OrderVm;
+use app\virtualModels\Model\ProductRestsVm;
 use app\virtualModels\Model\ProductVm;
 use app\virtualModels\Model\UserVm;
 use app\virtualModels\Services\StringService;
@@ -101,6 +102,30 @@ return [
                         'model' => $entityClass,
                         'action' => 'actionView',
                     ],
+                    'additionalConfig' => function($model) {
+                        return [
+                            ProductRestsVm::class => [
+                                [
+                                    'field' => 'productId',
+                                    'component' => DetailComponents::HIDDEN_FIELD,
+                                    'value' => $model->id,
+                                    'params' => [
+                                        'type' => 'relation',
+                                    ]
+                                ],
+                                [
+                                    'field' => 'qty',
+                                    'component' => DetailComponents::INPUT_FIELD,
+                                    'value' => $model->id,
+                                ],
+                                [
+                                    'field' => 'userType',
+                                    'component' => DetailComponents::INPUT_FIELD,
+                                    'value' => $model->id,
+                                ],
+                            ],
+                        ];
+                    },
                     'config' => function ($model) {
                         $stringService = ServiceManager::getInstance()->get(StringService::class);
 

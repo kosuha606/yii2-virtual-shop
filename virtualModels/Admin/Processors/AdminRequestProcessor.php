@@ -71,6 +71,34 @@ class AdminRequestProcessor
     }
 
     /**
+     * Обработка запроса с учетом сложной формы
+     * @param $controller
+     * @param $action
+     * @param array $requestData
+     * @return AdminResponseDTO
+     * @throws \Exception
+     */
+    public function processComplexForm($controller, $action, $requestData = [])
+    {
+        if (
+            isset($requestData['post']) &&
+            $this->isComplexFormArray($requestData['post'])
+        ) {
+            foreach ($requestData['post'] as $forms) {
+                foreach ($forms as $form) {
+                    $formRequest = $requestData;
+                    $formRequest['post'] = $form;
+                    $response = $this->process($controller, $action, $formRequest);
+                }
+            }
+
+            return $response;
+        }
+
+        return $this->process($controller, $action, $requestData);
+    }
+
+    /**
      * @description Основной код обработки запроса на действие
      *
      * @param $controller
@@ -279,5 +307,29 @@ class AdminRequestProcessor
     public function getMenu()
     {
         return $this->menuService->getMenu();
+    }
+
+    /**
+     * Определяет является ли массив массивом данных от сложной формы
+     * @param $array
+     * @return bool
+     */
+    private function isComplexFormArray($array)
+    {
+        foreach ($array as $items) {
+            if (is_array($items)) {
+                foreach ($items as $item) {
+                    if (is_array($item)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+        }
+
+        return false;
     }
 }
