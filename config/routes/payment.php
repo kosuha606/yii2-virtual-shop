@@ -3,6 +3,7 @@
 use app\virtualModels\Model\ActionVm;
 use app\virtualModels\Model\DeliveryVm;
 use app\virtualModels\Model\OrderVm;
+use app\virtualModels\Model\PaymentVm;
 use app\virtualModels\Model\ProductVm;
 use app\virtualModels\Model\UserVm;
 use app\virtualModels\Services\StringService;
@@ -14,7 +15,7 @@ use yii\helpers\Inflector;
 
 $baseEntity = 'payment';
 $baseEntityCamel = Inflector::camelize($baseEntity);
-$entityClass = DeliveryVm::class;
+$entityClass = PaymentVm::class;
 $listTitle = 'Оплата';
 $detailTitle = 'Оплата';
 
@@ -38,8 +39,27 @@ return [
                         'model' => $entityClass,
                         'action' => 'actionList'
                     ],
-                    'filter_config' => [
+                    'filter' => function($filterKey) {
+                        $function = '=';
+                        switch ($filterKey) {
+                            case 'description':
+                                $function = 'like';
+                                break;
+                        }
 
+                        return $function;
+                    },
+                    'filter_config' => [
+                        [
+                            'field' => 'id',
+                            'component' => DetailComponents::INPUT_FIELD,
+                            'label' => 'ID',
+                        ],
+                        [
+                            'field' => 'description',
+                            'component' => DetailComponents::INPUT_FIELD,
+                            'label' => 'Описание',
+                        ],
                     ],
                     'list_config' => [
                         [
@@ -48,14 +68,17 @@ return [
                             'label' => 'ID'
                         ],
                         [
-                            'field' => 'name',
+                            'field' => 'description',
                             'component' => ListComponents::STRING_CELL,
-                            'label' => 'Название'
+                            'label' => 'Описание',
+                            'props' => [
+                                'link' => 1,
+                            ]
                         ],
                         [
-                            'field' => 'price',
+                            'field' => 'comission',
                             'component' => ListComponents::STRING_CELL,
-                            'label' => 'Цена'
+                            'label' => 'Комиссия'
                         ],
                         [
                             'field' => 'created_at',
@@ -86,16 +109,16 @@ return [
 
                         return [
                             [
-                                'field' => 'title',
+                                'field' => 'comission',
                                 'component' => DetailComponents::INPUT_FIELD,
-                                'label' => 'Заголовок',
-                                'value' => $model->title,
+                                'label' => 'Комиссия',
+                                'value' => $model->comission,
                             ],
                             [
-                                'field' => 'content',
-                                'component' => DetailComponents::TEXTAREA_FIELD,
-                                'label' => 'Содержимое',
-                                'value' => $model->content,
+                                'field' => 'description',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'label' => 'Описание',
+                                'value' => $model->description,
                             ],
                         ];
                     },

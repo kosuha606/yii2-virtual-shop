@@ -2,7 +2,9 @@
 
 namespace app\virtualModels\Model;
 
+use app\virtualModels\Admin\Services\PermissionService;
 use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModelHelppack\ServiceManager;
 
 /**
  * Пользователь
@@ -20,6 +22,23 @@ class UserVm extends VirtualModel
             'personalDiscount',
             'password',
         ];
+    }
+
+    /**
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     * @throws \Exception
+     */
+    public function isAdmin()
+    {
+        try {
+            ServiceManager::getInstance()->get(PermissionService::class)->ensureActionAvailable('admin.access', $this);
+            return true;
+        } catch (\Throwable $exception) {
+            return false;
+        }
+
+        return false;
     }
 
     public function setAttributes($attributes)

@@ -4,6 +4,7 @@ namespace app\virtualProviders;
 
 use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModel\VirtualModelProvider;
+use LogicException;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -31,7 +32,16 @@ class ActiveRecordProvider extends VirtualModelProvider
             /** @var ActiveRecord $ar */
             $ar = new $arClass();
             $ar->setAttributes($model->getAttributes());
-            $ar->save();
+            if ($model->hasAttribute('id') && $model->id) {
+                $ar->setIsNewRecord(false);
+                $ar->setOldAttributes(['id' => $model->id]);
+                $ar->id = $model->id;
+            }
+            if (!$ar->validate()) {
+                $message = $ar->getErrorSummary(true);
+                throw new LogicException(implode(',', $message));
+            }
+            $result = $ar->save();
             $ids[] = $ar->id;
         }
 
@@ -97,6 +107,14 @@ class ActiveRecordProvider extends VirtualModelProvider
                 switch ($whereConfig[0]) {
                     case '=':
                         $query->andWhere([$whereConfig[1] => $whereConfig[2]]);
+                        break;
+                    case 'in':
+                    case 'like':
+                    case '>':
+                    case '<':
+                    case '>=':
+                    case '<=':
+                        $query->andWhere([$whereConfig[0], $whereConfig[1], $whereConfig[2]]);
                         break;
                 }
             }

@@ -38,8 +38,27 @@ return [
                         'model' => $entityClass,
                         'action' => 'actionList'
                     ],
-                    'filter_config' => [
+                    'filter' => function($filterKey) {
+                        $function = '=';
+                        switch ($filterKey) {
+                            case 'description':
+                                $function = 'like';
+                                break;
+                        }
 
+                        return $function;
+                    },
+                    'filter_config' => [
+                        [
+                            'field' => 'id',
+                            'component' => DetailComponents::INPUT_FIELD,
+                            'label' => 'ID',
+                        ],
+                        [
+                            'field' => 'description',
+                            'component' => DetailComponents::INPUT_FIELD,
+                            'label' => 'Описание',
+                        ],
                     ],
                     'list_config' => [
                         [
@@ -48,14 +67,17 @@ return [
                             'label' => 'ID'
                         ],
                         [
-                            'field' => 'name',
+                            'field' => 'description',
                             'component' => ListComponents::STRING_CELL,
-                            'label' => 'Название'
+                            'label' => 'Описание',
+                            'props' => [
+                                'link' => 1,
+                            ]
                         ],
                         [
                             'field' => 'price',
                             'component' => ListComponents::STRING_CELL,
-                            'label' => 'Цена'
+                            'label' => 'Стоимость'
                         ],
                         [
                             'field' => 'created_at',
@@ -86,16 +108,16 @@ return [
 
                         return [
                             [
-                                'field' => 'title',
+                                'field' => 'price',
                                 'component' => DetailComponents::INPUT_FIELD,
-                                'label' => 'Заголовок',
-                                'value' => $model->title,
+                                'label' => 'Стоимость',
+                                'value' => $model->price,
                             ],
                             [
-                                'field' => 'content',
-                                'component' => DetailComponents::TEXTAREA_FIELD,
-                                'label' => 'Содержимое',
-                                'value' => $model->content,
+                                'field' => 'description',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'label' => 'Описание',
+                                'value' => $model->description,
                             ],
                         ];
                     },

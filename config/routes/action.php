@@ -38,7 +38,16 @@ return [
                         'action' => 'actionList'
                     ],
                     'filter_config' => [
-
+                        [
+                            'field' => 'id',
+                            'component' => DetailComponents::INPUT_FIELD,
+                            'label' => 'ID',
+                        ],
+                        [
+                            'field' => 'percent',
+                            'component' => DetailComponents::INPUT_FIELD,
+                            'label' => 'Процент',
+                        ],
                     ],
                     'list_config' => [
                         [
@@ -47,14 +56,17 @@ return [
                             'label' => 'ID'
                         ],
                         [
-                            'field' => 'name',
+                            'field' => 'productIds',
                             'component' => ListComponents::STRING_CELL,
-                            'label' => 'Название'
+                            'label' => 'Продукты',
+                            'props' => [
+                                'link' => 1,
+                            ]
                         ],
                         [
-                            'field' => 'price',
+                            'field' => 'percent',
                             'component' => ListComponents::STRING_CELL,
-                            'label' => 'Цена'
+                            'label' => 'Процент скидки'
                         ],
                         [
                             'field' => 'created_at',
@@ -85,16 +97,16 @@ return [
 
                         return [
                             [
-                                'field' => 'title',
+                                'field' => 'productIds',
                                 'component' => DetailComponents::INPUT_FIELD,
-                                'label' => 'Заголовок',
-                                'value' => $model->title,
+                                'label' => 'Продукты',
+                                'value' => $model->productIds,
                             ],
                             [
-                                'field' => 'content',
-                                'component' => DetailComponents::TEXTAREA_FIELD,
-                                'label' => 'Содержимое',
-                                'value' => $model->content,
+                                'field' => 'percent',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'label' => 'Процент скидки',
+                                'value' => $model->percent,
                             ],
                         ];
                     },

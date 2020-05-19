@@ -13,6 +13,7 @@ use app\assets\AppAsset;
 
 AppAsset::register($this);
 
+$user = ServiceManager::getInstance()->userService->current();
 $cart = ServiceManager::getInstance()->cartBuilder->getCart();
 
 ?>
@@ -50,6 +51,8 @@ $cart = ServiceManager::getInstance()->cartBuilder->getCart();
                 ,
                 'url' => ['/cart/index'],
             ],
+            ($user ? ($user->isAdmin() ? ['label' => 'Админка', 'url' => '/admin'] : '') : '')
+            ,
             Yii::$app->user->isGuest ? (
                 ['label' => 'Вход', 'url' => ['/guest/login']]
             ) : (

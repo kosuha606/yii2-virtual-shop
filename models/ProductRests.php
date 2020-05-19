@@ -3,7 +3,9 @@
 namespace app\models;
 
 use kosuha606\VirtualModel\VirtualModel;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * Остаток по продукту
@@ -12,6 +14,18 @@ use yii\db\ActiveRecord;
  */
 class ProductRests extends ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            [
+                'class'              => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value'              => new Expression('NOW()'),
+            ],
+        ];
+    }
+
     public static function tableName()
     {
         return 'product_rests';
@@ -21,11 +35,13 @@ class ProductRests extends ActiveRecord
     {
         return [
             [
-                'productId',
-                'qty',
-                'userType',
-            ],
-            'required'
+                [
+                    'productId',
+                    'qty',
+                    'userType',
+                ],
+                'required'
+            ]
         ];
     }
 }

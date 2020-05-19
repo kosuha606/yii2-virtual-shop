@@ -39,8 +39,27 @@ return [
                         'model' => $entityClass,
                         'action' => 'actionList'
                     ],
-                    'filter_config' => [
+                    'filter' => function($filterKey) {
+                        $function = '=';
+                        switch ($filterKey) {
+                            case 'code':
+                                $function = 'like';
+                                break;
+                        }
 
+                        return $function;
+                    },
+                    'filter_config' => [
+                        [
+                            'field' => 'id',
+                            'component' => DetailComponents::INPUT_FIELD,
+                            'label' => 'ID',
+                        ],
+                        [
+                            'field' => 'code',
+                            'component' => DetailComponents::INPUT_FIELD,
+                            'label' => 'Код',
+                        ],
                     ],
                     'list_config' => [
                         [
@@ -49,12 +68,15 @@ return [
                             'label' => 'ID'
                         ],
                         [
-                            'field' => 'name',
+                            'field' => 'code',
                             'component' => ListComponents::STRING_CELL,
-                            'label' => 'Название'
+                            'label' => 'Код',
+                            'props' => [
+                                'link' => 1,
+                            ]
                         ],
                         [
-                            'field' => 'price',
+                            'field' => 'amount',
                             'component' => ListComponents::STRING_CELL,
                             'label' => 'Цена'
                         ],
@@ -87,16 +109,16 @@ return [
 
                         return [
                             [
-                                'field' => 'title',
+                                'field' => 'code',
                                 'component' => DetailComponents::INPUT_FIELD,
-                                'label' => 'Заголовок',
-                                'value' => $model->title,
+                                'label' => 'Код',
+                                'value' => $model->code,
                             ],
                             [
-                                'field' => 'content',
-                                'component' => DetailComponents::TEXTAREA_FIELD,
-                                'label' => 'Содержимое',
-                                'value' => $model->content,
+                                'field' => 'amount',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'label' => 'Цена',
+                                'value' => $model->amount,
                             ],
                         ];
                     },

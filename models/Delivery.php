@@ -3,7 +3,9 @@
 namespace app\models;
 
 use kosuha606\VirtualModel\VirtualModel;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * Вариант доставки
@@ -11,6 +13,18 @@ use yii\db\ActiveRecord;
  */
 class Delivery extends ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            [
+                'class'              => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value'              => new Expression('NOW()'),
+            ],
+        ];
+    }
+
     public static function tableName()
     {
         return 'delivery';
@@ -20,11 +34,13 @@ class Delivery extends ActiveRecord
     {
         return [
             [
-                'price',
-                'description',
-                'userType',
-            ],
-            'required',
+                [
+                    'price',
+                    'description',
+                    'userType',
+                ],
+                'required',
+            ]
         ];
     }
 }

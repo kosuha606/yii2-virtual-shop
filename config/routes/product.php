@@ -36,8 +36,27 @@ return [
                         'model' => $entityClass,
                         'action' => 'actionList'
                     ],
-                    'filter_config' => [
+                    'filter' => function($filterKey) {
+                        $function = '=';
+                        switch ($filterKey) {
+                            case 'name':
+                                $function = 'like';
+                                break;
+                        }
 
+                        return $function;
+                    },
+                    'filter_config' => [
+                        [
+                            'field' => 'id',
+                            'component' => DetailComponents::INPUT_FIELD,
+                            'label' => 'ID',
+                        ],
+                        [
+                            'field' => 'name',
+                            'component' => DetailComponents::INPUT_FIELD,
+                            'label' => 'Название',
+                        ],
                     ],
                     'list_config' => [
                         [
@@ -48,7 +67,10 @@ return [
                         [
                             'field' => 'name',
                             'component' => ListComponents::STRING_CELL,
-                            'label' => 'Название'
+                            'label' => 'Название',
+                            'props' => [
+                                'link' => 1,
+                            ]
                         ],
                         [
                             'field' => 'price',
@@ -84,16 +106,22 @@ return [
 
                         return [
                             [
-                                'field' => 'title',
+                                'field' => 'name',
                                 'component' => DetailComponents::INPUT_FIELD,
-                                'label' => 'Заголовок',
-                                'value' => $model->title,
+                                'label' => 'Название',
+                                'value' => $model->name,
                             ],
                             [
-                                'field' => 'content',
-                                'component' => DetailComponents::TEXTAREA_FIELD,
-                                'label' => 'Содержимое',
-                                'value' => $model->content,
+                                'field' => 'price',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'label' => 'Цена',
+                                'value' => $model->price,
+                            ],
+                            [
+                                'field' => 'price2B',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'label' => 'Цена оптом',
+                                'value' => $model->price2B,
                             ],
                         ];
                     },

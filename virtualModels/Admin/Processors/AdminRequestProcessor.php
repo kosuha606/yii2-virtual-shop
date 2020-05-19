@@ -125,6 +125,27 @@ class AdminRequestProcessor
                         $page  = $requestData['get']['page'] ?? 1;
                         $itemPerPage = $requestData['get']['itemPerPage'] ?? 10;
                         $pagination = new Pagination($page, $itemPerPage);
+
+                        if (isset($handler['filter']) && is_callable($handler['filter'])) {
+                            $filterCallback = $handler['filter'];
+                            $resultFilter = [];
+
+                            foreach ($filter as $filterKey => $filterValue) {
+                                $function = $filterCallback($filterKey);
+                                $resultFilter[] = [$function, $filterKey, $filterValue];
+                            }
+
+                            $filter = $resultFilter;
+                        } else {
+                            $resultFilter = [];
+
+                            foreach ($filter as $filterKey => $filterValue) {
+                                $resultFilter[] = ['=', $filterKey, $filterValue];
+                            }
+
+                            $filter = $resultFilter;
+                        }
+
                         $response->json['models'] = VirtualModel::allToArray($this->crudController->actionList(
                             $crudModel,
                             $pagination,

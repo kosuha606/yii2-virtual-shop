@@ -29,11 +29,15 @@ class m200428_201758_models extends Migration
             'category_id' => $this->integer(11),
             'product_id' => $this->integer(11),
             'value' => $this->string(),
+            'created_at' => $this->timestamp(),
+            'updated_at' => $this->timestamp(),
         ]);
 
         $this->createTable(FilterCategory::tableName(), [
             'id' => $this->primaryKey(),
             'name' => $this->string(),
+            'created_at' => $this->timestamp(),
+            'updated_at' => $this->timestamp(),
         ]);
 
         $this->createTable(User::tableName(), [
@@ -50,6 +54,8 @@ class m200428_201758_models extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(11),
             'product_id' => $this->integer(11),
+            'created_at' => $this->timestamp(),
+            'updated_at' => $this->timestamp(),
         ]);
 
         $this->createTable(Action::tableName(), [
@@ -57,6 +63,8 @@ class m200428_201758_models extends Migration
             'productIds' => $this->string(255),
             'percent' => $this->integer(11),
             'userType' => $this->string(255),
+            'created_at' => $this->timestamp(),
+            'updated_at' => $this->timestamp(),
         ]);
 
         $this->createTable(Delivery::tableName(), [
@@ -64,6 +72,8 @@ class m200428_201758_models extends Migration
             'price' => $this->integer(11),
             'description' => $this->string(255),
             'userType' => $this->string(255),
+            'created_at' => $this->timestamp(),
+            'updated_at' => $this->timestamp(),
         ]);
 
         $this->createTable(Order::tableName(), [
@@ -73,6 +83,8 @@ class m200428_201758_models extends Migration
             'user_id' => $this->integer(11)->null(),
             'userType' => $this->string(255),
             'reserve' => $this->text(),
+            'created_at' => $this->timestamp(),
+            'updated_at' => $this->timestamp(),
         ]);
 
         $this->createTable(OrderReserve::tableName(), [
@@ -81,6 +93,8 @@ class m200428_201758_models extends Migration
             'productId' => $this->integer(11),
             'qty' => $this->integer(11),
             'userType' => $this->string(255),
+            'created_at' => $this->timestamp(),
+            'updated_at' => $this->timestamp(),
         ]);
 
         $this->createTable(Payment::tableName(), [
@@ -88,6 +102,8 @@ class m200428_201758_models extends Migration
             'comission' => $this->integer(11),
             'description' => $this->string(255),
             'userType' => $this->string(255),
+            'created_at' => $this->timestamp(),
+            'updated_at' => $this->timestamp(),
         ]);
 
         $this->createTable(Product::tableName(), [
@@ -97,6 +113,8 @@ class m200428_201758_models extends Migration
             'price2B' => $this->integer(11),
             'actions' => $this->text(),
             'rests' => $this->text(),
+            'created_at' => $this->timestamp(),
+            'updated_at' => $this->timestamp(),
         ]);
 
         $this->createTable(ProductRests::tableName(), [
@@ -104,6 +122,8 @@ class m200428_201758_models extends Migration
             'productId' => $this->integer(11),
             'qty' => $this->integer(11),
             'userType' => $this->string(255),
+            'created_at' => $this->timestamp(),
+            'updated_at' => $this->timestamp(),
         ]);
 
         $this->createTable(Promocode::tableName(), [
@@ -111,6 +131,8 @@ class m200428_201758_models extends Migration
             'amount' => $this->integer(11),
             'code' => $this->string(255),
             'userType' => $this->string(255),
+            'created_at' => $this->timestamp(),
+            'updated_at' => $this->timestamp(),
         ]);
     }
 

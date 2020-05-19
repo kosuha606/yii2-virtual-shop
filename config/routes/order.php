@@ -36,7 +36,11 @@ return [
                         'action' => 'actionList'
                     ],
                     'filter_config' => [
-
+                        [
+                            'field' => 'id',
+                            'component' => DetailComponents::INPUT_FIELD,
+                            'label' => 'ID',
+                        ],
                     ],
                     'list_config' => [
                         [
@@ -47,7 +51,10 @@ return [
                         [
                             'field' => 'created_at',
                             'component' => ListComponents::STRING_CELL,
-                            'label' => 'Создан'
+                            'label' => 'Создан',
+                            'props' => [
+                                'link' => 1,
+                            ]
                         ],
                     ]
                 ]
@@ -73,16 +80,28 @@ return [
 
                         return [
                             [
-                                'field' => 'title',
-                                'component' => DetailComponents::INPUT_FIELD,
-                                'label' => 'Заголовок',
-                                'value' => $model->title,
+                                'field' => 'orderData',
+                                'component' => DetailComponents::TEXTAREA_FIELD,
+                                'label' => 'Данные заказа',
+                                'value' => $model->orderData,
                             ],
                             [
-                                'field' => 'content',
-                                'component' => DetailComponents::TEXTAREA_FIELD,
-                                'label' => 'Содержимое',
-                                'value' => $model->content,
+                                'field' => 'total',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'label' => 'Итого',
+                                'value' => $model->total,
+                            ],
+                            [
+                                'field' => 'user_id',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'label' => 'Пользователь',
+                                'value' => $model->user_id,
+                            ],
+                            [
+                                'field' => 'created_at',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'label' => 'Дата создания',
+                                'value' => $model->created_at,
                             ],
                         ];
                     },
