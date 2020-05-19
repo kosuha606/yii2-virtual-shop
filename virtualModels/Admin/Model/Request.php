@@ -4,6 +4,12 @@ namespace app\virtualModels\Admin\Model;
 
 use kosuha606\VirtualModel\VirtualModel;
 
+/**
+ * @property $get
+ * @property $post
+ * @property $isAjax
+ * @property $isPost
+ */
 class Request extends VirtualModel
 {
     const TYPE = 'request';
@@ -19,6 +25,7 @@ class Request extends VirtualModel
             'get',
             'post',
             'isAjax',
+            'isPost',
         ];
     }
 }

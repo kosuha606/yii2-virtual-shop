@@ -40,7 +40,10 @@ class SecondaryFormService
      */
     public function buildForm(): SecondaryFormBuilder
     {
-        if (!$this->isSessionCleared) {
+        if (
+            !$this->isSessionCleared
+            && !$this->requestService->request()->isPost
+        ) {
             $this->clearSession();
         }
 
