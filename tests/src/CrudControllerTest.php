@@ -1,5 +1,6 @@
 <?php
 
+use app\virtualModels\Classes\Pagination;
 use app\virtualModels\Controllers\CrudController;
 use app\virtualModels\Model\ProductVm;
 use kosuha606\VirtualModel\Example\MemoryModelProvider;
@@ -65,9 +66,10 @@ class CrudControllerTest extends TestCase
      */
     public function testList()
     {
+        $pagination = new Pagination(1, 10);
         $items = $this->controller->actionList(
             ProductVm::class,
-            [['all']]
+            $pagination
         );
 
         $this->assertEquals(2, count($items));

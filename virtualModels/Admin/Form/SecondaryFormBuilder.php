@@ -9,13 +9,25 @@ use kosuha606\VirtualModel\VirtualModel;
  */
 class SecondaryFormBuilder
 {
+    const ONE_TO_ONE = 'one.to.one';
+
+    const ONE_TO_MANY = 'one.to.many';
+
+    const MANY_TO_MANY = 'many.to.many';
+
+    private $id;
+
     private $masterMmodel;
 
     private $relationType;
 
+    private $relationEntities = [];
+
+    private $relationClass;
+
     private $tabName = 'Tab';
 
-    private $initialConfig;
+    private $config;
     /**
      * @var SecondaryFormService
      */
@@ -25,6 +37,7 @@ class SecondaryFormBuilder
         SecondaryFormService $formService
     ) {
         $this->formService = $formService;
+        $this->id = $this->formService->getFormTypeCounter();
     }
 
     /**
@@ -89,22 +102,94 @@ class SecondaryFormBuilder
      */
     public function getInitialConfig()
     {
-        return $this->initialConfig;
+        return $this->config;
     }
 
     /**
      * @param mixed $initialConfig
      * @return SecondaryFormBuilder
      */
-    public function setInitialConfig($initialConfig)
+    public function setConfig($initialConfig)
     {
-        $this->initialConfig = $initialConfig;
+        $this->config = $initialConfig;
 
         return $this;
     }
 
+    /**
+     * @return array
+     * @throws \Exception
+     */
     public function getConfig()
     {
         $this->formService->rememberForm($this);
+        $items = [];
+        $initialConfig = $this->getInitialConfig();
+        $relationClass = $this->getRelationClass();
+
+        $initialConfigData = $initialConfig(new $relationClass());
+
+        foreach ($this->getRelationEntities() as $entity) {
+            $items[] = $initialConfig($entity);
+        }
+
+        return [
+            'tab' => $this->getTabName(),
+            'initialConfig' => $initialConfigData,
+            'dataConfig' => $items,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getRelationEntities(): array
+    {
+        return $this->relationEntities;
+    }
+
+    /**
+     * @param array $relationEntities
+     */
+    public function setRelationEntities(array $relationEntities)
+    {
+        $this->relationEntities = $relationEntities;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRelationClass()
+    {
+        return $this->relationClass;
+    }
+
+    /**
+     * @param mixed $relationClass
+     * @return SecondaryFormBuilder
+     */
+    public function setRelationClass($relationClass)
+    {
+        $this->relationClass = $relationClass;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
     }
 }
