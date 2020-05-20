@@ -15,6 +15,7 @@ class ProductRestsVm extends VirtualModel
     public function attributes(): array
     {
         return [
+            'id',
             'productId',
             'qty',
             'userType',

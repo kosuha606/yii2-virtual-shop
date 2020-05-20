@@ -46,7 +46,7 @@
 
 
             <template v-if="additionalComponents">
-                <div v-for="component in additionalComponents" class="tab-pane fade" :id="component.tab">
+                <div v-for="(component, additionalIndex) in additionalComponents" class="tab-pane fade" :id="component.tab">
                     <div v-if="component.type !== 'one.to.one'">
                         <template v-for="(inComponent, index) in component.initialConfig">
                             <div class="form-row">
@@ -56,9 +56,10 @@
                                 </detail-field>
                             </div>
                         </template>
-                        <button type="button" class="btn btn-primary">Добавить</button>
+                        <button @click="addAdditionalData(additionalIndex, component.initialConfig)" type="button" class="btn btn-primary" style="margin-top: 10px;">Добавить</button>
                         <hr>
-                        <div v-for="dataComponent in component.dataConfig">
+                        <div v-for="(dataComponent, dataIndex) in component.dataConfig">
+                            <button @click="deleteAdditionalData(additionalIndex, dataIndex)" type="button" class="btn btn-danger">Удалить</button>
                             <template v-for="(inDataComponent, index) in dataComponent">
                                 <div class="form-row">
                                     <detail-field
@@ -225,6 +226,36 @@
                 this.alertMessage = message;
                 this.$forceUpdate();
             },
+            addAdditionalData(additionalIndex, data) {
+                console.log(data);
+                this.additionalComponents[additionalIndex]['dataConfig'].push(data);
+                this.$forceUpdate();
+            },
+            deleteAdditionalData(additionalIndex, dataIndex) {
+                this.additionalComponents[additionalIndex]['dataConfig'].splice(dataIndex, 1);
+                this.$forceUpdate();
+            },
+            appendAdditionalData(serverData) {
+                var additionalServerData = {};
+                each(this.additionalComponents, (item) => {
+                    if (!additionalServerData[item.relationClass]) {
+                        additionalServerData[item.relationClass] = [];
+                    }
+                    each(item.dataConfig, (dataItem) => {
+                        var serverItem = {};
+
+                        each(dataItem, (fieldItem) => {
+                            serverItem[fieldItem.field] = fieldItem.value;
+                        });
+
+                        additionalServerData[item.relationClass].push(serverItem);
+                    });
+                });
+
+                serverData.secondary_form = additionalServerData;
+
+                return serverData;
+            },
             uploadToServer(afterSuccess) {
                 this.$root.startProgress();
                 var serverData = {};
@@ -237,6 +268,8 @@
                 each(this.defaultFormData, (item, fieldName) => {
                     serverData[fieldName] = item
                 });
+                serverData = this.appendAdditionalData(serverData);
+
                 $.ajax({
                     method: 'POST',
                     url: this.saveUrl,

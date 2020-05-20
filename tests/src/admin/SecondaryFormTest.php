@@ -4,6 +4,7 @@ use app\virtualModels\Admin\Form\SecondaryFormBuilder;
 use app\virtualModels\Admin\Form\SecondaryFormService;
 use app\virtualModels\Admin\Model\Request;
 use app\virtualModels\Admin\Model\Session;
+use app\virtualModels\Admin\Services\RequestService;
 use app\virtualModels\Admin\Structures\DetailComponents;
 use app\virtualModels\Admin\Test\TestRequestProvider;
 use app\virtualModels\Admin\Test\TestSessionProvider;
@@ -28,11 +29,13 @@ class SecondaryFormTest extends VirtualTestCase
         $this->provider->memoryStorage = [
             ProductRestsVm::class => [
                 [
+                    'id' => 1,
                     'productId' => 1,
                     'qty' => 10,
                     'userType' => 'b2c',
                 ],
                 [
+                    'id' => 2,
                     'productId' => 1,
                     'qty' => 15,
                     'userType' => 'b2b',
@@ -57,6 +60,7 @@ class SecondaryFormTest extends VirtualTestCase
 
     public function tearDown()
     {
+        RequestService::$request = null;
         unset($this->sessionProvider);
         unset($this->requestProvider);
         parent::tearDown();
@@ -105,7 +109,7 @@ class SecondaryFormTest extends VirtualTestCase
         // В сессию записывается одна запись
         $this->assertEquals(1, count($this->sessionProvider->memoryStorage));
         $configString = json_encode($config, JSON_UNESCAPED_UNICODE);
-        $this->assertEquals($configString, '{"tab":"Остатки","initialConfig":[{"field":"productId","component":"InputField","value":null},{"field":"qty","component":"InputField","value":null},{"field":"userType","component":"InputField","value":null}],"dataConfig":[[{"field":"productId","component":"InputField","value":1},{"field":"qty","component":"InputField","value":10},{"field":"userType","component":"InputField","value":"b2c"}],[{"field":"productId","component":"InputField","value":1},{"field":"qty","component":"InputField","value":15},{"field":"userType","component":"InputField","value":"b2b"}]]}');
+        $this->assertEquals($configString, '{"tab":"Остатки","type":"one.to.one","initialConfig":[{"field":"productId","component":"InputField","value":null},{"field":"qty","component":"InputField","value":null},{"field":"userType","component":"InputField","value":null}],"relationClass":"app\\\\virtualModels\\\\Model\\\\ProductRestsVm","dataConfig":[[{"field":"productId","component":"InputField","value":1},{"field":"qty","component":"InputField","value":10},{"field":"userType","component":"InputField","value":"b2c"}],[{"field":"productId","component":"InputField","value":1},{"field":"qty","component":"InputField","value":15},{"field":"userType","component":"InputField","value":"b2b"}]]}');
     }
 
     /**
@@ -125,6 +129,7 @@ class SecondaryFormTest extends VirtualTestCase
                     'value' => [
                         ProductRestsVm::class => [
                             'masterModelId' => 1,
+                            'masterModelField' => 'productId',
                             'masterModelClass' => ProductVm::class,
                             'relationType' => SecondaryFormBuilder::ONE_TO_ONE
                         ]

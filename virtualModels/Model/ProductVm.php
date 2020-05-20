@@ -65,7 +65,7 @@ class ProductVm extends VirtualModel
         if (!$this->attributes['rests']) {
             $rests = ProductRestsVm::many([
                 'where' => [
-                    ['=', 'id', $this->id],
+                    ['=', 'productId', $this->id],
                 ],
             ]);
             $this->setAttribute('rests', $rests);

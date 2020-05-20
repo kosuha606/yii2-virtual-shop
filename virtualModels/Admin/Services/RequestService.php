@@ -7,7 +7,12 @@ use app\virtualModels\Admin\Model\Request;
 class RequestService
 {
     /** @var Request */
-    private static $request;
+    public static $request;
+
+    public function clearRequest()
+    {
+        self::$request = null;
+    }
 
     /**
      * @return Request

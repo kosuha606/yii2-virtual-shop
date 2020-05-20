@@ -97,8 +97,8 @@ class SecondaryFormService
         // Удаляем все связанные старые модели
         /** @var VirtualModel $class */
         foreach ($modelClasses as $class) {
-            $sessionModelData = $sessionConfig[$class];
-            $models = $class::many(['where' => ['=', $sessionModelData['masterModelField'], $sessionModelData['masterModelId']]]);
+            $sessionModelData = $sessionConfig->value[$class];
+            $models = $class::many(['where' => [['=', $sessionModelData['masterModelField'], $sessionModelData['masterModelId']]]]);
             /** @var VirtualModel $model */
             foreach ($models as $model) {
                 $model->delete();
@@ -111,7 +111,9 @@ class SecondaryFormService
          * @var  $data
          */
         foreach ($postData[self::SESSION_KEY] as $modelClass => $data) {
-            $modelClass::create($data)->save();
+            foreach ($data as $attributes) {
+                $modelClass::create($attributes)->save();
+            }
         }
     }
 

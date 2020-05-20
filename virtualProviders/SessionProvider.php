@@ -18,7 +18,11 @@ class SessionProvider extends MemoryModelProvider
     {
         $data = Yii::$app->session->get($config['where'][0][2]);
 
-        return $data;
+        return [
+            'id' => 1,
+            'key' => $config['where'][0][2],
+            'value' => $data,
+        ];
     }
 
     public function findMany($modelClass, $config)
@@ -38,6 +42,8 @@ class SessionProvider extends MemoryModelProvider
 
     public function delete(VirtualModel $model)
     {
-        return parent::delete($model);
+        Yii::$app->session->remove($model->key);
+
+        return true;
     }
 }

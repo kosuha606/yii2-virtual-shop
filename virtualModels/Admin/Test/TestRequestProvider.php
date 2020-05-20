@@ -12,4 +12,16 @@ class TestRequestProvider extends MemoryModelProvider
     {
         return Request::TYPE;
     }
+
+    public function findMany($modelClass, $config)
+    {
+        $data = parent::findMany($modelClass, $config);
+        return $data;
+    }
+
+    public function findOne($modelClass, $config)
+    {
+        $data = parent::findOne($modelClass, $config);
+        return $data;
+    }
 }

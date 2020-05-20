@@ -76,6 +76,9 @@ class CrudController
                 ]
             ]);
             foreach ($data as $field => $value) {
+                if (!$model->hasAttribute($field)) {
+                    continue;
+                }
                 $model->setAttribute($field, $value);
             }
         } else {
