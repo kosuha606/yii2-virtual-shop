@@ -1,5 +1,7 @@
 <?php
 
+use app\virtualModels\Admin\Form\SecondaryFormBuilder;
+use app\virtualModels\Admin\Form\SecondaryFormService;
 use app\virtualModels\Model\OrderVm;
 use app\virtualModels\Model\ProductRestsVm;
 use app\virtualModels\Model\ProductVm;
@@ -103,27 +105,39 @@ return [
                         'action' => 'actionView',
                     ],
                     'additionalConfig' => function($model) {
+                        $secondaryService = ServiceManager::getInstance()->get(SecondaryFormService::class);
+
+                        $config = $secondaryService->buildForm()
+                            ->setMasterModel($model)
+                            ->setMasterModelField('productId')
+                            ->setRelationType(SecondaryFormBuilder::ONE_TO_ONE)
+                            ->setRelationClass(ProductRestsVm::class)
+                            ->setTabName('Остатки')
+                            ->setRelationEntities(ProductRestsVm::many(['where' => [['=', 'productId', $model->id]]]))
+                            ->setConfig(function ($model) {
+                                return [
+                                    [
+                                        'field' => 'productId',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $model->productId,
+                                    ],
+                                    [
+                                        'field' => 'qty',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $model->qty,
+                                    ],
+                                    [
+                                        'field' => 'userType',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $model->userType,
+                                    ],
+                                ];
+                            })
+                            ->getConfig()
+                        ;
+
                         return [
-                            ProductRestsVm::class => [
-                                [
-                                    'field' => 'productId',
-                                    'component' => DetailComponents::HIDDEN_FIELD,
-                                    'value' => $model->id,
-                                    'params' => [
-                                        'type' => 'relation',
-                                    ]
-                                ],
-                                [
-                                    'field' => 'qty',
-                                    'component' => DetailComponents::INPUT_FIELD,
-                                    'value' => $model->id,
-                                ],
-                                [
-                                    'field' => 'userType',
-                                    'component' => DetailComponents::INPUT_FIELD,
-                                    'value' => $model->id,
-                                ],
-                            ],
+                            $config
                         ];
                     },
                     'config' => function ($model) {

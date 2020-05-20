@@ -14,13 +14,15 @@ class LoadWebVirtualProvidersComponent extends Component
     {
         $arProvider = new ActiveRecordProvider();
         $arProvider->relations = $this->arRelations;
-
-        $alertProvider = new SystemAlertProvider();
-
-        $permissionProvider = new PermissionProvider();
-
-        VirtualModelManager::getInstance()->setProvider($alertProvider);
-        VirtualModelManager::getInstance()->setProvider($permissionProvider);
         VirtualModelManager::getInstance()->setProvider($arProvider);
+
+        VirtualModelManager::getInstance()->setProvider(new SystemAlertProvider());
+
+        VirtualModelManager::getInstance()->setProvider(new PermissionProvider());
+
+        VirtualModelManager::getInstance()->setProvider(new RequestProvider());
+
+        VirtualModelManager::getInstance()->setProvider(new SessionProvider());
+
     }
 }

@@ -13,11 +13,11 @@ class SecondaryFormBuilder
 
     const ONE_TO_MANY = 'one.to.many';
 
-    const MANY_TO_MANY = 'many.to.many';
-
     private $id;
 
     private $masterMmodel;
+
+    private $masterModelField;
 
     private $relationType;
 
@@ -191,5 +191,24 @@ class SecondaryFormBuilder
     public function setId(int $id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMasterModelField()
+    {
+        return $this->masterModelField;
+    }
+
+    /**
+     * @param mixed $masterModelField
+     * @return SecondaryFormBuilder
+     */
+    public function setMasterModelField($masterModelField)
+    {
+        $this->masterModelField = $masterModelField;
+
+        return $this;
     }
 }

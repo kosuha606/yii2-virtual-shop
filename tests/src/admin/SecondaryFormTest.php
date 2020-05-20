@@ -2,6 +2,8 @@
 
 use app\virtualModels\Admin\Form\SecondaryFormBuilder;
 use app\virtualModels\Admin\Form\SecondaryFormService;
+use app\virtualModels\Admin\Model\Request;
+use app\virtualModels\Admin\Model\Session;
 use app\virtualModels\Admin\Structures\DetailComponents;
 use app\virtualModels\Admin\Test\TestRequestProvider;
 use app\virtualModels\Admin\Test\TestSessionProvider;
@@ -14,8 +16,10 @@ use PHPUnit\Framework\TestCase;
 
 class SecondaryFormTest extends VirtualTestCase
 {
+    /** @var TestSessionProvider */
     public $sessionProvider;
 
+    /** @var TestRequestProvider */
     public $requestProvider;
 
     public function setUp()
@@ -51,6 +55,13 @@ class SecondaryFormTest extends VirtualTestCase
         VirtualModelManager::getInstance()->setProvider($this->requestProvider);
     }
 
+    public function tearDown()
+    {
+        unset($this->sessionProvider);
+        unset($this->requestProvider);
+        parent::tearDown();
+    }
+
     /**
      * @throws \DI\DependencyException
      * @throws \DI\NotFoundException
@@ -64,6 +75,7 @@ class SecondaryFormTest extends VirtualTestCase
 
         $config = $secondaryService->buildForm()
             ->setMasterModel($product)
+            ->setMasterModelField('productId')
             ->setRelationType(SecondaryFormBuilder::ONE_TO_ONE)
             ->setRelationClass(ProductRestsVm::class)
             ->setTabName('Остатки')
@@ -94,5 +106,66 @@ class SecondaryFormTest extends VirtualTestCase
         $this->assertEquals(1, count($this->sessionProvider->memoryStorage));
         $configString = json_encode($config, JSON_UNESCAPED_UNICODE);
         $this->assertEquals($configString, '{"tab":"Остатки","initialConfig":[{"field":"productId","component":"InputField","value":null},{"field":"qty","component":"InputField","value":null},{"field":"userType","component":"InputField","value":null}],"dataConfig":[[{"field":"productId","component":"InputField","value":1},{"field":"qty","component":"InputField","value":10},{"field":"userType","component":"InputField","value":"b2c"}],[{"field":"productId","component":"InputField","value":1},{"field":"qty","component":"InputField","value":15},{"field":"userType","component":"InputField","value":"b2b"}]]}');
+    }
+
+    /**
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     * @throws Exception
+     */
+    public function testProcess()
+    {
+        $secondaryService = ServiceManager::getInstance()->get(SecondaryFormService::class);
+        // Устанавливаем состояние сессии
+        $this->sessionProvider->memoryStorage = [
+            Session::class => [
+                [
+                    'id' => 0,
+                    'key' => 'secondary_form',
+                    'value' => [
+                        ProductRestsVm::class => [
+                            'masterModelId' => 1,
+                            'masterModelClass' => ProductVm::class,
+                            'relationType' => SecondaryFormBuilder::ONE_TO_ONE
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        $this->requestProvider->memoryStorage = [
+            Request::class => [
+                [
+                    'get' => [],
+                    'post' => [
+                        'secondary_form' => [
+                            ProductRestsVm::class => [
+                                [
+                                    'productId' => 1,
+                                    'qty' => 10,
+                                    'userType' => 'b2c',
+                                ],
+                                [
+                                    'productId' => 1,
+                                    'qty' => 16,
+                                    'userType' => 'b2c',
+                                ],
+                                [
+                                    'productId' => 1,
+                                    'qty' => 15,
+                                    'userType' => 'b2b',
+                                ],
+                            ]
+                        ]
+                    ],
+                    'isAjax' => false,
+                    'isPost' => true,
+                ]
+            ]
+        ];
+
+        $secondaryService->processRememberedForm();
+
+        $this->assertTrue(true);
     }
 }

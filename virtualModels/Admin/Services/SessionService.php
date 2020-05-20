@@ -23,7 +23,7 @@ class SessionService
      */
     public function save($key, $value)
     {
-        $session = Session::one(['where' => ['=', 'key', $key]]);
+        $session = Session::one(['where' => [['=', 'key', $key]]]);
         if ($session->value) {
             $this->remove($key);
         }

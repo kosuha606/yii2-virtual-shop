@@ -3,6 +3,7 @@
 namespace app\virtualModels\Admin\Processors;
 
 use app\virtualModels\Admin\Dto\AdminResponseDTO;
+use app\virtualModels\Admin\Form\SecondaryFormService;
 use app\virtualModels\Admin\Interfaces\AdminControllerInterface;
 use app\virtualModels\Admin\Services\AdminConfigService;
 use app\virtualModels\Admin\Services\AlertService;
@@ -54,13 +55,19 @@ class AdminRequestProcessor
      */
     private $userService;
 
+    /**
+     * @var SecondaryFormService
+     */
+    private $secondaryFormService;
+
     public function __construct(
         AdminConfigService $adminConfigService,
         MenuService $menuService,
         CrudController $crudController,
         AlertService $alertService,
         PermissionService $permissionService,
-        UserService $userService
+        UserService $userService,
+        SecondaryFormService $secondaryFormService
     ) {
         $this->adminConfigService = $adminConfigService;
         $this->menuService = $menuService;
@@ -68,6 +75,7 @@ class AdminRequestProcessor
         $this->alertService = $alertService;
         $this->permissionService = $permissionService;
         $this->userService = $userService;
+        $this->secondaryFormService = $secondaryFormService;
     }
 
     /**
@@ -111,8 +119,10 @@ class AdminRequestProcessor
     {
         $user = $this->userService->current();
         $this->permissionService->ensureActionAvailable('admin.access', $user);
-
         $this->ensureConfigCorrect($controller, $action);
+
+        $this->secondaryFormService->processRememberedForm();
+
         $handler = $this->config['routes'][$controller][$action]['handler'];
         $response = new AdminResponseDTO('', []);
         $requestData = [
