@@ -15,18 +15,84 @@
 
         <p>&nbsp;</p>
 
-        <div class="form">
-            <slot v-bind:default="formData">
-                <template v-for="(component, index) in formData">
-                    <div class="form-row">
-                        <detail-field
-                                :component="component"
-                        >
-                        </detail-field>
+        <ul class="nav nav-tabs">
+            <li class="nav-item active">
+                <a class="nav-link active" data-toggle="tab" href="#description">Основное</a>
+            </li>
+            <template v-if="additionalComponents">
+                <li v-for="component in additionalComponents" class="nav-item">
+                    <a class="nav-link" data-toggle="tab" :href="'#'+component.tab">{{ component.tab }}</a>
+                </li>
+            </template>
+        </ul>
+
+        <div class="tab-content">
+            <p>&nbsp;</p>
+
+            <div class="tab-pane fade active in" id="description">
+                <div class="form">
+                    <slot v-bind:default="formData">
+                        <template v-for="(component, index) in formData">
+                            <div class="form-row">
+                                <detail-field
+                                        :component="component"
+                                >
+                                </detail-field>
+                            </div>
+                        </template>
+                    </slot>
+                </div>
+            </div>
+
+
+            <template v-if="additionalComponents">
+                <div v-for="component in additionalComponents" class="tab-pane fade" :id="component.tab">
+                    <div v-if="component.type !== 'one.to.one'">
+                        <template v-for="(inComponent, index) in component.initialConfig">
+                            <div class="form-row">
+                                <detail-field
+                                        :component="inComponent"
+                                >
+                                </detail-field>
+                            </div>
+                        </template>
+                        <button type="button" class="btn btn-primary">Добавить</button>
+                        <hr>
+                        <div v-for="dataComponent in component.dataConfig">
+                            <template v-for="(inDataComponent, index) in dataComponent">
+                                <div class="form-row">
+                                    <detail-field
+                                            :component="inDataComponent"
+                                    >
+                                    </detail-field>
+                                </div>
+                            </template>
+                        </div>
                     </div>
-                </template>
-            </slot>
+                    <div v-else>
+                        <template v-if="!component.dataConfig" v-for="(inComponent, index) in component.initialConfig">
+                            <div class="form-row">
+                                <detail-field
+                                        :component="inComponent"
+                                >
+                                </detail-field>
+                            </div>
+                        </template>
+                        <div v-for="dataComponent in component.dataConfig">
+                            <template v-for="(inDataComponent, index) in dataComponent">
+                                <div class="form-row">
+                                    <detail-field
+                                            :component="inDataComponent"
+                                    >
+                                    </detail-field>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
         </div>
+
 
         <p>&nbsp;</p>
         <p>&nbsp;</p>
@@ -62,6 +128,7 @@
             defaultFormData: Object,
             saveUrl: String,
             detailComponents: Array,
+            additionalComponents: Array,
             component: this,
             item: Object
         },
@@ -178,7 +245,6 @@
                     if (!response.result) {
                         this.processError(response.errors);
                     } else {
-                        this.alert('Успешно сохранено', 'success');
                         if (afterSuccess) {
                             afterSuccess();
                         } else {

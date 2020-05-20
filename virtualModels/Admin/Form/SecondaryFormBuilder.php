@@ -135,6 +135,7 @@ class SecondaryFormBuilder
 
         return [
             'tab' => $this->getTabName(),
+            'type' => $this->getRelationType(),
             'initialConfig' => $initialConfigData,
             'dataConfig' => $items,
         ];

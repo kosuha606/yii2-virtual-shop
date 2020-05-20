@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import {VueTable} from 'vue_table';
+    import {VueTable} from 'vue-component-table';
 
     export default {
         name: "List",

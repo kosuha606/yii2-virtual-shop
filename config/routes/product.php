@@ -104,32 +104,35 @@ return [
                         'model' => $entityClass,
                         'action' => 'actionView',
                     ],
-                    'additionalConfig' => function($model) {
+                    'additional_config' => function($model) {
                         $secondaryService = ServiceManager::getInstance()->get(SecondaryFormService::class);
 
                         $config = $secondaryService->buildForm()
                             ->setMasterModel($model)
                             ->setMasterModelField('productId')
-                            ->setRelationType(SecondaryFormBuilder::ONE_TO_ONE)
+                            ->setRelationType(SecondaryFormBuilder::ONE_TO_MANY)
                             ->setRelationClass(ProductRestsVm::class)
                             ->setTabName('Остатки')
                             ->setRelationEntities(ProductRestsVm::many(['where' => [['=', 'productId', $model->id]]]))
-                            ->setConfig(function ($model) {
+                            ->setConfig(function ($inModel) use ($model) {
                                 return [
                                     [
                                         'field' => 'productId',
+                                        'label' => 'Продукт',
                                         'component' => DetailComponents::INPUT_FIELD,
-                                        'value' => $model->productId,
+                                        'value' => $model->id,
                                     ],
                                     [
                                         'field' => 'qty',
+                                        'label' => 'Кол-во',
                                         'component' => DetailComponents::INPUT_FIELD,
-                                        'value' => $model->qty,
+                                        'value' => $inModel->qty,
                                     ],
                                     [
                                         'field' => 'userType',
+                                        'label' => 'Тип пользователя',
                                         'component' => DetailComponents::INPUT_FIELD,
-                                        'value' => $model->userType,
+                                        'value' => $inModel->userType,
                                     ],
                                 ];
                             })

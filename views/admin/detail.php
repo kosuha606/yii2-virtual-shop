@@ -10,6 +10,7 @@
     :id="_admin.model.id"
     :save-url="'/admin/'+_admin.entity+'/detail'"
     :item="_admin.model"
+    :additional-components="_admin.additional_config"
     :detail-components="_admin.config">
 
 </detail>
