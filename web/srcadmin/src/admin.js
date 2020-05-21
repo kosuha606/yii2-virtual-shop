@@ -8,6 +8,7 @@ import VueCookie from 'vue-cookie';
 import selectPicker from 'vue-selectpicker'
 
 import InputField from './ui/form/InputField';
+import HiddenField from './ui/form/HiddenField';
 import TextField from './ui/form/TextField';
 import SelectField from './ui/form/SelectField';
 
@@ -17,6 +18,7 @@ global.$ = $;
 Vue.use(selectPicker);
 Vue.use(VueCookie);
 Vue.component('InputField', InputField);
+Vue.component('HiddenField', HiddenField);
 Vue.component('TextField', TextField);
 Vue.component('SelectField', SelectField);
 

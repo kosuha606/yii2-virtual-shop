@@ -1,6 +1,11 @@
 <?php
 
+use app\virtualModels\Admin\Form\SecondaryFormBuilder;
+use app\virtualModels\Admin\Form\SecondaryFormService;
+use app\virtualModels\Model\OrderReserveVm;
 use app\virtualModels\Model\OrderVm;
+use app\virtualModels\Model\ProductRestsVm;
+use app\virtualModels\Model\ProductVm;
 use app\virtualModels\Model\UserVm;
 use app\virtualModels\Services\StringService;
 use app\virtualModels\Admin\Structures\DetailComponents;
@@ -75,6 +80,56 @@ return [
                         'model' => $entityClass,
                         'action' => 'actionView',
                     ],
+                    'additional_config' => function($model) {
+                        $secondaryService = ServiceManager::getInstance()->get(SecondaryFormService::class);
+
+                        $config = $secondaryService->buildForm()
+                            ->setMasterModel($model)
+                            ->setMasterModelField('orderId')
+                            ->setRelationType(SecondaryFormBuilder::ONE_TO_MANY)
+                            ->setRelationClass(OrderReserveVm::class)
+                            ->setTabName('Резервы')
+                            ->setRelationEntities(OrderReserveVm::many(['where' => [['=', 'orderId', $model->id]]]))
+                            ->setConfig(function ($inModel) use ($model) {
+                                $stringService = ServiceManager::getInstance()->get(StringService::class);
+                                /** @var OrderReserveVm $inModel */
+                                return [
+                                    [
+                                        'field' => 'orderId',
+                                        'label' => 'Заказ',
+                                        'component' => DetailComponents::HIDDEN_FIELD,
+                                        'value' => $model->id,
+                                    ],
+                                    [
+                                        'field' => 'productId',
+                                        'component' => DetailComponents::SELECT_FIELD,
+                                        'label' => 'Продукт',
+                                        'value' => $inModel->productId,
+                                        'props' => [
+                                            'items' => $stringService->map(VirtualModel::allToArray(ProductVm::many(['where' => [['all']]])), 'id', 'name')
+                                        ]
+                                    ],
+                                    [
+                                        'field' => 'qty',
+                                        'label' => 'Кол-во',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $inModel->qty,
+                                    ],
+                                    [
+                                        'field' => 'userType',
+                                        'label' => 'Тип пользователя',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $inModel->userType,
+                                    ],
+                                ];
+                            })
+                            ->getConfig()
+                        ;
+
+                        return [
+                            $config
+                        ];
+                    },
                     'config' => function ($model) {
                         $stringService = ServiceManager::getInstance()->get(StringService::class);
 

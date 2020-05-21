@@ -120,7 +120,7 @@ return [
                                     [
                                         'field' => 'productId',
                                         'label' => 'Продукт',
-                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'component' => DetailComponents::HIDDEN_FIELD,
                                         'value' => $model->id,
                                     ],
                                     [
@@ -153,7 +153,7 @@ return [
                                     [
                                         'field' => 'product_id',
                                         'label' => 'Продукт',
-                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'component' => DetailComponents::HIDDEN_FIELD,
                                         'value' => $model->id,
                                     ],
                                     [

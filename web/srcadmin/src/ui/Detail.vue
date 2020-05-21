@@ -19,7 +19,7 @@
             <li class="nav-item active">
                 <a class="nav-link active" data-toggle="tab" href="#description">Основное</a>
             </li>
-            <template v-if="additionalComponents">
+            <template v-if="additionalComponents && item.id">
                 <li v-for="component in additionalComponents" class="nav-item">
                     <a class="nav-link" data-toggle="tab" :href="'#'+component.tab">{{ component.tab }}</a>
                 </li>
@@ -45,7 +45,7 @@
             </div>
 
 
-            <template v-if="additionalComponents">
+            <template v-if="additionalComponents.length && item.id">
                 <div v-for="(component, additionalIndex) in additionalComponents" class="tab-pane fade" :id="component.tab">
                     <div v-if="component.type !== 'one.to.one'">
                         <template v-for="(inComponent, index) in component.initialConfig">
@@ -59,6 +59,7 @@
                         <button @click="addAdditionalData(additionalIndex, component.initialConfig)" type="button" class="btn btn-primary" style="margin-top: 10px;">Добавить</button>
                         <hr>
                         <div v-for="(dataComponent, dataIndex) in component.dataConfig">
+                            <p>&nbsp;</p>
                             <button @click="deleteAdditionalData(additionalIndex, dataIndex)" type="button" class="btn btn-danger">Удалить</button>
                             <template v-for="(inDataComponent, index) in dataComponent">
                                 <div class="form-row">
@@ -260,7 +261,10 @@
                 each(this.defaultFormData, (item, fieldName) => {
                     serverData[fieldName] = item
                 });
-                serverData = this.appendAdditionalData(serverData);
+
+                if (this.item.id) {
+                    serverData = this.appendAdditionalData(serverData);
+                }
 
                 $.ajax({
                     method: 'POST',
