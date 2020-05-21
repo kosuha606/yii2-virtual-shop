@@ -10,6 +10,7 @@ use app\models\OrderReserve;
 use app\models\Payment;
 use app\models\Product;
 use app\models\ProductRests;
+use app\models\ProductSeo;
 use app\models\Promocode;
 use app\models\User;
 use app\virtualModels\Model\ActionVm;
@@ -20,6 +21,7 @@ use app\virtualModels\Model\FilterProductVm;
 use app\virtualModels\Model\OrderVm;
 use app\virtualModels\Model\OrderReserveVm;
 use app\virtualModels\Model\PaymentVm;
+use app\virtualModels\Model\ProductSeoVm;
 use app\virtualModels\Model\ProductVm;
 use app\virtualModels\Model\ProductRestsVm;
 use app\virtualModels\Model\PromocodeVm;
@@ -74,6 +76,9 @@ $config = [
                 ],
                 ProductRestsVm::class => [
                     'ar' => ProductRests::class,
+                ],
+                ProductSeoVm::class => [
+                    'ar' => ProductSeo::class,
                 ],
                 PromocodeVm::class => [
                     'ar' => Promocode::class

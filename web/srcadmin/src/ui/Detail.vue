@@ -71,14 +71,6 @@
                         </div>
                     </div>
                     <div v-else>
-                        <template v-if="!component.dataConfig" v-for="(inComponent, index) in component.initialConfig">
-                            <div class="form-row">
-                                <detail-field
-                                        :component="inComponent"
-                                >
-                                </detail-field>
-                            </div>
-                        </template>
                         <div v-for="dataComponent in component.dataConfig">
                             <template v-for="(inDataComponent, index) in dataComponent">
                                 <div class="form-row">

@@ -10,6 +10,7 @@ use app\models\OrderReserve;
 use app\models\Payment;
 use app\models\Product;
 use app\models\ProductRests;
+use app\models\ProductSeo;
 use app\models\Promocode;
 use app\models\User;
 use yii\db\Migration;
@@ -134,6 +135,16 @@ class m200428_201758_models extends Migration
             'created_at' => $this->dateTime(),
             'updated_at' => $this->dateTime(),
         ]);
+
+        $this->createTable(ProductSeo::tableName(), [
+            'id' => $this->primaryKey(),
+            'product_id' => $this->integer(11),
+            'meta_title' => $this->string(255),
+            'meta_keywords' => $this->string(255),
+            'meta_description' => $this->string(255),
+            'created_at' => $this->dateTime(),
+            'updated_at' => $this->dateTime(),
+        ]);
     }
 
     /**
@@ -149,6 +160,7 @@ class m200428_201758_models extends Migration
         $this->dropTable(Product::tableName());
         $this->dropTable(ProductRests::tableName());
         $this->dropTable(Promocode::tableName());
+        $this->dropTable(ProductSeo::tableName());
     }
 
 }

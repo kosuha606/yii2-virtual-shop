@@ -133,6 +133,13 @@ class SecondaryFormBuilder
             $items[] = $initialConfig($entity);
         }
 
+        if (
+            $this->getRelationType() === self::ONE_TO_ONE &&
+            count($items) === 0
+        ) {
+            $items[] = $initialConfigData;
+        }
+
         return [
             'tab' => $this->getTabName(),
             'type' => $this->getRelationType(),

@@ -4,6 +4,7 @@ use app\virtualModels\Admin\Form\SecondaryFormBuilder;
 use app\virtualModels\Admin\Form\SecondaryFormService;
 use app\virtualModels\Model\OrderVm;
 use app\virtualModels\Model\ProductRestsVm;
+use app\virtualModels\Model\ProductSeoVm;
 use app\virtualModels\Model\ProductVm;
 use app\virtualModels\Model\UserVm;
 use app\virtualModels\Services\StringService;
@@ -139,8 +140,48 @@ return [
                             ->getConfig()
                         ;
 
+                        $configSeo = $secondaryService
+                            ->buildForm()
+                            ->setMasterModel($model)
+                            ->setMasterModelField('product_id')
+                            ->setRelationType(SecondaryFormBuilder::ONE_TO_ONE)
+                            ->setRelationClass(ProductSeoVm::class)
+                            ->setTabName('SEO')
+                            ->setRelationEntities(ProductSeoVm::many(['where' => [['=', 'product_id', $model->id]]]))
+                            ->setConfig(function ($inModel) use ($model) {
+                                return [
+                                    [
+                                        'field' => 'product_id',
+                                        'label' => 'Продукт',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $model->id,
+                                    ],
+                                    [
+                                        'field' => 'meta_title',
+                                        'label' => 'Мета заголовок',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $inModel->meta_title,
+                                    ],
+                                    [
+                                        'field' => 'meta_keywords',
+                                        'label' => 'Мета ключевые слова',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $inModel->meta_keywords,
+                                    ],
+                                    [
+                                        'field' => 'meta_description',
+                                        'label' => 'Мета описание',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $inModel->meta_description,
+                                    ],
+                                ];
+                            })
+                            ->getConfig()
+                        ;
+
                         return [
-                            $config
+                            $config,
+                            $configSeo
                         ];
                     },
                     'config' => function ($model) {
