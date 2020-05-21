@@ -45,7 +45,7 @@
             </div>
 
 
-            <template v-if="additionalComponents.length && item.id">
+            <template v-if="additionalComponents && item.id">
                 <div v-for="(component, additionalIndex) in additionalComponents" class="tab-pane fade" :id="component.tab">
                     <div v-if="component.type !== 'one.to.one'">
                         <template v-for="(inComponent, index) in component.initialConfig">

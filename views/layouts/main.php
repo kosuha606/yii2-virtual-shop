@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\virtualModels\Domains\Menu\Widgets\MenuWidget;
 use app\virtualModels\ServiceManager;
 use app\widgets\Alert;
 use yii\helpers\Html;
@@ -78,6 +79,7 @@ $cart = ServiceManager::getInstance()->cartBuilder->getCart();
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
+        <?= MenuWidget::widget(['code' => 'main']) ?>
         <?= $content ?>
     </div>
 </div>

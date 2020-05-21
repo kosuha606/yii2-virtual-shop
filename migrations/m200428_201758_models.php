@@ -5,6 +5,8 @@ use app\models\Delivery;
 use app\models\Favorite;
 use app\models\FilterCategory;
 use app\models\FilterProduct;
+use app\models\Menu;
+use app\models\MenuItem;
 use app\models\Order;
 use app\models\OrderReserve;
 use app\models\Payment;
@@ -145,6 +147,23 @@ class m200428_201758_models extends Migration
             'created_at' => $this->dateTime(),
             'updated_at' => $this->dateTime(),
         ]);
+
+        $this->createTable(Menu::tableName(), [
+            'id' => $this->primaryKey(),
+            'name' => $this->string(255),
+            'code' => $this->string(255),
+            'created_at' => $this->dateTime(),
+            'updated_at' => $this->dateTime(),
+        ]);
+
+        $this->createTable(MenuItem::tableName(), [
+            'id' => $this->primaryKey(),
+            'link' => $this->string(255),
+            'label' => $this->string(255),
+            'menu_id' => $this->integer(11),
+            'created_at' => $this->dateTime(),
+            'updated_at' => $this->dateTime(),
+        ]);
     }
 
     /**
@@ -161,6 +180,8 @@ class m200428_201758_models extends Migration
         $this->dropTable(ProductRests::tableName());
         $this->dropTable(Promocode::tableName());
         $this->dropTable(ProductSeo::tableName());
+        $this->dropTable(Menu::tableName());
+        $this->dropTable(MenuItem::tableName());
     }
 
 }

@@ -4,6 +4,8 @@ use app\models\Action;
 use app\models\Delivery;
 use app\models\FilterCategory;
 use app\models\FilterProduct;
+use app\models\Menu;
+use app\models\MenuItem;
 use app\models\Order;
 use app\models\OrderReserve;
 use app\models\Payment;
@@ -105,6 +107,28 @@ class m200428_201759_data extends Migration
         $user->username = 'admin';
         $user->email = 'admin@admin.com';
         $user->save();
+
+        $menu = new Menu([
+            'name' => 'Основное',
+            'code' => 'main',
+        ]);
+        $menu->save();
+
+        $menuItem = new MenuItem([
+            'link' => '/one',
+            'label' => 'Певый',
+            'menu_id' => $menu->id,
+        ]);
+        $menuItem->save();
+
+        $menuItem = new MenuItem([
+            'link' => '/two',
+            'label' => 'Второй',
+            'menu_id' => $menu->id,
+        ]);
+        $menuItem->save();
+
+
     }
 
     /**

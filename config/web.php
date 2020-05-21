@@ -5,6 +5,8 @@ use app\models\Delivery;
 use app\models\Favorite;
 use app\models\FilterCategory;
 use app\models\FilterProduct;
+use app\models\Menu;
+use app\models\MenuItem;
 use app\models\Order;
 use app\models\OrderReserve;
 use app\models\Payment;
@@ -13,6 +15,8 @@ use app\models\ProductRests;
 use app\models\ProductSeo;
 use app\models\Promocode;
 use app\models\User;
+use app\virtualModels\Domains\Menu\Models\MenuItemVm;
+use app\virtualModels\Domains\Menu\Models\MenuVm;
 use app\virtualModels\Model\ActionVm;
 use app\virtualModels\Model\DeliveryVm;
 use app\virtualModels\Model\FavoriteVm;
@@ -46,6 +50,12 @@ $config = [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,
             'arRelations' => [
+                MenuVm::class => [
+                    'ar' => Menu::class
+                ],
+                MenuItemVm::class => [
+                    'ar' => MenuItem::class
+                ],
                 FilterProductVm::class => [
                     'ar' => FilterProduct::class
                 ],
