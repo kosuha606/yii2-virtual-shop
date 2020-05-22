@@ -2,6 +2,8 @@
 
 use app\virtualModels\Admin\Form\SecondaryFormBuilder;
 use app\virtualModels\Admin\Form\SecondaryFormService;
+use app\virtualModels\Model\FilterCategoryVm;
+use app\virtualModels\Model\FilterProductVm;
 use app\virtualModels\Model\OrderVm;
 use app\virtualModels\Model\ProductRestsVm;
 use app\virtualModels\Model\ProductSeoVm;
@@ -179,9 +181,48 @@ return [
                             ->getConfig()
                         ;
 
+                        $configProduct = $secondaryService
+                            ->buildForm()
+                            ->setMasterModel($model)
+                            ->setMasterModelField('product_id')
+                            ->setRelationType(SecondaryFormBuilder::ONE_TO_MANY)
+                            ->setRelationClass(FilterProductVm::class)
+                            ->setTabName('Фильтры')
+                            ->setRelationEntities(FilterProductVm::many(['where' => [['=', 'product_id', $model->id]]]))
+                            ->setConfig(function ($inModel) use ($model) {
+                                $stringService = ServiceManager::getInstance()->get(StringService::class);
+
+                                return [
+                                    [
+                                        'field' => 'product_id',
+                                        'label' => 'Продукт',
+                                        'component' => DetailComponents::HIDDEN_FIELD,
+                                        'value' => $model->id,
+                                    ],
+                                    [
+                                        'field' => 'category_id',
+                                        'label' => 'Фильтр',
+                                        'component' => DetailComponents::SELECT_FIELD,
+                                        'value' => $inModel->category_id,
+                                        'props' => [
+                                            'items' => $stringService->map(VirtualModel::allToArray(FilterCategoryVm::many(['where' => [['all']]])), 'id', 'name')
+                                        ]
+                                    ],
+                                    [
+                                        'field' => 'value',
+                                        'label' => 'Значение',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $inModel->value,
+                                    ],
+                                ];
+                            })
+                            ->getConfig()
+                        ;
+
                         return [
                             $config,
-                            $configSeo
+                            $configSeo,
+                            $configProduct
                         ];
                     },
                     'config' => function ($model) {

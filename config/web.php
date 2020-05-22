@@ -2,6 +2,8 @@
 
 use app\models\Action;
 use app\models\Delivery;
+use app\models\Design;
+use app\models\DesignWidget;
 use app\models\Favorite;
 use app\models\FilterCategory;
 use app\models\FilterProduct;
@@ -15,6 +17,10 @@ use app\models\ProductRests;
 use app\models\ProductSeo;
 use app\models\Promocode;
 use app\models\User;
+use app\models\Widget;
+use app\virtualModels\Domains\Design\Models\DesignVm;
+use app\virtualModels\Domains\Design\Models\DesignWidgetVm;
+use app\virtualModels\Domains\Design\Models\WidgetVm;
 use app\virtualModels\Domains\Menu\Models\MenuItemVm;
 use app\virtualModels\Domains\Menu\Models\MenuVm;
 use app\virtualModels\Model\ActionVm;
@@ -52,6 +58,15 @@ $config = [
             'arRelations' => [
                 MenuVm::class => [
                     'ar' => Menu::class
+                ],
+                DesignVm::class => [
+                    'ar' => Design::class
+                ],
+                DesignWidgetVm::class => [
+                    'ar' => DesignWidget::class
+                ],
+                WidgetVm::class => [
+                    'ar' => Widget::class
                 ],
                 MenuItemVm::class => [
                     'ar' => MenuItem::class
