@@ -171,7 +171,7 @@ $config = [
             'rules' => [
                 '/admin' => '/admin/index',
                 '/admin/<route>/<act>' => '/admin/processor',
-                '/p-<id>-<slug>' => '/page/detail',
+                '/p_<id>_<slug>' => '/page/detail',
                 '/news' => '/article/list',
                 '/news/<id>-<slug>' => '/article/detail',
             ],
