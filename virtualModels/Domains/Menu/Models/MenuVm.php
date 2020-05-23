@@ -21,7 +21,10 @@ class MenuVm extends VirtualModel
      */
     public function getItems()
     {
-        $items = MenuItemVm::many(['where' => [['=', 'menu_id', $this->id]]]);
+        $items = MenuItemVm::many([
+            'where' => [['=', 'menu_id', $this->id]],
+            'orderBy' => ['order' => SORT_ASC]
+        ]);
 
         return $items;
     }

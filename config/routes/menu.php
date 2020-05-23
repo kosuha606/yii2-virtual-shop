@@ -11,6 +11,14 @@ $detailTitle = 'Меню';
 
 return [
     'menu' => [
+        'content' => [
+            'name' => 'content',
+            'label' => 'Контент',
+        ],
+        'users' => [
+            'name' => 'users',
+            'label' => 'Пользователи',
+        ],
         'store' => [
             'name' => 'store',
             'label' => 'Магазин',

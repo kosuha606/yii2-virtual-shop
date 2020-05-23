@@ -13,6 +13,7 @@ class MenuItemVm extends VirtualModel
             'link',
             'label',
             'menu_id',
+            'order',
         ];
     }
 }

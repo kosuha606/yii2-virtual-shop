@@ -18,6 +18,7 @@ class UserVm extends VirtualModel
         return [
             'id',
             'name',
+            'email',
             'role',
             'personalDiscount',
             'password',

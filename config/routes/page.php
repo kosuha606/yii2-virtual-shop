@@ -1,13 +1,16 @@
 <?php
 
+use app\models\Design;
 use app\virtualModels\Admin\Form\SecondaryFormBuilder;
 use app\virtualModels\Admin\Form\SecondaryFormService;
+use app\virtualModels\Domains\Design\Models\DesignVm;
+use app\virtualModels\Domains\Design\Models\DesignWidgetVm;
+use app\virtualModels\Domains\Design\Models\WidgetVm;
 use app\virtualModels\Domains\Menu\Models\MenuItemVm;
-use app\virtualModels\Domains\Menu\Models\MenuVm;
-use app\virtualModels\Model\ActionVm;
-use app\virtualModels\Model\OrderVm;
-use app\virtualModels\Model\ProductRestsVm;
-use app\virtualModels\Model\ProductSeoVm;
+use app\virtualModels\Domains\Page\Models\PageVm;
+use app\virtualModels\Domains\Page\Models\SeoPageVm;
+use app\virtualModels\Model\FilterCategoryVm;
+use app\virtualModels\Model\OrderReserveVm;
 use app\virtualModels\Model\ProductVm;
 use app\virtualModels\Model\UserVm;
 use app\virtualModels\Services\StringService;
@@ -17,11 +20,11 @@ use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 use yii\helpers\Inflector;
 
-$baseEntity = 'menu';
+$baseEntity = 'page';
 $baseEntityCamel = Inflector::camelize($baseEntity);
-$entityClass = MenuVm::class;
-$listTitle = 'Меню';
-$detailTitle = 'Меню';
+$entityClass = PageVm::class;
+$listTitle = 'Страницы';
+$detailTitle = 'Страница';
 
 return [
     'routes' => [
@@ -31,7 +34,7 @@ return [
                     'name' => $baseEntity.'_list',
                     'label' => $listTitle,
                     'url' => '/admin/'.$baseEntity.'/list',
-                    'parent' => 'system',
+                    'parent' => 'content',
                 ],
                 'handler' => [
                     'type' => 'vue',
@@ -49,11 +52,6 @@ return [
                             'component' => DetailComponents::INPUT_FIELD,
                             'label' => 'ID',
                         ],
-                        [
-                            'field' => 'code',
-                            'component' => DetailComponents::INPUT_FIELD,
-                            'label' => 'Код',
-                        ],
                     ],
                     'list_config' => [
                         [
@@ -62,22 +60,12 @@ return [
                             'label' => 'ID'
                         ],
                         [
-                            'field' => 'name',
+                            'field' => 'title',
                             'component' => ListComponents::STRING_CELL,
-                            'label' => 'Продукты',
+                            'label' => 'Заголовок',
                             'props' => [
                                 'link' => 1,
                             ]
-                        ],
-                        [
-                            'field' => 'code',
-                            'component' => ListComponents::STRING_CELL,
-                            'label' => 'Код'
-                        ],
-                        [
-                            'field' => 'created_at',
-                            'component' => ListComponents::STRING_CELL,
-                            'label' => 'Создан'
                         ],
                     ]
                 ]
@@ -98,44 +86,44 @@ return [
                         'model' => $entityClass,
                         'action' => 'actionView',
                     ],
+
                     'additional_config' => function($model) {
                         $secondaryService = ServiceManager::getInstance()->get(SecondaryFormService::class);
 
                         $config = $secondaryService->buildForm()
                             ->setMasterModel($model)
-                            ->setMasterModelField('menu_id')
-                            ->setRelationType(SecondaryFormBuilder::ONE_TO_MANY)
-                            ->setRelationClass(MenuItemVm::class)
-                            ->setTabName('Пункты')
-                            ->setRelationEntities(MenuItemVm::many([
-                                'where' => [['=', 'menu_id', $model->id]],
-                                'orderBy' => ['order' => SORT_ASC]
-                            ]))
+                            ->setMasterModelField('page_id')
+                            ->setRelationType(SecondaryFormBuilder::ONE_TO_ONE)
+                            ->setRelationClass(SeoPageVm::class)
+                            ->setTabName('SEO')
+                            ->setRelationEntities(SeoPageVm::many(['where' => [['=', 'page_id', $model->id]]]))
                             ->setConfig(function ($inModel) use ($model) {
+                                $stringService = ServiceManager::getInstance()->get(StringService::class);
+                                /** @var OrderReserveVm $inModel */
                                 return [
                                     [
-                                        'field' => 'menu_id',
-                                        'label' => '',
+                                        'field' => 'page_id',
+                                        'label' => 'Продукт',
                                         'component' => DetailComponents::HIDDEN_FIELD,
                                         'value' => $model->id,
                                     ],
                                     [
-                                        'field' => 'label',
-                                        'label' => 'Заголовок',
+                                        'field' => 'meta_title',
+                                        'label' => 'Мета заголовок',
                                         'component' => DetailComponents::INPUT_FIELD,
-                                        'value' => $inModel->label,
+                                        'value' => $inModel->meta_title,
                                     ],
                                     [
-                                        'field' => 'link',
-                                        'label' => 'Ссылка',
+                                        'field' => 'meta_keywords',
+                                        'label' => 'Мета ключевые слова',
                                         'component' => DetailComponents::INPUT_FIELD,
-                                        'value' => $inModel->link,
+                                        'value' => $inModel->meta_keywords,
                                     ],
                                     [
-                                        'field' => 'order',
-                                        'label' => 'Сортировка',
+                                        'field' => 'meta_description',
+                                        'label' => 'Мета описание',
                                         'component' => DetailComponents::INPUT_FIELD,
-                                        'value' => $inModel->order,
+                                        'value' => $inModel->meta_description,
                                     ],
                                 ];
                             })
@@ -143,7 +131,7 @@ return [
                         ;
 
                         return [
-                            $config,
+                            $config
                         ];
                     },
                     'config' => function ($model) {
@@ -151,16 +139,22 @@ return [
 
                         return [
                             [
-                                'field' => 'name',
+                                'field' => 'title',
                                 'component' => DetailComponents::INPUT_FIELD,
-                                'label' => 'Название',
-                                'value' => $model->name,
+                                'label' => 'Заголовок',
+                                'value' => $model->title,
                             ],
                             [
-                                'field' => 'code',
+                                'field' => 'slug',
                                 'component' => DetailComponents::INPUT_FIELD,
-                                'label' => 'Код',
-                                'value' => $model->code,
+                                'label' => 'Ссылка',
+                                'value' => $model->slug,
+                            ],
+                            [
+                                'field' => 'content',
+                                'component' => DetailComponents::TEXTAREA_FIELD,
+                                'label' => 'Содержимое',
+                                'value' => $model->content,
                             ],
                         ];
                     },

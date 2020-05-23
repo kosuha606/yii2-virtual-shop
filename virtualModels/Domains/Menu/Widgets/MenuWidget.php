@@ -11,7 +11,9 @@ class MenuWidget extends Widget
 
     public function run()
     {
-        $menu = MenuVm::one(['where' => [['=', 'code', $this->code]]]);
+        $menu = MenuVm::one([
+            'where' => [['=', 'code', $this->code]],
+        ]);
 
         return $this->render('menu', [
             'menu' => $menu

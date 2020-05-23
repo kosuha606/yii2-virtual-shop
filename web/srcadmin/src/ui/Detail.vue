@@ -48,16 +48,7 @@
             <template v-if="additionalComponents && item.id">
                 <div v-for="(component, additionalIndex) in additionalComponents" class="tab-pane fade" :id="component.tab">
                     <div v-if="component.type !== 'one.to.one'">
-                        <template v-for="(inComponent, index) in component.initialConfig">
-                            <div class="form-row">
-                                <detail-field
-                                        :component="inComponent"
-                                >
-                                </detail-field>
-                            </div>
-                        </template>
-                        <button @click="addAdditionalData(additionalIndex, component.initialConfig)" type="button" class="btn btn-primary" style="margin-top: 10px;">Добавить</button>
-                        <hr>
+
                         <div v-for="(dataComponent, dataIndex) in component.dataConfig">
                             <p>&nbsp;</p>
                             <button @click="deleteAdditionalData(additionalIndex, dataIndex)" type="button" class="btn btn-danger">Удалить</button>
@@ -70,6 +61,17 @@
                                 </div>
                             </template>
                         </div>
+                        <hr>
+                        <template v-for="(inComponent, index) in component.initialConfig">
+                            <div class="form-row">
+                                <detail-field
+                                        :component="inComponent"
+                                >
+                                </detail-field>
+                            </div>
+                        </template>
+                        <button @click="addAdditionalData(additionalIndex, component.initialConfig)" type="button" class="btn btn-primary" style="margin-top: 10px;">Добавить</button>
+
                     </div>
                     <div v-else>
                         <div v-for="dataComponent in component.dataConfig">

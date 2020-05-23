@@ -2,12 +2,11 @@
 
 namespace app\models;
 
-use kosuha606\VirtualModel\VirtualModel;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-class MenuItem extends ActiveRecord
+class SeoArticle extends ActiveRecord
 {
     public function behaviors()
     {
@@ -23,7 +22,7 @@ class MenuItem extends ActiveRecord
 
     public static function tableName()
     {
-        return 'menu_item';
+        return 'seo_article';
     }
 
     public function rules(): array
@@ -31,12 +30,17 @@ class MenuItem extends ActiveRecord
         return [
             [
                 [
-                    'link',
-                    'label',
-                    'order',
-                    'menu_id',
+                    'article_id',
                 ],
                 'required'
+            ],
+            [
+                [
+                    'meta_title',
+                    'meta_keywords',
+                    'meta_description',
+                ],
+                'safe'
             ]
         ];
     }

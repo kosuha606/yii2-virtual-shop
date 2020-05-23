@@ -2,12 +2,12 @@
 
 namespace app\models;
 
-use kosuha606\VirtualModel\VirtualModel;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
+use yii\helpers\Inflector;
 
-class MenuItem extends ActiveRecord
+class Article extends ActiveRecord
 {
     public function behaviors()
     {
@@ -23,7 +23,13 @@ class MenuItem extends ActiveRecord
 
     public static function tableName()
     {
-        return 'menu_item';
+        return 'article';
+    }
+
+    public function beforeSave($insert)
+    {
+        $this->slug = Inflector::slug($this->title);
+        return parent::beforeSave($insert);
     }
 
     public function rules(): array
@@ -31,10 +37,14 @@ class MenuItem extends ActiveRecord
         return [
             [
                 [
-                    'link',
-                    'label',
-                    'order',
-                    'menu_id',
+                    'slug',
+                ],
+                'safe'
+            ],
+            [
+                [
+                    'title',
+                    'content',
                 ],
                 'required'
             ]

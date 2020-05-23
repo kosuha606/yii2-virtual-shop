@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Action;
+use app\models\Article;
 use app\models\Delivery;
 use app\models\Design;
 use app\models\DesignWidget;
@@ -11,18 +12,25 @@ use app\models\Menu;
 use app\models\MenuItem;
 use app\models\Order;
 use app\models\OrderReserve;
+use app\models\Page;
 use app\models\Payment;
 use app\models\Product;
 use app\models\ProductRests;
 use app\models\ProductSeo;
 use app\models\Promocode;
+use app\models\SeoArticle;
+use app\models\SeoPage;
 use app\models\User;
 use app\models\Widget;
+use app\virtualModels\Domains\Article\Models\ArticleVm;
+use app\virtualModels\Domains\Article\Models\SeoArticleVm;
 use app\virtualModels\Domains\Design\Models\DesignVm;
 use app\virtualModels\Domains\Design\Models\DesignWidgetVm;
 use app\virtualModels\Domains\Design\Models\WidgetVm;
 use app\virtualModels\Domains\Menu\Models\MenuItemVm;
 use app\virtualModels\Domains\Menu\Models\MenuVm;
+use app\virtualModels\Domains\Page\Models\PageVm;
+use app\virtualModels\Domains\Page\Models\SeoPageVm;
 use app\virtualModels\Model\ActionVm;
 use app\virtualModels\Model\DeliveryVm;
 use app\virtualModels\Model\FavoriteVm;
@@ -56,6 +64,18 @@ $config = [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,
             'arRelations' => [
+                SeoArticleVm::class => [
+                    'ar' => SeoArticle::class,
+                ],
+                SeoPageVm::class => [
+                    'ar' => SeoPage::class,
+                ],
+                ArticleVm::class => [
+                    'ar' => Article::class
+                ],
+                PageVm::class => [
+                    'ar' => Page::class
+                ],
                 MenuVm::class => [
                     'ar' => Menu::class
                 ],
@@ -150,7 +170,10 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '/admin' => '/admin/index',
-                '/admin/<route>/<act>' => '/admin/processor'
+                '/admin/<route>/<act>' => '/admin/processor',
+                '/p-<id>-<slug>' => '/page/detail',
+                '/news' => '/article/list',
+                '/news/<id>-<slug>' => '/article/detail',
             ],
         ],
     ],
