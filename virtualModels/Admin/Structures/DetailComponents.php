@@ -6,6 +6,8 @@ class DetailComponents
 {
     const INPUT_FIELD = 'InputField';
 
+    const HTML_FIELD = 'HtmlField';
+
     const HIDDEN_FIELD = 'HiddenField';
 
     const TEXTAREA_FIELD = 'TextField';

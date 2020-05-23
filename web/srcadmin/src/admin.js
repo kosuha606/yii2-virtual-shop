@@ -11,6 +11,7 @@ import InputField from './ui/form/InputField';
 import HiddenField from './ui/form/HiddenField';
 import TextField from './ui/form/TextField';
 import SelectField from './ui/form/SelectField';
+import HtmlField from './ui/form/HtmlField';
 
 global.jQuery = $;
 global.$ = $;
@@ -21,6 +22,7 @@ Vue.component('InputField', InputField);
 Vue.component('HiddenField', HiddenField);
 Vue.component('TextField', TextField);
 Vue.component('SelectField', SelectField);
+Vue.component('HtmlField', HtmlField);
 
 const app = new Vue({
     el: '#vue-app',

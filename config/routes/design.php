@@ -161,7 +161,7 @@ return [
                             ],
                             [
                                 'field' => 'template',
-                                'component' => DetailComponents::TEXTAREA_FIELD,
+                                'component' => DetailComponents::HTML_FIELD,
                                 'label' => 'Шаблон',
                                 'value' => $model->template,
                             ],
