@@ -1,6 +1,7 @@
 <?php
 
 use app\virtualModels\Domains\Article\Models\ArticleVm;
+use yii\helpers\Html;
 
 /** @var ArticleVm[] $articles */
 
@@ -8,9 +9,10 @@ use app\virtualModels\Domains\Article\Models\ArticleVm;
 
 <?php foreach ($articles as $article) { ?>
     <div>
-        <b>
-            <?= $article->title ?>
-        </b>
+        <h3>
+            <?= Html::a($article->title, ['article/detail', 'id' => $article->id, 'slug' => $article->slug]) ?>
+        </h3>
         <?= $article->created_at ?>
+        <hr>
     </div>
 <?php } ?>

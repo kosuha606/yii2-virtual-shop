@@ -15,7 +15,10 @@ class ArticleController extends Controller
      */
     public function actionList()
     {
-        $articles = ArticleVm::many(['where' => ['all']]);
+        $articles = ArticleVm::many([
+            'where' => ['all'],
+            'orderBy' => ['created_at' => SORT_DESC]
+        ]);
 
         return $this->render('list', [
             'articles' => $articles

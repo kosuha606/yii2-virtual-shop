@@ -4,6 +4,8 @@
 
 }
 
-.form-row {
+.form-row .selecter,
+.form-row input {
   max-width: 400px;
+  display: block;
 }

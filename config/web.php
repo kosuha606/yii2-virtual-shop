@@ -173,7 +173,7 @@ $config = [
                 '/admin/<route>/<act>' => '/admin/processor',
                 '/p_<id>_<slug>' => '/page/detail',
                 '/news' => '/article/list',
-                '/news/<id>-<slug>' => '/article/detail',
+                '/news/<id>_<slug>' => '/article/detail',
             ],
         ],
     ],
