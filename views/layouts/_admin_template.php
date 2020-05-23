@@ -13,6 +13,8 @@ use yii\widgets\Breadcrumbs;
 /** @var AdminController $controller */
 $controller = $this->context;
 
+$route = Yii::$app->request->get('route');
+
 ?>
 
 
@@ -71,10 +73,23 @@ $controller = $this->context;
                         <?php } else { ?>
                             <a href="#" data-toggle="collapse" data-target="#<?= $menu['name'] ?>">
                                 <?= $menu['label'] ?>
+                                &darr;
                             </a>
                         <?php } ?>
                         <?php if (isset($menu['children'])) { ?>
-                        <ul id="<?= $menu['name'] ?>" class="collapse in">
+                            <?php
+                            $isActive = false;
+                            $childrentNames = array_column($menu['children'], 'name');
+                            foreach ($childrentNames as $childrentName) {
+                                if (strpos($childrentName, $route) !== false) {
+                                    $isActive = true;
+                                    break;
+                                }
+                            }
+
+                            $k = 1;
+                            ?>
+                        <ul id="<?= $menu['name'] ?>" class="collapse <?= $isActive ? 'in' : '' ?>">
                             <?php foreach ($menu['children'] as $menuChild) { ?>
                                 <?php if (isset($menuChild['visible']) && $menuChild['visible'] === false) { ?>
                                     <?php continue; ?>

@@ -28,13 +28,13 @@
             this.selectedValue = this.value;
         },
         watch: {
-            selectedValue() {
-                this.onChange();
+            selectedValue(value) {
+                console.log(value);
+                this.$emit('input', value);
             }
         },
         methods: {
             onChange() {
-                this.$emit('input', this.selectedValue);
             }
         }
     }

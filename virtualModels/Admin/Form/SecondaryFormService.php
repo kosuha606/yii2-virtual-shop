@@ -86,12 +86,16 @@ class SecondaryFormService
         }
 
         $postData = $this->requestService->request()->post;
+        $sessionConfig = $this->sessionService->get(self::SESSION_KEY);
 
         if (!isset($postData[self::SESSION_KEY])) {
-            return;
+            // Если нет данных пищем пустой массив
+            $postData[self::SESSION_KEY] = [];
+            foreach ($sessionConfig->value as $sessClass => $data) {
+                $postData[self::SESSION_KEY][$sessClass] = [];
+            }
         }
 
-        $sessionConfig = $this->sessionService->get(self::SESSION_KEY);
         $modelClasses = array_keys($postData[self::SESSION_KEY]);
 
         // Удаляем все связанные старые модели

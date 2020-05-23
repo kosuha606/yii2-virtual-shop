@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\virtualModels\Admin\Dto\AdminResponseDTO;
 use app\virtualModels\Admin\Interfaces\AdminControllerInterface;
 use app\virtualModels\Admin\Processors\AdminRequestProcessor;
 use app\virtualModels\Controllers\CrudController;
@@ -20,6 +21,8 @@ class AdminController extends Controller implements AdminControllerInterface
     /**
      * @param $action
      * @return bool
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
      * @throws \yii\web\BadRequestHttpException
      */
     public function beforeAction($action)
@@ -67,7 +70,13 @@ class AdminController extends Controller implements AdminControllerInterface
         $processor->loadConfig(__DIR__.'/../config/routes');
         $processor->setController($this);
 
-        $response = $processor->process($controller, $action, $requestData);
+        $response = new AdminResponseDTO('', []);
+        try {
+            $response = $processor->process($controller, $action, $requestData);
+        } catch (\Exception $exception) {
+            $response->json['result'] = false;
+            $response->json['errors'][] = $exception->getMessage();
+        }
         $this->menu = $processor->getMenu();
 
         if (Yii::$app->request->isAjax) {

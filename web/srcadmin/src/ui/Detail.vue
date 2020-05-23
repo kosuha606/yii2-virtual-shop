@@ -182,6 +182,7 @@
                     message += error+"<br>";
                 });
                 this.alert(message, 'error');
+                $("html, body").animate({ scrollTop: 0 }, "slow");
             },
             deleteItem() {
                 if (!confirm('Вы уверены?')) {
