@@ -17,6 +17,8 @@ class SecondaryFormBuilder
 
     private $masterMmodel;
 
+    private $masterModelId;
+
     private $masterModelField;
 
     private $relationType;
@@ -218,6 +220,24 @@ class SecondaryFormBuilder
     {
         $this->masterModelField = $masterModelField;
 
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMasterModelId()
+    {
+        return $this->masterModelId;
+    }
+
+    /**
+     * @param mixed $masterModelId
+     * @return SecondaryFormBuilder
+     */
+    public function setMasterModelId($masterModelId)
+    {
+        $this->masterModelId = $masterModelId;
         return $this;
     }
 }

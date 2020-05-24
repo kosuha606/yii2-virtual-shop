@@ -2,6 +2,7 @@
 
 use app\virtualModels\Admin\Form\SecondaryFormBuilder;
 use app\virtualModels\Admin\Form\SecondaryFormService;
+use app\virtualModels\Domains\Comment\Models\CommentVm;
 use app\virtualModels\Model\FilterCategoryVm;
 use app\virtualModels\Model\FilterProductVm;
 use app\virtualModels\Model\OrderVm;
@@ -219,10 +220,58 @@ return [
                             ->getConfig()
                         ;
 
+                        $configComment = $secondaryService
+                            ->buildForm()
+                            ->setMasterModelId($model->id.','.get_class($model))
+                            ->setMasterModelField('model_id,model_class')
+                            ->setRelationType(SecondaryFormBuilder::ONE_TO_MANY)
+                            ->setRelationClass(CommentVm::class)
+                            ->setTabName('Комментарии')
+                            ->setRelationEntities(CommentVm::many(['where' => [
+                                ['=', 'model_id', $model->id],
+                                ['=', 'model_class', ProductVm::class],
+                            ]]))
+                            ->setConfig(function ($inModel) use ($model) {
+                                $stringService = ServiceManager::getInstance()->get(StringService::class);
+
+                                return [
+                                    [
+                                        'field' => 'model_id',
+                                        'label' => 'Продукт',
+                                        'component' => DetailComponents::HIDDEN_FIELD,
+                                        'value' => $model->id,
+                                    ],
+                                    [
+                                        'field' => 'model_class',
+                                        'label' => 'Продукт',
+                                        'component' => DetailComponents::HIDDEN_FIELD,
+                                        'value' => get_class($model),
+                                    ],
+                                    [
+                                        'field' => 'user_id',
+                                        'label' => 'Пользователь',
+                                        'component' => DetailComponents::SELECT_FIELD,
+                                        'value' => $inModel->user_id,
+                                        'props' => [
+                                            'items' => $stringService->map(VirtualModel::allToArray(UserVm::many(['where' => [['all']]])), 'id', 'email')
+                                        ]
+                                    ],
+                                    [
+                                        'field' => 'content',
+                                        'label' => 'Сообщение',
+                                        'component' => DetailComponents::TEXTAREA_FIELD,
+                                        'value' => $inModel->content,
+                                    ],
+                                ];
+                            })
+                            ->getConfig()
+                        ;
+
                         return [
                             $config,
                             $configSeo,
-                            $configProduct
+                            $configProduct,
+                            $configComment,
                         ];
                     },
                     'config' => function ($model) {

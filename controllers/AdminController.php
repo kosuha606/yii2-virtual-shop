@@ -76,6 +76,10 @@ class AdminController extends Controller implements AdminControllerInterface
         } catch (\Exception $exception) {
             $response->json['result'] = false;
             $response->json['errors'][] = $exception->getMessage();
+
+            if (!Yii::$app->request->isAjax) {
+                throw $exception;
+            }
         }
         $this->menu = $processor->getMenu();
 

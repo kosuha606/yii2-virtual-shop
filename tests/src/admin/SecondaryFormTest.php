@@ -47,7 +47,13 @@ class SecondaryFormTest extends VirtualTestCase
                     'name' => 'Первый',
                     'price' => 100,
                     'price2B' => 200,
-                ]
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'Второй',
+                    'price' => 200,
+                    'price2B' => 300,
+                ],
             ]
         ];
 
@@ -118,6 +124,67 @@ class SecondaryFormTest extends VirtualTestCase
      * @throws Exception
      */
     public function testProcess()
+    {
+        $secondaryService = ServiceManager::getInstance()->get(SecondaryFormService::class);
+        // Устанавливаем состояние сессии
+        $this->sessionProvider->memoryStorage = [
+            Session::class => [
+                [
+                    'id' => 0,
+                    'key' => 'secondary_form',
+                    'value' => [
+                        ProductRestsVm::class => [
+                            'masterModelId' => 1,
+                            'masterModelField' => 'productId',
+                            'masterModelClass' => ProductVm::class,
+                            'relationType' => SecondaryFormBuilder::ONE_TO_ONE
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        $this->requestProvider->memoryStorage = [
+            Request::class => [
+                [
+                    'get' => [],
+                    'post' => [
+                        'secondary_form' => [
+                            ProductRestsVm::class => [
+                                [
+                                    'productId' => 1,
+                                    'qty' => 10,
+                                    'userType' => 'b2c',
+                                ],
+                                [
+                                    'productId' => 1,
+                                    'qty' => 16,
+                                    'userType' => 'b2c',
+                                ],
+                                [
+                                    'productId' => 1,
+                                    'qty' => 15,
+                                    'userType' => 'b2b',
+                                ],
+                            ]
+                        ]
+                    ],
+                    'isAjax' => false,
+                    'isPost' => true,
+                ]
+            ]
+        ];
+
+        $secondaryService->processRememberedForm();
+
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     */
+    public function testMultiProcess()
     {
         $secondaryService = ServiceManager::getInstance()->get(SecondaryFormService::class);
         // Устанавливаем состояние сессии

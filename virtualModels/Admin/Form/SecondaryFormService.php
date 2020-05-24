@@ -66,7 +66,7 @@ class SecondaryFormService
         }
 
         $value[$builder->getRelationClass()] = [
-            'masterModelId' => $builder->getMasterModel()->id,
+            'masterModelId' => $builder->getMasterModelId() ?: $builder->getMasterModel()->id,
             'masterModelField' => $builder->getMasterModelField(),
             'masterModelClass' => get_class($builder->getMasterModel()),
             'relationType' => $builder->getRelationType(),
@@ -108,7 +108,19 @@ class SecondaryFormService
         /** @var VirtualModel $class */
         foreach ($modelClasses as $class) {
             $sessionModelData = $sessionConfig->value[$class];
-            $models = $class::many(['where' => [['=', $sessionModelData['masterModelField'], $sessionModelData['masterModelId']]]]);
+
+            $values = explode(',', $sessionModelData['masterModelId']);
+            $fields = explode(',', $sessionModelData['masterModelField']);
+            $where = [];
+            foreach ($values as $index => $value) {
+                $where[] = [
+                    '=',
+                    $fields[$index],
+                    $value,
+                ];
+            }
+
+            $models = $class::many(['where' => $where]);
             /** @var VirtualModel $model */
             foreach ($models as $model) {
                 $model->delete();
