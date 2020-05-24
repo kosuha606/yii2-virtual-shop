@@ -38,6 +38,7 @@ class Article extends ActiveRecord
             [
                 [
                     'slug',
+                    'photo',
                 ],
                 'safe'
             ],

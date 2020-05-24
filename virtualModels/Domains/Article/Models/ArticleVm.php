@@ -11,6 +11,7 @@ class ArticleVm extends VirtualModel
         return [
             'id',
             'title',
+            'photo',
             'slug',
             'content',
             'created_at',

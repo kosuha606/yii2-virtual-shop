@@ -197,6 +197,12 @@ return [
                                 'value' => $model->title,
                             ],
                             [
+                                'field' => 'photo',
+                                'component' => DetailComponents::IMAGE_FIELD,
+                                'label' => 'Изображение',
+                                'value' => $model->photo,
+                            ],
+                            [
                                 'field' => 'slug',
                                 'component' => DetailComponents::INPUT_FIELD,
                                 'label' => 'Ссылка',
