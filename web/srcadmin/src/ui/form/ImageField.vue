@@ -68,6 +68,9 @@
         border-radius: 10px;
         background: #aaa;
     }
+    .image-field {
+        position: relative;
+    }
     .image-field .image label {
         display: block;
         position: absolute;
