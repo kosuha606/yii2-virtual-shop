@@ -20,6 +20,7 @@ use app\models\ProductSeo;
 use app\models\Promocode;
 use app\models\SeoArticle;
 use app\models\SeoPage;
+use app\models\Text;
 use app\models\User;
 use app\models\Widget;
 use app\virtualModels\Domains\Article\Models\ArticleVm;
@@ -31,6 +32,7 @@ use app\virtualModels\Domains\Menu\Models\MenuItemVm;
 use app\virtualModels\Domains\Menu\Models\MenuVm;
 use app\virtualModels\Domains\Page\Models\PageVm;
 use app\virtualModels\Domains\Page\Models\SeoPageVm;
+use app\virtualModels\Domains\Text\Models\TextVm;
 use app\virtualModels\Model\ActionVm;
 use app\virtualModels\Model\DeliveryVm;
 use app\virtualModels\Model\FavoriteVm;
@@ -66,6 +68,9 @@ $config = [
             'arRelations' => [
                 SeoArticleVm::class => [
                     'ar' => SeoArticle::class,
+                ],
+                TextVm::class => [
+                    'ar' => Text::class,
                 ],
                 SeoPageVm::class => [
                     'ar' => SeoPage::class,

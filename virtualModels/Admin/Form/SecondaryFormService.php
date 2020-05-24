@@ -82,6 +82,7 @@ class SecondaryFormService
     public function processRememberedForm()
     {
         if (!$this->requestService->request()->isPost) {
+            $this->sessionService->remove(self::SESSION_KEY);
             return;
         }
 
@@ -91,6 +92,11 @@ class SecondaryFormService
         if (!isset($postData[self::SESSION_KEY])) {
             // Если нет данных пищем пустой массив
             $postData[self::SESSION_KEY] = [];
+
+            if (!$sessionConfig->value) {
+                return;
+            }
+
             foreach ($sessionConfig->value as $sessClass => $data) {
                 $postData[self::SESSION_KEY][$sessClass] = [];
             }
