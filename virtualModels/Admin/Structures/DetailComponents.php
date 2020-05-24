@@ -16,5 +16,5 @@ class DetailComponents
 
     const CHECKBOX_FIELD = 'CheckboxField';
 
-    const REDACTOR_FIELD = 'Redactor';
+    const REDACTOR_FIELD = 'RedactorField';
 }

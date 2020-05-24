@@ -152,7 +152,7 @@ return [
                             ],
                             [
                                 'field' => 'content',
-                                'component' => DetailComponents::TEXTAREA_FIELD,
+                                'component' => DetailComponents::REDACTOR_FIELD,
                                 'label' => 'Содержимое',
                                 'value' => $model->content,
                             ],
