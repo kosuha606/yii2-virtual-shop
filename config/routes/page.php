@@ -133,6 +133,7 @@ return [
 
                         $configComment = $secondaryService
                             ->buildForm()
+                            ->setMasterModel($model)
                             ->setMasterModelId($model->id.','.get_class($model))
                             ->setMasterModelField('model_id,model_class')
                             ->setRelationType(SecondaryFormBuilder::ONE_TO_MANY)
