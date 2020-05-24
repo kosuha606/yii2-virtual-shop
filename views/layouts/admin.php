@@ -14,6 +14,8 @@ use app\assets\AppAsset;
 AppAsset::register($this);
 AdminAsset::register($this);
 
+$this->registerJsVar('webpack_asset_path', '/srcadmin/dist/');
+
 $this->registerJsFile('/srcadmin/dist/admin.js');
 
 ?>

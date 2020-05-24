@@ -7,4 +7,5 @@ mix
     .js('src/admin.js', '')
     .js('src/css/admin.scss', '')
     .version()
+    .sourceMaps()
 ;

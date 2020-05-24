@@ -35,6 +35,7 @@
                         <template v-for="(component, index) in formData">
                             <div class="form-row">
                                 <detail-field
+                                        :key="'main_data_field'+index"
                                         :component="component"
                                 >
                                 </detail-field>
@@ -55,6 +56,7 @@
                             <template v-for="(inDataComponent, index) in dataComponent">
                                 <div class="form-row">
                                     <detail-field
+                                            :key="'data_component'+index"
                                             :component="inDataComponent"
                                     >
                                     </detail-field>
@@ -62,14 +64,6 @@
                             </template>
                         </div>
                         <hr>
-                        <template v-for="(inComponent, index) in component.initialConfig">
-                            <div class="form-row">
-                                <detail-field
-                                        :component="inComponent"
-                                >
-                                </detail-field>
-                            </div>
-                        </template>
                         <button @click="addAdditionalData(additionalIndex, component.initialConfig)" type="button" class="btn btn-primary" style="margin-top: 10px;">Добавить</button>
 
                     </div>
@@ -78,6 +72,7 @@
                             <template v-for="(inDataComponent, index) in dataComponent">
                                 <div class="form-row">
                                     <detail-field
+                                            :key="'data_component'+index"
                                             :component="inDataComponent"
                                     >
                                     </detail-field>
@@ -114,7 +109,7 @@
 </template>
 
 <script>
-    import {clone, each} from 'lodash';
+    import {clone, cloneDeep, each} from 'lodash';
     import DetailField from './DetailField';
 
     export default {
@@ -223,8 +218,7 @@
                 this.$forceUpdate();
             },
             addAdditionalData(additionalIndex, data) {
-                console.log(data);
-                this.additionalComponents[additionalIndex]['dataConfig'].push(data);
+                this.additionalComponents[additionalIndex]['dataConfig'].push(cloneDeep(data));
                 this.$forceUpdate();
             },
             deleteAdditionalData(additionalIndex, dataIndex) {
