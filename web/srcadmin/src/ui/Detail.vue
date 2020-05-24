@@ -13,7 +13,6 @@
             <div v-html="alertMessage"></div>
         </div>
 
-        <p>&nbsp;</p>
 
         <ul class="nav nav-tabs">
             <li class="nav-item active">

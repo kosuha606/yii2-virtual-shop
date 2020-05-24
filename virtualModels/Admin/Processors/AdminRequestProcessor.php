@@ -198,6 +198,7 @@ class AdminRequestProcessor
                             $id,
                             $requestData['post']
                         );
+                        $handler['item'] = $model;
                         $successMessage = null;
 
                         $this->permissionService->ensureEntityAvailable($model, $user);
