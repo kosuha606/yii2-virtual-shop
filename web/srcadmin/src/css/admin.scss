@@ -13,3 +13,29 @@
 .ck-content.ck-editor__editable {
   min-height: 500px;
 }
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px
+}
+
+::-webkit-scrollbar-track {
+  background: #333
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7086ad
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #af9292;
+  cursor: pointer
+}

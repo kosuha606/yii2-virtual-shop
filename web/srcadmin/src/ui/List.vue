@@ -2,11 +2,75 @@
     <div>
         <vue-table
                 :id="id"
+                ref="mainList"
                 :sync-url="fetchData"
                 :cell-components="vueTableFields"
                 :filter-components="filterComponents"
                 :mass-operation-components="massOperationComponents"
         >
+            <template v-slot:pagination_top>
+                <div v-if="$refs && $refs.mainList">
+                    <button v-if="$refs.mainList.pagination.appendMode" @click="$refs.mainList.pagination.nextPage()" type="button">
+                        Показать еще
+                    </button>
+                    <div v-else class="pagination-wrapper">
+                        <ul class="pagination pull-left">
+                            <li class="pagination-item">
+                                <button class="btn btn-default" @click="$refs.mainList.pagination.gotoBegin()" type="button">В начало</button>
+                            </li>
+                            <li class="pagination-item">
+                                <button class="btn btn-default" @click="$refs.mainList.pagination.prevPage()" type="button">Назад</button>
+                            </li>
+                            <li :class="{'pagination-item':1, 'pagination-item__active': $refs.mainList.page == $refs.mainList.pagination.page}" v-for="page in $refs.mainList.helpers.range(1, $refs.mainList.pagination.pagesCount())">
+                                <button class="btn btn-default" @click="$refs.mainList.pagination.gotoPage(page)" type="button">
+                                    {{ page }}
+                                </button>
+                            </li>
+                            <li class="pagination-item">
+                                <button class="btn btn-default" @click="$refs.mainList.pagination.nextPage()" type="button">Вперед</button>
+                            </li>
+                            <li class="pagination-item">
+                                <button class="btn btn-default" @click="$refs.mainList.pagination.gotoEnd()" type="button">В конец</button>
+                            </li>
+                        </ul>
+                        <div class="items-per-page pull-right">
+                            <select class="form-control" v-model="$refs.mainList.pagination.itemsPerPage">
+                                <option
+                                        :selected="variant==$refs.mainList.pagination.itemsPerPage"
+                                        v-for="variant in $refs.mainList.pagination.itemsPerPageVariants"
+                                        :value="variant">
+                                    {{ variant }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </template>
+            <template v-slot:filter>
+                <div class="vue-table-filter" v-if="$refs && $refs.mainList">
+                    <h3 v-if="$refs.mainList.filterComponents.length">Фильтр</h3>
+                    <div class="row">
+                        <div class="col-md-4"
+                             v-for="component in $refs.mainList.filterComponents"
+                        >
+                            <component
+                                    v-model="$refs.mainList.filters[component.field]"
+                                    :key="'mass_'+component.field+component.label"
+                                    :is="component.component"
+                                    :name="component.field"
+                                    :label="component.label"
+                                    :props="component.props"
+                            ></component>
+                        </div>
+                    </div>
+                    <div class="vue-table-filter-reset mt-10">
+                        <button class="btn btn-default" @click="$refs.mainList.resetFilter" v-if="$refs.mainList.filterComponents.length">
+                            Сбросить
+                        </button>
+                    </div>
+                </div>
+            </template>
         </vue-table>
     </div>
 </template>

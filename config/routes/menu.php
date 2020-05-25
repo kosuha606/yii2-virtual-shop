@@ -15,10 +15,6 @@ return [
             'name' => 'content',
             'label' => 'Контент',
         ],
-        'users' => [
-            'name' => 'users',
-            'label' => 'Пользователи',
-        ],
         'store' => [
             'name' => 'store',
             'label' => 'Магазин',
@@ -26,6 +22,10 @@ return [
         'system' => [
             'name' => 'system',
             'label' => 'Система',
+        ],
+        'users' => [
+            'name' => 'users',
+            'label' => 'Пользователи',
         ],
     ]
 ];
