@@ -3,6 +3,7 @@
 namespace app\virtualModels\Admin\Form;
 
 use kosuha606\VirtualModel\VirtualModel;
+use yii\helpers\Inflector;
 
 /**
  * Строитель, отвечающий за построение второстепенной формы сущности
@@ -144,6 +145,7 @@ class SecondaryFormBuilder
 
         return [
             'tab' => $this->getTabName(),
+            'tabLink' => Inflector::slug($this->getTabName()),
             'type' => $this->getRelationType(),
             'initialConfig' => $initialConfigData,
             'relationClass' => $this->getRelationClass(),

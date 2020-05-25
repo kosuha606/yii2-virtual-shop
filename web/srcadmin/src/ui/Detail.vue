@@ -20,7 +20,7 @@
             </li>
             <template v-if="additionalComponents && item.id">
                 <li v-for="component in additionalComponents" class="nav-item">
-                    <a class="nav-link" data-toggle="tab" :href="'#'+component.tab">{{ component.tab }}</a>
+                    <a class="nav-link" data-toggle="tab" :href="'#'+component.tabLink">{{ component.tab }}</a>
                 </li>
             </template>
         </ul>
@@ -46,7 +46,7 @@
 
 
             <template v-if="additionalComponents && item.id">
-                <div v-for="(component, additionalIndex) in additionalComponents" class="tab-pane fade" :id="component.tab">
+                <div v-for="(component, additionalIndex) in additionalComponents" class="tab-pane fade" :id="component.tabLink">
                     <div v-if="component.type !== 'one.to.one'">
 
                         <div v-for="(dataComponent, dataIndex) in component.dataConfig">
@@ -130,6 +130,20 @@
                 this.formData[element.field] = element;
             });
             this.$forceUpdate();
+        },
+        mounted() {
+            $(document).ready(() => {
+                let hash = window.location.hash;
+
+                if (hash) {
+                    hash = hash.replace('-tab', '');
+                    $('[href="'+hash+'"]').trigger('click');
+                }
+
+                $('.nav-tabs a').on('shown.bs.tab', function (e) {
+                    window.location.hash = e.target.hash+'-tab';
+                })
+            });
         },
         computed: {
             componentsIndex() {
@@ -273,7 +287,11 @@
                         if (afterSuccess) {
                             afterSuccess();
                         } else {
-                            location.href = this.saveUrl + '?id='+response.model.id;
+                            let url = this.saveUrl + '?id='+response.model.id;
+                            if (location.hash) {
+                                url = url + '#' + location.hash;
+                            }
+                            location.reload();
                         }
                     }
                     this.$root.stopProgress();
