@@ -119,7 +119,7 @@ return [
                                     [
                                         'field' => 'config',
                                         'label' => 'Конфигурация',
-                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'component' => DetailComponents::CONFIG_BUILDER_FIELD,
                                         'value' => $inModel->config,
                                     ],
                                     [

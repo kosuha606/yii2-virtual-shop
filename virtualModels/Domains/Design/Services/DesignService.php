@@ -52,6 +52,7 @@ class DesignService
             /** @var Widget $widgetClass */
             $widgetClass = $widget->widget_class;
             $widgetConfig = json_decode($designWidget->config, true);
+            $widgetConfig = $this->normalizeWidgetConfig($widgetConfig);
             $positionTemplates[$designWidget->position][] = [
                 'order' => $designWidget->order,
                 'content' => $widgetClass::widget($widgetConfig)
@@ -72,5 +73,25 @@ class DesignService
 
 
         return str_replace('%content%', $content, $template);
+    }
+
+    public function normalizeWidgetConfig($widgetConfig)
+    {
+        $result = [];
+
+        if (isset($widgetConfig['value'])) {
+            return $widgetConfig['value'];
+        }
+
+        foreach ($widgetConfig as $value) {
+            $data = json_decode($value['value'], true);
+            if (!$data) {
+                $result[$value['code']] = $value['value'];
+            } else {
+                $result[$value['code']] = $this->normalizeWidgetConfig($data);
+            }
+        }
+
+        return $result;
     }
 }

@@ -19,4 +19,6 @@ class DetailComponents
     const REDACTOR_FIELD = 'RedactorField';
 
     const IMAGE_FIELD = 'ImageField';
+
+    const CONFIG_BUILDER_FIELD = 'ConfigBuilderField';
 }
