@@ -2,6 +2,7 @@
 
 namespace app\virtualModels\Domains\Design\Services;
 
+use app\virtualModels\Admin\Helpers\ConstructorHelper;
 use app\virtualModels\Domains\Design\Models\DesignVm;
 use app\virtualModels\Domains\Design\Models\DesignWidgetVm;
 use app\virtualModels\Domains\Design\Models\WidgetVm;
@@ -77,21 +78,6 @@ class DesignService
 
     public function normalizeWidgetConfig($widgetConfig)
     {
-        $result = [];
-
-        if (isset($widgetConfig['value'])) {
-            return $widgetConfig['value'];
-        }
-
-        foreach ($widgetConfig as $value) {
-            $data = json_decode($value['value'], true);
-            if (!$data) {
-                $result[$value['code']] = $value['value'];
-            } else {
-                $result[$value['code']] = $this->normalizeWidgetConfig($data);
-            }
-        }
-
-        return $result;
+        return ConstructorHelper::normalizeConfig($widgetConfig);
     }
 }

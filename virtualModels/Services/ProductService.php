@@ -40,8 +40,8 @@ class ProductService
         if (!$this->actions) {
             $this->actions = VirtualModelManager::getInstance()->getProvider()->many(ActionVm::class, [
                 'where' => [
-                    ['all']
-                ]
+                    ['all'],
+                ],
             ]);
         }
 
@@ -57,8 +57,8 @@ class ProductService
         /** @var ProductVm $product */
         $product = ProductVm::one([
             'where' => [
-                ['=', 'id', $productId]
-            ]
+                ['=', 'id', $productId],
+            ],
         ]);
 
         return $product;
@@ -100,7 +100,7 @@ class ProductService
             'where' => $whereConfig,
             'limit' => $pagination->getLimit(),
             'offset' => $pagination->getOffset(),
-            'orderBy' => $orderBy ? [$orderBy => $orderDirection] : null
+            'orderBy' => $orderBy ? [$orderBy => $orderDirection] : null,
         ]);
 
         foreach ($products as &$product) {
@@ -166,8 +166,9 @@ class ProductService
         $price = $product->price;
 
         if ($product->actions) {
+            /** @var ActionVm $action */
             foreach ($product->actions as $action) {
-                if (in_array($product->id, $action->productIds)) {
+                if (in_array($product->id, $action->normalizeProductIds)) {
                     $price -= $price * ($action->percent/100);
                 }
             }

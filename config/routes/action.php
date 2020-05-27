@@ -98,9 +98,20 @@ return [
                         return [
                             [
                                 'field' => 'productIds',
-                                'component' => DetailComponents::INPUT_FIELD,
+                                'component' => DetailComponents::CONFIG_BUILDER_FIELD,
                                 'label' => 'Продукты',
                                 'value' => $model->productIds,
+                                'props' => [
+                                    'inputTypes' => [
+                                        [
+                                            'type' => DetailComponents::SELECT_FIELD,
+                                            'label' => 'Продукт',
+                                            'props' => [
+                                                'items' => $stringService->map(VirtualModel::allToArray(ProductVm::many(['where' => [['all']]])), 'id', 'name')
+                                            ]
+                                        ]
+                                    ]
+                                ]
                             ],
                             [
                                 'field' => 'percent',

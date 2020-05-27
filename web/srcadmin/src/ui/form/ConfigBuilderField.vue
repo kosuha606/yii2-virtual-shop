@@ -13,7 +13,7 @@
                 </div>
                 <div class="constructor-field">
                     <select v-model="item.type" class="form-control">
-                        <option value="" v-for="(type, index) in inputTypes" :value="index">{{ type }}</option>
+                        <option value="" v-for="(type, index) in inputTypes" :value="type.type">{{ type.label }}</option>
                     </select>
                 </div>
                 <div class="constructor-field">
@@ -21,6 +21,7 @@
                         v-if="item.type"
                         :is="item.type"
                         v-model="item.value"
+                        :props="item.props"
                     >
                     </component>
                 </div>
@@ -35,40 +36,92 @@
 </template>
 
 <script>
+    import {each, cloneDeep} from 'lodash';
+
     export default {
         name: "ConfigBuilderField",
         props: ['value', 'label', 'props'],
         watch: {
             data: {
                 handler() {
-                    this.$emit('input', JSON.stringify(this.data));
+                    let result = cloneDeep(this.data);
+                    each(result, (item) => {
+                        delete(item.props);
+                    });
+
+                    this.$emit('input', JSON.stringify(result));
                 },
                 deep: true,
             }
         },
-        mounted() {
+        created() {
+            if (this.props && this.props.inputTypes) {
+                this.defaultComponent = this.props.inputTypes[0].type;
+                this.defaultProps = this.props.inputTypes[0].props;
+                this.inputTypes = this.props.inputTypes;
+            }
+
             try {
                 this.data = JSON.parse(this.value);
             } catch (e) {
-                console.log('no data for constructor');
+                if (typeof(this.value) === 'object') {
+                    this.data = this.value;
+                } else {
+                    console.log('no data for constructor');
+                }
+            }
+
+            each(this.data, (item) => {
+                item.props = this.defaultProps;
+            });
+
+            if (this.data) {
+                this.counter = this.data.length;
             }
         },
         data() {
             return {
+                counter: 0,
+                defaultComponent: 'InputField',
+                defaultProps: {},
                 data: [],
                 // configTypes: {
                 //     'value': 'Значение',
                 //     'array': 'Массив',
                 //     'object': 'Объект',
                 // },
-                inputTypes: {
-                    'InputField': 'Текст строка',
-                    'TextField': 'Текст область',
-                    'HtmlField': 'HTML',
-                    'RedactorField': 'Редактор',
-                    'ImageField': 'Изображение',
-                    'ConfigBuilderField': 'Конфигуратор',
-                }
+                inputTypes: [
+                    {
+                        type: 'InputField',
+                        label: 'Текст строка',
+                        props: {},
+                    },
+                    {
+                        type: 'TextField',
+                        label: 'Текст область',
+                        props: {},
+                    },
+                    {
+                        type: 'HtmlField',
+                        label: 'HTML',
+                        props: {},
+                    },
+                    {
+                        type: 'RedactorField',
+                        label: 'Редактор',
+                        props: {},
+                    },
+                    {
+                        type: 'ImageField',
+                        label: 'Изображение',
+                        props: {},
+                    },
+                    {
+                        type: 'ConfigBuilderField',
+                        label: 'Конфигуратор',
+                        props: {},
+                    },
+                ]
             }
         },
         methods: {
@@ -81,11 +134,13 @@
                 }
             },
             addItem() {
+                this.counter++;
                 try {
                     this.data.push({
-                        code: 'new',
-                        type: 'InputField',
+                        code: this.data.length+1,
+                        type: this.defaultComponent,
                         value: '',
+                        props: this.defaultProps,
                     });
                     this.$forceUpdate();
                 } catch (e) {
