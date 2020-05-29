@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "841764772ef7baf1151ef75bd7b23ca3",
+    "content-hash": "fae5cf608c0c5bbdd1fb86e7f839ee6d",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -430,12 +430,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kosuha606/virtual-model-helppack.git",
-                "reference": "0f9855dd5ee1b3be4921aa57b6f941b129433931"
+                "reference": "2b57d004eab8e76df9fc53811a972257cad344d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kosuha606/virtual-model-helppack/zipball/0f9855dd5ee1b3be4921aa57b6f941b129433931",
-                "reference": "0f9855dd5ee1b3be4921aa57b6f941b129433931",
+                "url": "https://api.github.com/repos/kosuha606/virtual-model-helppack/zipball/2b57d004eab8e76df9fc53811a972257cad344d0",
+                "reference": "2b57d004eab8e76df9fc53811a972257cad344d0",
                 "shasum": ""
             },
             "require": {
@@ -460,7 +460,7 @@
                 }
             ],
             "description": "VirtualModelHelppack",
-            "time": "2020-05-10T16:50:10+00:00"
+            "time": "2020-05-28T16:15:23+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -4884,7 +4884,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6.0"
+        "php": ">=7.0"
     },
     "platform-dev": []
 }

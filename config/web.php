@@ -2,6 +2,7 @@
 
 use app\models\Action;
 use app\models\Article;
+use app\models\Cache;
 use app\models\Comment;
 use app\models\Delivery;
 use app\models\Design;
@@ -26,6 +27,7 @@ use app\models\User;
 use app\models\Widget;
 use app\virtualModels\Domains\Article\Models\ArticleVm;
 use app\virtualModels\Domains\Article\Models\SeoArticleVm;
+use app\virtualModels\Domains\Cache\CacheVm;
 use app\virtualModels\Domains\Comment\Models\CommentVm;
 use app\virtualModels\Domains\Design\Models\DesignVm;
 use app\virtualModels\Domains\Design\Models\DesignWidgetVm;
@@ -68,6 +70,9 @@ $config = [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,
             'arRelations' => [
+                CacheVm::class => [
+                    'ar' => Cache::class,
+                ],
                 CommentVm::class => [
                     'ar' => Comment::class,
                 ],

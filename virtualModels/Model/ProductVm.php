@@ -4,16 +4,22 @@ namespace app\virtualModels\Model;
 
 
 
+use app\virtualModels\Domains\Cache\CacheAimInterface;
+use app\virtualModels\Domains\Cache\CacheAimObserver;
+use app\virtualModels\Domains\Cache\CacheEntityDto;
 use kosuha606\VirtualModel\VirtualModel;
 use app\virtualModels\ServiceManager;
 use app\virtualModels\Services\ProductService;
+use kosuha606\VirtualModelHelppack\Traits\ObserveVMTrait;
 
 /**
  * Продукт
  * @property $rests
  */
-class ProductVm extends VirtualModel
+class ProductVm extends VirtualModel implements CacheAimInterface
 {
+    use ObserveVMTrait;
+
     /** @var ProductService */
     private $productService;
 
@@ -34,6 +40,20 @@ class ProductVm extends VirtualModel
             'price2B',
             'actions',
             'rests',
+        ];
+    }
+
+    public static function observers()
+    {
+        return [
+            CacheAimObserver::class
+        ];
+    }
+
+    public function cacheItems(): array
+    {
+        return [
+            new CacheEntityDto($this->id, static::class, $this->toArray()),
         ];
     }
 
