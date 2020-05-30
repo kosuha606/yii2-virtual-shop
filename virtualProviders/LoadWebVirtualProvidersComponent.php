@@ -24,5 +24,7 @@ class LoadWebVirtualProvidersComponent extends Component
 
         VirtualModelManager::getInstance()->setProvider(new SessionProvider());
 
+        VirtualModelManager::getInstance()->setProvider(new CacheProvider());
+
     }
 }

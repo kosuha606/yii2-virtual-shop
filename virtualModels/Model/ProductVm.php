@@ -4,9 +4,11 @@ namespace app\virtualModels\Model;
 
 
 
+use app\models\Comment;
 use app\virtualModels\Domains\Cache\CacheAimInterface;
 use app\virtualModels\Domains\Cache\CacheAimObserver;
 use app\virtualModels\Domains\Cache\CacheEntityDto;
+use app\virtualModels\Domains\Comment\Models\CommentVm;
 use kosuha606\VirtualModel\VirtualModel;
 use app\virtualModels\ServiceManager;
 use app\virtualModels\Services\ProductService;
@@ -52,8 +54,20 @@ class ProductVm extends VirtualModel implements CacheAimInterface
 
     public function cacheItems(): array
     {
+        $rests = VirtualModel::allToArray(ProductRestsVm::many(['where' => [
+            ['=', 'productId', $this->id]
+        ]]));
+        $cacheData = $this->toArray();
+        $restsArr = array_column($rests, 'qty');
+        $cacheData['rests'] = array_sum($restsArr);
+        $comments = CommentVm::many(['where' => [
+            ['=', 'model_id', $this->id],
+            ['=', 'model_class', ProductVm::class]
+        ]]);
+        $cacheData['comments_qty'] = count($comments);
+
         return [
-            new CacheEntityDto($this->id, static::class, $this->toArray()),
+            new CacheEntityDto($this->id,  'id', 'product', $cacheData),
         ];
     }
 

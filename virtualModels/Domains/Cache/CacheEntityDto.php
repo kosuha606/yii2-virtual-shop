@@ -10,14 +10,18 @@ class CacheEntityDto
 
     private $cacheData;
 
+    private $cacheIdField;
+
     public function __construct(
         $cacheId,
+        $cacheIdField,
         $cacheClass,
         $cacheData
     ) {
         $this->cacheId = $cacheId;
         $this->cacheClass = $cacheClass;
         $this->cacheData = $cacheData;
+        $this->cacheIdField = $cacheIdField;
     }
 
     /**
@@ -66,5 +70,21 @@ class CacheEntityDto
     public function setCacheData($cacheData)
     {
         $this->cacheData = $cacheData;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCacheIdField()
+    {
+        return $this->cacheIdField;
+    }
+
+    /**
+     * @param mixed $cacheIdField
+     */
+    public function setCacheIdField($cacheIdField)
+    {
+        $this->cacheIdField = $cacheIdField;
     }
 }

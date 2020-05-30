@@ -4,6 +4,24 @@ namespace app\virtualModels\Domains\Cache;
 
 class CacheAimObserver
 {
+    private function createCacheTable($tableName, $data)
+    {
+        $fieldsConfig = CacheVm::buildColumnsByData($data);
+
+        CacheVm::createTable($tableName, $fieldsConfig);
+    }
+
+    private function normalizeEntityData($data)
+    {
+        foreach ($data as $key => &$datum) {
+            if (is_array($datum)) {
+                $datum = json_encode($datum, JSON_UNESCAPED_UNICODE);
+            }
+        }
+
+        return $data;
+    }
+
     /**
      * @param CacheAimInterface $aim
      * @throws \Exception
@@ -12,7 +30,13 @@ class CacheAimObserver
     {
         /** @var CacheEntityDto $cacheEntityDto */
         foreach ($aim->cacheItems() as $cacheEntityDto) {
-            $this->saveOneEntity($cacheEntityDto);
+            $tableName = 'cache_'.$cacheEntityDto->getCacheClass();
+
+            if (!CacheVm::isTableExists($tableName)) {
+                $this->createCacheTable($tableName, $cacheEntityDto->getCacheData());
+            }
+
+            $this->saveOneEntity($tableName, $cacheEntityDto);
         }
     }
 
@@ -20,24 +44,13 @@ class CacheAimObserver
      * @param CacheAimInterface $aim
      * @throws \Exception
      */
-    private function saveOneEntity(CacheEntityDto $cacheEntityDto)
+    private function saveOneEntity($tableName, CacheEntityDto $cacheEntityDto)
     {
-        $oldCache = CacheVm::many([
-            'where' => [
-                ['=', 'entity_id', $cacheEntityDto->getCacheId()],
-                ['=', 'entity_class', $cacheEntityDto->getCacheClass()],
-            ],
-        ]);
+        // Очищаем стырй кэш
+        CacheVm::deleteData($tableName, ['=', $cacheEntityDto->getCacheIdField(), $cacheEntityDto->getCacheId()]);
 
-        /** @var CacheVm $cache */
-        foreach ($oldCache as $cache) {
-            $cache->delete();
-        }
-
-        CacheVm::create([
-            'entity_id' => $cacheEntityDto->getCacheId(),
-            'entity_class' => $cacheEntityDto->getCacheClass(),
-            'data' => json_encode($cacheEntityDto->getCacheData(), JSON_UNESCAPED_UNICODE),
-        ])->save();
+        // Создаем новый кэш
+        $normalizedCacheData = $this->normalizeEntityData($cacheEntityDto->getCacheData());
+        CacheVm::insertData($tableName, $normalizedCacheData);
     }
 }
