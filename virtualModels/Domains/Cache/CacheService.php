@@ -5,19 +5,21 @@ namespace app\virtualModels\Domains\Cache;
 class CacheService
 {
     /**
-     * @param $entityId
      * @param $entityClass
-     * @return CacheVm
+     * @param $whereConfig
+     * @return CacheVm|null
      * @throws \Exception
      */
-    public function one($entityId, $entityClass)
+    public function one($entityClass, $whereConfig = [])
     {
-        $cache = CacheVm::one(['where' => [
-            ['=', 'entity_id', $entityId],
-            ['=', 'entity_class', $entityClass],
-        ]]);
+        $tableName = CacheVm::normalizeTableName($entityClass);
+        $data = CacheVm::getData($tableName, $whereConfig);
 
-        return $cache;
+        if (!isset($data[0])) {
+            return null;
+        }
+
+        return CacheVm::create($data[0]);
     }
 
     /**
@@ -25,14 +27,16 @@ class CacheService
      * @return CacheVm[]
      * @throws \Exception
      */
-    public function many($entityClass)
+    public function many($entityClass, $whereConfig = [])
     {
-        $caches = CacheVm::many([
-            'where' => [
-                ['=', 'entity_class', $entityClass],
-            ]
-        ]);
+        $tableName = CacheVm::normalizeTableName($entityClass);
+        $data = CacheVm::getData($tableName, $whereConfig);
 
-        return $caches;
+        $result = [];
+        foreach ($data as $datum) {
+            $result[] = CacheVm::create($datum);
+        }
+
+        return $result;
     }
 }

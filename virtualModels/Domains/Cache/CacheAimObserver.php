@@ -30,7 +30,7 @@ class CacheAimObserver
     {
         /** @var CacheEntityDto $cacheEntityDto */
         foreach ($aim->cacheItems() as $cacheEntityDto) {
-            $tableName = 'cache_'.$cacheEntityDto->getCacheClass();
+            $tableName = CacheVm::normalizeTableName($cacheEntityDto->getCacheClass());
 
             if (!CacheVm::isTableExists($tableName)) {
                 $this->createCacheTable($tableName, $cacheEntityDto->getCacheData());

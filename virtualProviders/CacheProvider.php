@@ -54,6 +54,11 @@ class CacheProvider extends VirtualModelProvider implements CacheProviderInterfa
         return $fieldsConfig;
     }
 
+    public function normalizeTableName($caller, $name)
+    {
+        return 'cache_'.$name;
+    }
+
     /**
      * @param $caller
      * @param $tableName
@@ -87,6 +92,7 @@ class CacheProvider extends VirtualModelProvider implements CacheProviderInterfa
     public function getData($caller, $tableName, $config)
     {
         $query = new Query();
+        $query->from($tableName);
 
         if (isset($config['where'])) {
             foreach ($config['where'] as $whereConfig) {

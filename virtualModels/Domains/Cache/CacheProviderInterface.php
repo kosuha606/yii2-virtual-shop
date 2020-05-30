@@ -4,6 +4,8 @@ namespace app\virtualModels\Domains\Cache;
 
 interface CacheProviderInterface
 {
+    public function normalizeTableName($caller, $name);
+
     public function buildColumnsByData($caller, $data);
 
     public function createTable($caller, $tableName, $fieldsConfig);

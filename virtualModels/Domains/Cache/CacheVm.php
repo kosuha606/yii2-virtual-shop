@@ -10,6 +10,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @property $entity_class
  * @property $data
  *
+ * @method static normalizeTableName($name)
  * @method static buildColumnsByData($data)
  * @method static createTable($tableName, $fieldsConfig)
  * @method static dropTable($tableName)
@@ -32,9 +33,6 @@ class CacheVm extends VirtualModel
     {
         return [
             'id',
-            'entity_id',
-            'entity_class',
-            'data',
         ];
     }
 }
