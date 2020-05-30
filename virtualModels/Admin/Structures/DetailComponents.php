@@ -21,4 +21,14 @@ class DetailComponents
     const IMAGE_FIELD = 'ImageField';
 
     const CONFIG_BUILDER_FIELD = 'ConfigBuilderField';
+
+    public static function MULTILANG_FIELD($field, $label, $value)
+    {
+        return [
+            'field' => $field,
+            'label' => $label,
+            'component' => 'MultilangField',
+            'value' => $value,
+        ];
+    }
 }

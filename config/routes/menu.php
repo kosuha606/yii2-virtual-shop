@@ -15,6 +15,10 @@ return [
             'name' => 'content',
             'label' => 'Контент',
         ],
+        'inter' => [
+            'name' => 'inter',
+            'label' => 'Интернационализация',
+        ],
         'store' => [
             'name' => 'store',
             'label' => 'Магазин',
