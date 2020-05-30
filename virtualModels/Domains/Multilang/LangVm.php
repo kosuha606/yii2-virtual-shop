@@ -12,6 +12,7 @@ class LangVm extends VirtualModel
             'id',
             'code',
             'name',
+            'is_default',
         ];
     }
 }

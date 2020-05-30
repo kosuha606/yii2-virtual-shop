@@ -10,6 +10,7 @@ use app\models\DesignWidget;
 use app\models\Favorite;
 use app\models\FilterCategory;
 use app\models\FilterProduct;
+use app\models\Lang;
 use app\models\Menu;
 use app\models\MenuItem;
 use app\models\Order;
@@ -23,17 +24,20 @@ use app\models\Promocode;
 use app\models\SeoArticle;
 use app\models\SeoPage;
 use app\models\Text;
+use app\models\Translation;
 use app\models\User;
 use app\models\Widget;
 use app\virtualModels\Domains\Article\Models\ArticleVm;
 use app\virtualModels\Domains\Article\Models\SeoArticleVm;
 use app\virtualModels\Domains\Cache\CacheVm;
+use app\virtualModels\Domains\Cache\TranslationVm;
 use app\virtualModels\Domains\Comment\Models\CommentVm;
 use app\virtualModels\Domains\Design\Models\DesignVm;
 use app\virtualModels\Domains\Design\Models\DesignWidgetVm;
 use app\virtualModels\Domains\Design\Models\WidgetVm;
 use app\virtualModels\Domains\Menu\Models\MenuItemVm;
 use app\virtualModels\Domains\Menu\Models\MenuVm;
+use app\virtualModels\Domains\Multilang\LangVm;
 use app\virtualModels\Domains\Page\Models\PageVm;
 use app\virtualModels\Domains\Page\Models\SeoPageVm;
 use app\virtualModels\Domains\Text\Models\TextVm;
@@ -70,6 +74,12 @@ $config = [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,
             'arRelations' => [
+                LangVm::class => [
+                    'ar' => Lang::class,
+                ],
+                TranslationVm::class => [
+                    'ar' => Translation::class
+                ],
                 CacheVm::class => [
                     'ar' => Cache::class,
                 ],
