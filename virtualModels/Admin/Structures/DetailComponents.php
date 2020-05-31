@@ -59,6 +59,7 @@ class DetailComponents
             $secondaryService = ServiceManager::getInstance()->get(SecondaryFormService::class);
             $secondaryService->buildForm()
                 ->setMasterModelId($model->id.','.get_class($model))
+                ->setMasterModel($model)
                 ->setMasterModelField('entity_id,entity_class')
                 ->setRelationClass(TranslationVm::class)
                 ->setConfig(function ($model) {})
