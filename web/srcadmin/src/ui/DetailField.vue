@@ -6,6 +6,7 @@
                 :props="component.props"
                 :label="component.label"
                 v-model="component.value"
+                :additional-values="component.additionalValues"
                 @additionalchange="onAdditionalChange"
         ></component>
     </div>

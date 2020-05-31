@@ -68,13 +68,36 @@ class DetailComponents
             self::$translationForms[$modelClass] = true;
         }
 
+        $existedItems = [];
+        $translations = VirtualModel::allToArray(TranslationVm::many([
+            'where' => [
+                ['=', 'entity_id', $model->id],
+                ['=', 'entity_class', $modelClass],
+            ]
+        ]));
+
+        foreach ($translations as $translation) {
+            $translationData = [];
+            foreach ($translation as $translationAttribute => $translationValue) {
+                $translationData[] = [
+                    'field' => $translationAttribute,
+                    'value' => $translationValue
+                ];
+            }
+
+            $existedItems[] = $translationData;
+        }
+
+        $k = 1;
+
         return [
             'field' => $field,
             'label' => $label,
             'component' => 'MultilangField',
             'value' => $value,
             'additionalValues' => [
-
+                'items' => $existedItems,
+                'relationClass' => TranslationVm::class
             ],
             'props' => [
                 'relationClass' => TranslationVm::class,

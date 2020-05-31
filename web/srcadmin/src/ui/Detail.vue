@@ -259,6 +259,30 @@
 
                 return serverData;
             },
+            appendAdditionalDataFromReqularComponents(serverData)
+            {
+                each(this.formData, (item) => {
+                    if (!item.additionalValues) {
+                        return;
+                    }
+
+                    if (!serverData.secondary_form[item.additionalValues.relationClass]) {
+                        serverData.secondary_form[item.additionalValues.relationClass] = [];
+                    }
+
+                    each(item.additionalValues.items, (dataItem) => {
+                        var serverItem = {};
+
+                        each(dataItem, (fieldItem) => {
+                            serverItem[fieldItem.field] = fieldItem.value;
+                        });
+
+                        serverData.secondary_form[item.additionalValues.relationClass].push(serverItem);
+                    });
+                });
+
+                return serverData;
+            },
             uploadToServer(afterSuccess) {
                 this.$root.startProgress();
                 var serverData = {};
@@ -275,6 +299,8 @@
                 if (this.item.id) {
                     serverData = this.appendAdditionalData(serverData);
                 }
+
+                serverData = this.appendAdditionalDataFromReqularComponents(serverData);
 
                 $.ajax({
                     method: 'POST',
