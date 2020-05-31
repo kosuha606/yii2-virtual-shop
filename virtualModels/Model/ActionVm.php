@@ -39,6 +39,6 @@ class ActionVm extends VirtualModel
         $result = $this->getProductIds();
         $result = ConstructorHelper::normalizeConfig($result);
 
-        return $result;
+        return is_array($result) ? $result : [$result];
     }
 }

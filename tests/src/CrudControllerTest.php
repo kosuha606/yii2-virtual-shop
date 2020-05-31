@@ -1,5 +1,6 @@
 <?php
 
+use app\virtualModels\Admin\Test\TestCacheProvider;
 use app\virtualModels\Classes\Pagination;
 use app\virtualModels\Controllers\CrudController;
 use app\virtualModels\Model\ProductVm;
@@ -18,6 +19,8 @@ class CrudControllerTest extends TestCase
     public function setUp()
     {
         $this->provider = new MemoryModelProvider();
+
+        VirtualModelManager::getInstance()->setProvider(new TestCacheProvider());
 
         $this->provider->memoryStorage = [
             ProductVm::class => [

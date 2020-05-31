@@ -115,7 +115,8 @@ class SecondaryFormTest extends VirtualTestCase
         // В сессию записывается одна запись
         $this->assertEquals(1, count($this->sessionProvider->memoryStorage));
         $configString = json_encode($config, JSON_UNESCAPED_UNICODE);
-        $this->assertEquals($configString, '{"tab":"Остатки","type":"one.to.one","initialConfig":[{"field":"productId","component":"InputField","value":null},{"field":"qty","component":"InputField","value":null},{"field":"userType","component":"InputField","value":null}],"relationClass":"app\\\\virtualModels\\\\Model\\\\ProductRestsVm","dataConfig":[[{"field":"productId","component":"InputField","value":1},{"field":"qty","component":"InputField","value":10},{"field":"userType","component":"InputField","value":"b2c"}],[{"field":"productId","component":"InputField","value":1},{"field":"qty","component":"InputField","value":15},{"field":"userType","component":"InputField","value":"b2b"}]]}');
+        $relationClass = str_replace('\\', '\\\\',  ProductRestsVm::class);
+        $this->assertEquals($configString, '{"tab":"Остатки","tabLink":"ostatki","type":"one.to.one","initialConfig":[{"field":"productId","component":"InputField","value":null},{"field":"qty","component":"InputField","value":null},{"field":"userType","component":"InputField","value":null}],"relationClass":"'.$relationClass.'","dataConfig":[[{"field":"productId","component":"InputField","value":1},{"field":"qty","component":"InputField","value":10},{"field":"userType","component":"InputField","value":"b2c"}],[{"field":"productId","component":"InputField","value":1},{"field":"qty","component":"InputField","value":15},{"field":"userType","component":"InputField","value":"b2b"}]]}');
     }
 
     /**

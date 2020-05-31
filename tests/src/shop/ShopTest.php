@@ -1,5 +1,6 @@
 <?php
 
+use app\virtualModels\Admin\Test\TestCacheProvider;
 use kosuha606\VirtualModel\Example\MemoryModelProvider;
 use app\virtualModels\Model\ActionVm;
 use app\virtualModels\Model\Cart;
@@ -120,6 +121,7 @@ class ShopTest extends TestCase
 
     public function setUp(): void
     {
+        VirtualModelManager::getInstance()->setProvider(new TestCacheProvider());
         $this->provider = new MemoryModelProvider();
         VirtualModelManager::getInstance()->setProvider($this->provider);
     }
