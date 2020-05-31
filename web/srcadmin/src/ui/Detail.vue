@@ -266,6 +266,10 @@
                         return;
                     }
 
+                    if (!serverData.secondary_form) {
+                        return;
+                    }
+
                     if (!serverData.secondary_form[item.additionalValues.relationClass]) {
                         serverData.secondary_form[item.additionalValues.relationClass] = [];
                     }
