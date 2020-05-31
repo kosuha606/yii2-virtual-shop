@@ -4,8 +4,8 @@ namespace app\virtualModels\Admin\Structures;
 
 use app\virtualModels\Admin\Form\SecondaryFormBuilder;
 use app\virtualModels\Admin\Form\SecondaryFormService;
-use app\virtualModels\Domains\Cache\TranslationVm;
 use app\virtualModels\Domains\Multilang\LangVm;
+use app\virtualModels\Domains\Multilang\TranslationVm;
 use app\virtualModels\Model\OrderReserveVm;
 use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModelHelppack\ServiceManager;
@@ -61,6 +61,7 @@ class DetailComponents
                 ->setMasterModelId($model->id.','.get_class($model))
                 ->setMasterModelField('entity_id,entity_class')
                 ->setRelationClass(TranslationVm::class)
+                ->setConfig(function ($model) {})
                 ->getConfig()
             ;
 
@@ -72,7 +73,11 @@ class DetailComponents
             'label' => $label,
             'component' => 'MultilangField',
             'value' => $value,
+            'additionalValues' => [
+
+            ],
             'props' => [
+                'relationClass' => TranslationVm::class,
                 'component' => $component,
                 'langs' => self::$langs,
                 'entity_id' => $model->id,

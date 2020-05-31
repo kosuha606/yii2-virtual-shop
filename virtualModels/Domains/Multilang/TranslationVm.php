@@ -1,6 +1,6 @@
 <?php
 
-namespace app\virtualModels\Domains\Cache;
+namespace app\virtualModels\Domains\Multilang;
 
 use kosuha606\VirtualModel\VirtualModel;
 

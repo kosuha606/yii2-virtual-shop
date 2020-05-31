@@ -188,24 +188,26 @@ return [
                         $stringService = ServiceManager::getInstance()->get(StringService::class);
 
                         return [
-                            [
-                                'field' => 'title',
-                                'component' => DetailComponents::INPUT_FIELD,
-                                'label' => 'Заголовок',
-                                'value' => $model->title,
-                            ],
+                            DetailComponents::MULTILANG_FIELD(
+                                DetailComponents::INPUT_FIELD,
+                                'title',
+                                'Заголовок',
+                                $model->title,
+                                $model
+                            ),
                             [
                                 'field' => 'slug',
                                 'component' => DetailComponents::INPUT_FIELD,
                                 'label' => 'Ссылка',
                                 'value' => $model->slug,
                             ],
-                            [
-                                'field' => 'content',
-                                'component' => DetailComponents::REDACTOR_FIELD,
-                                'label' => 'Содержимое',
-                                'value' => $model->content,
-                            ],
+                            DetailComponents::MULTILANG_FIELD(
+                                DetailComponents::REDACTOR_FIELD,
+                                'content',
+                                'Содержимое',
+                                $model->content,
+                                $model
+                            ),
                         ];
                     },
                 ]

@@ -6,6 +6,7 @@
                 :props="component.props"
                 :label="component.label"
                 v-model="component.value"
+                @additionalchange="onAdditionalChange"
         ></component>
     </div>
 </template>
@@ -14,6 +15,11 @@
     export default {
         name: "DetailField",
         props: ['component'],
+        methods: {
+            onAdditionalChange(value) {
+                this.component.additionalValues = value;
+            }
+        }
     }
 </script>
 
