@@ -106,8 +106,34 @@ class SecondaryFormService
 
         // Удаляем все связанные старые модели
         /** @var VirtualModel $class */
-        foreach ($modelClasses as $class) {
-            $sessionModelData = $sessionConfig->value[$class];
+//        foreach ($modelClasses as $class) {
+//            $sessionModelData = $sessionConfig->value[$class];
+//
+//            $values = explode(',', $sessionModelData['masterModelId']);
+//            $fields = explode(',', $sessionModelData['masterModelField']);
+//            $where = [];
+//            foreach ($values as $index => $value) {
+//                $where[] = [
+//                    '=',
+//                    $fields[$index],
+//                    $value,
+//                ];
+//            }
+//
+//            $models = $class::many(['where' => $where]);
+//            /** @var VirtualModel $model */
+//            foreach ($models as $model) {
+//                $model->delete();
+//            }
+//        }
+
+        /**
+         * Создаем новые связанные модели
+         * @var VirtualModel $modelClass
+         * @var  $data
+         */
+        foreach ($postData[self::SESSION_KEY] as $modelClass => $data) {
+            $sessionModelData = $sessionConfig->value[$modelClass];
 
             $values = explode(',', $sessionModelData['masterModelId']);
             $fields = explode(',', $sessionModelData['masterModelField']);
@@ -119,22 +145,22 @@ class SecondaryFormService
                     $value,
                 ];
             }
+            /** @var VirtualModel[] $oldModels */
+            $oldModels = $modelClass::many(['where' => $where], 'id');
 
-            $models = $class::many(['where' => $where]);
-            /** @var VirtualModel $model */
-            foreach ($models as $model) {
-                $model->delete();
-            }
-        }
-
-        /**
-         * Создаем новые связанные модели
-         * @var VirtualModel $modelClass
-         * @var  $data
-         */
-        foreach ($postData[self::SESSION_KEY] as $modelClass => $data) {
             foreach ($data as $attributes) {
-                $modelClass::create($attributes)->save();
+                if (!empty($attributes['id'])) {
+                    $model = $modelClass::one(['where' => [['=', 'id', $attributes['id']]]]);
+                    $model->setAttributes($attributes);
+                    $model->save();
+                    unset($oldModels[$attributes['id']]);
+                } else {
+                    $modelClass::create($attributes)->save();
+                }
+            }
+
+            foreach ($oldModels as $oldModel) {
+                $oldModel->delete();
             }
         }
     }

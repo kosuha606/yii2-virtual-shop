@@ -35,7 +35,7 @@ trait MultilangTrait
             ]
         ]);
 
-        if ($translation) {
+        if ($translation && $translation->data) {
             return $translation->data;
         }
 

@@ -259,9 +259,9 @@
 
                 return serverData;
             },
-            appendAdditionalDataFromReqularComponents(serverData)
+            appendAdditionalDataFromReqularComponents(formData, serverData)
             {
-                each(this.formData, (item) => {
+                each(formData, (item) => {
                     if (!item.additionalValues) {
                         return;
                     }
@@ -300,7 +300,14 @@
                     serverData = this.appendAdditionalData(serverData);
                 }
 
-                serverData = this.appendAdditionalDataFromReqularComponents(serverData);
+                serverData = this.appendAdditionalDataFromReqularComponents(this.formData, serverData);
+                if (this.additionalComponents) {
+                    each(this.additionalComponents, (additionalComponentItems) => {
+                        each(additionalComponentItems.dataConfig, (additionalComponentItem) => {
+                            serverData = this.appendAdditionalDataFromReqularComponents(additionalComponentItem, serverData);
+                        });
+                    });
+                }
 
                 $.ajax({
                     method: 'POST',

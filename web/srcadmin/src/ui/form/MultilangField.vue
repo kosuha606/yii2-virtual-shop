@@ -14,7 +14,7 @@
         </div>
 
         <div v-for="(lang, langIndex) in props.langs">
-            <template v-if="lang.is_default === '1'">
+            <template v-if="lang.is_default === '0'">
                 <component
                         :key="'multiinput'+counter+field"
                         v-if="curLangIndex === langIndex"

@@ -98,7 +98,7 @@ $order = Yii::$app->request->get('order');
                         <div class="product-item">
                             <h2>
                                 <a href="<?= Url::toRoute(['site/view', 'id' => $product->id]) ?>">
-                                    <?= $product->name ?>
+                                    <?= $product->langAttribute('name') ?>
                                 </a>
                             </h2>
                             <?php if ($product->hasDiscount) { ?>

@@ -111,11 +111,18 @@ return [
                                         'value' => $model->id,
                                     ],
                                     [
-                                        'field' => 'meta_title',
-                                        'label' => 'Мета заголовок',
-                                        'component' => DetailComponents::INPUT_FIELD,
-                                        'value' => $inModel->meta_title,
+                                        'field' => 'id',
+                                        'label' => '',
+                                        'component' => DetailComponents::HIDDEN_FIELD,
+                                        'value' => $inModel->id,
                                     ],
+                                    DetailComponents::MULTILANG_FIELD(
+                                        DetailComponents::INPUT_FIELD,
+                                        'meta_title',
+                                        'Мета заголовок',
+                                        $inModel->meta_title,
+                                        $inModel
+                                    ),
                                     [
                                         'field' => 'meta_keywords',
                                         'label' => 'Мета ключевые слова',
@@ -190,12 +197,13 @@ return [
                         $stringService = ServiceManager::getInstance()->get(StringService::class);
 
                         return [
-                            [
-                                'field' => 'title',
-                                'component' => DetailComponents::INPUT_FIELD,
-                                'label' => 'Заголовок',
-                                'value' => $model->title,
-                            ],
+                            DetailComponents::MULTILANG_FIELD(
+                                DetailComponents::INPUT_FIELD,
+                                'title',
+                                'Заголовок',
+                                $model->title,
+                                $model
+                            ),
                             [
                                 'field' => 'photo',
                                 'component' => DetailComponents::IMAGE_FIELD,
@@ -208,12 +216,13 @@ return [
                                 'label' => 'Ссылка',
                                 'value' => $model->slug,
                             ],
-                            [
-                                'field' => 'content',
-                                'component' => DetailComponents::REDACTOR_FIELD,
-                                'label' => 'Содержимое',
-                                'value' => $model->content,
-                            ],
+                            DetailComponents::MULTILANG_FIELD(
+                                DetailComponents::REDACTOR_FIELD,
+                                'content',
+                                'Содержимое',
+                                $model->content,
+                                $model
+                            ),
                         ];
                     },
                 ]

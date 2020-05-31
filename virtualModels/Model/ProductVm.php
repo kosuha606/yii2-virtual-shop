@@ -9,6 +9,7 @@ use app\virtualModels\Domains\Cache\CacheAimInterface;
 use app\virtualModels\Domains\Cache\CacheAimObserver;
 use app\virtualModels\Domains\Cache\CacheEntityDto;
 use app\virtualModels\Domains\Comment\Models\CommentVm;
+use app\virtualModels\Domains\Multilang\MultilangTrait;
 use kosuha606\VirtualModel\VirtualModel;
 use app\virtualModels\ServiceManager;
 use app\virtualModels\Services\ProductService;
@@ -21,6 +22,8 @@ use kosuha606\VirtualModelHelppack\Traits\ObserveVMTrait;
 class ProductVm extends VirtualModel implements CacheAimInterface
 {
     use ObserveVMTrait;
+
+    use MultilangTrait;
 
     /** @var ProductService */
     private $productService;

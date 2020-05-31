@@ -6,7 +6,7 @@ use app\virtualModels\Domains\Article\Models\ArticleVm;
 
 ?>
 
-<h1><?= $article->title ?></h1>
+<h1><?= $article->langAttribute('title') ?></h1>
 
 <div>
     <?= $article->created_at ?>
@@ -14,5 +14,5 @@ use app\virtualModels\Domains\Article\Models\ArticleVm;
 </div>
 
 <div>
-    <?= $article->content ?>
+    <?= $article->langAttribute('content') ?>
 </div>
