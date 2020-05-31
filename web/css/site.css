@@ -3,6 +3,23 @@ body {
     height: 100%;
 }
 
+.langs {
+    display: inline-flex !important;
+    align-items: center;
+    height: 50px;
+}
+
+.langs a {
+    color: #f0f0f0;
+    margin-right: 10px;
+    padding: 0 !important;
+    display: inline-block !important;
+}
+
+.langs a:hover {
+    color: #fff;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;

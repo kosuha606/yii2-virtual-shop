@@ -1,13 +1,25 @@
 <?php
 
 
+use app\virtualModels\Domains\Multilang\LangVm;
 use app\virtualModels\ServiceManager;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
 
+/** @var LangVm[] $languages */
+
 $user = ServiceManager::getInstance()->userService->current();
 $cart = ServiceManager::getInstance()->cartBuilder->getCart();
+
+$langsbar = '<li class="langs">';
+
+/** @var LangVm $language */
+foreach ($languages as $language) {
+    $langsbar .= Html::a($language->code, ['site/lang', 'l' => $language->code]);
+}
+
+$langsbar .= '</li>';
 
 NavBar::begin([
     'brandLabel' => Yii::$app->name,
@@ -16,9 +28,12 @@ NavBar::begin([
         'class' => 'navbar-inverse navbar-fixed-top',
     ],
 ]);
+
+
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-right'],
     'items' => [
+        $langsbar,
         ['label' => 'Каталог', 'url' => ['/site/index']],
         [
             'label' => $cart->getAmount()

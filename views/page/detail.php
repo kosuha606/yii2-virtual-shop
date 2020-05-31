@@ -6,8 +6,8 @@ use app\virtualModels\Domains\Page\Models\PageVm;
 
 ?>
 
-<h1><?= $page->title ?></h1>
+<h1><?= $page->langAttribute('title') ?></h1>
 
 <div>
-    <?= $page->content ?>
+    <?= $page->langAttribute('content') ?>
 </div>

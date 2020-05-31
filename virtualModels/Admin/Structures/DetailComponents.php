@@ -73,6 +73,7 @@ class DetailComponents
             'where' => [
                 ['=', 'entity_id', $model->id],
                 ['=', 'entity_class', $modelClass],
+                ['=', 'attribute', $field],
             ]
         ]));
 

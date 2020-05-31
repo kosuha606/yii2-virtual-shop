@@ -4,6 +4,13 @@ namespace app\virtualModels\Domains\Multilang;
 
 use kosuha606\VirtualModel\VirtualModel;
 
+/**
+ *
+ * @property $code
+ * @property $name
+ * @property $is_default
+ *
+ */
 class LangVm extends VirtualModel
 {
     public function attributes(): array

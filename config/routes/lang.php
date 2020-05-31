@@ -106,7 +106,7 @@ return [
                                 'label' => 'По умолчанию',
                                 'value' => $model->is_default,
                                 'props' => [
-                                    'items' => [0 => 'Да', 1 => 'Нет']
+                                    'items' => [1 => 'Да', 0 => 'Нет']
                                 ]
                             ],
                         ];

@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\models\FilterProduct;
+use app\virtualModels\Admin\Services\SessionService;
+use app\virtualModels\Domains\Multilang\LanguageService;
 use app\virtualModels\Model\FilterCategoryVm;
 use app\virtualModels\Model\FilterProductVm;
 use app\virtualModels\Model\ProductVm;
@@ -143,5 +145,14 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    public function actionLang()
+    {
+        $l = Yii::$app->request->get('l', 'ru');
+        $langService = \kosuha606\VirtualModelHelppack\ServiceManager::getInstance()->get(LanguageService::class);
+        $langService->setLang($l);
+
+        return $this->redirect(Yii::$app->request->referrer);
     }
 }
