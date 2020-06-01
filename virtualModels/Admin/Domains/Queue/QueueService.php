@@ -9,10 +9,21 @@ class QueueService
      * @param array $args
      * @throws \Exception
      */
-    public function pushJob(QueueJobInterface $job, $args = [])
+    public function pushJob($jobClass, $args = [])
     {
+        try {
+            $job = new $jobClass();
+            if (!$job instanceof QueueJobInterface) {
+                throw new \LogicException('Job of queue should realize QueueJobInterface');
+            }
+        } catch (\LogicException $exception) {
+            throw $exception;
+        } catch (\Exception $exception) {
+            throw new \LogicException('Some error in job queue push: '.$exception->getMessage());
+        }
+
         QueueVm::create([
-            'job_class' => get_class($job),
+            'job_class' => $jobClass,
             'arguments' => json_encode($args, JSON_UNESCAPED_UNICODE),
             'created_at' => date('Y-m-d H:i:s'),
         ])->save();
