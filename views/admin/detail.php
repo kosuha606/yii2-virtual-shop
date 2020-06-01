@@ -11,6 +11,7 @@ $next = $item::one([
 $prev = $item::one([
     'where' => [['<', 'id', $item->id]],
     'limit' => 1,
+    'orderBy' => ['id' => SORT_DESC],
 ]);
 
 
