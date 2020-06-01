@@ -6,6 +6,7 @@ use kosuha606\VirtualModel\VirtualModel;
 
 /**
  *
+ * @property $id
  * @property $code
  * @property $name
  * @property $is_default

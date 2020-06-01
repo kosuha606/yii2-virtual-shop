@@ -4,8 +4,14 @@
 /** @var VirtualModel $item */
 /** @var $entity */
 
-$next = $item::one(['where' => [['=', 'id', $item->id+1]]]);
-$prev = $item::one(['where' => [['=', 'id', $item->id-1]]]);
+$next = $item::one([
+    'where' => [['>', 'id', $item->id]],
+    'limit' => 1,
+]);
+$prev = $item::one([
+    'where' => [['<', 'id', $item->id]],
+    'limit' => 1,
+]);
 
 
 use kosuha606\VirtualModel\VirtualModel; ?>

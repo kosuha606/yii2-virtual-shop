@@ -31,7 +31,8 @@ trait MultilangTrait
             'where' => [
                 ['=', 'entity_id', $this->id],
                 ['=', 'entity_class', $modelClass],
-                ['=', 'attribute', $name]
+                ['=', 'attribute', $name],
+                ['=', 'lang_id', $lang->id],
             ]
         ]);
 
