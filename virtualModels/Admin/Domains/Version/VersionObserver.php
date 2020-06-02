@@ -39,6 +39,10 @@ class VersionObserver
      */
     public function beforeSave(VirtualModel $model)
     {
+        if (!$model->id) {
+            return;
+        }
+
         if ($model->hasAttribute('version_restored')) {
             return;
         }
