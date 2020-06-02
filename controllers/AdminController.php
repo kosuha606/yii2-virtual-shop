@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\virtualModels\Admin\Domains\Version\VersionService;
+use app\virtualModels\Admin\Domains\Version\VersionVm;
 use app\virtualModels\Admin\Dto\AdminResponseDTO;
 use app\virtualModels\Admin\Interfaces\AdminControllerInterface;
 use app\virtualModels\Admin\Processors\AdminRequestProcessor;
@@ -90,6 +92,22 @@ class AdminController extends Controller implements AdminControllerInterface
         return $this->render('processor', [
             'response' => $response
         ]);
+    }
+
+    /**
+     * @return \yii\web\Response
+     * @throws \Exception
+     */
+    public function actionVersionRestore()
+    {
+        $result = [
+            'result' => true,
+        ];
+        $id = Yii::$app->request->post('id');
+        $versionService = ServiceManager::getInstance()->get(VersionService::class);
+        $versionService->restoreById($id);
+
+        return $this->asJson($result);
     }
 
     public function renderView($view, $args)

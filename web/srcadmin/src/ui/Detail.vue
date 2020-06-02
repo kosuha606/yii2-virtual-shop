@@ -51,7 +51,7 @@
 
                         <div v-for="(dataComponent, dataIndex) in component.dataConfig">
                             <p>&nbsp;</p>
-                            <button @click="deleteAdditionalData(additionalIndex, dataIndex)" type="button" class="btn btn-danger">Удалить</button>
+                            <button v-if="!component.isViewOnly" @click="deleteAdditionalData(additionalIndex, dataIndex)" type="button" class="btn btn-danger">Удалить</button>
                             <template v-for="(inDataComponent, index) in dataComponent">
                                 <div class="form-row">
                                     <detail-field
@@ -63,7 +63,7 @@
                             </template>
                         </div>
                         <hr>
-                        <button @click="addAdditionalData(additionalIndex, component.initialConfig)" type="button" class="btn btn-primary" style="margin-top: 10px;">Добавить</button>
+                        <button v-if="!component.isViewOnly" @click="addAdditionalData(additionalIndex, component.initialConfig)" type="button" class="btn btn-primary" style="margin-top: 10px;">Добавить</button>
 
                     </div>
                     <div v-else>
@@ -240,10 +240,16 @@
             },
             appendAdditionalData(serverData) {
                 var additionalServerData = {};
+
                 each(this.additionalComponents, (item) => {
+                    if (item.isViewOnly) {
+                        return;
+                    }
+
                     if (!additionalServerData[item.relationClass]) {
                         additionalServerData[item.relationClass] = [];
                     }
+
                     each(item.dataConfig, (dataItem) => {
                         var serverItem = {};
 

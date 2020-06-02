@@ -26,7 +26,9 @@ use app\models\SeoPage;
 use app\models\Text;
 use app\models\Translation;
 use app\models\User;
+use app\models\Version;
 use app\models\Widget;
+use app\virtualModels\Admin\Domains\Version\VersionVm;
 use app\virtualModels\Domains\Article\Models\ArticleVm;
 use app\virtualModels\Domains\Article\Models\SeoArticleVm;
 use app\virtualModels\Domains\Cache\CacheVm;
@@ -74,6 +76,9 @@ $config = [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,
             'arRelations' => [
+                VersionVm::class => [
+                    'ar' => Version::class,
+                ],
                 LangVm::class => [
                     'ar' => Lang::class,
                 ],

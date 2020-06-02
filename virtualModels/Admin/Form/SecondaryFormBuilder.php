@@ -16,6 +16,8 @@ class SecondaryFormBuilder
 
     private $id;
 
+    private $viewOnly = false;
+
     private $masterMmodel;
 
     private $masterModelId;
@@ -150,6 +152,7 @@ class SecondaryFormBuilder
             'initialConfig' => $initialConfigData,
             'relationClass' => $this->getRelationClass(),
             'dataConfig' => $items,
+            'isViewOnly' => $this->isViewOnly(),
         ];
     }
 
@@ -240,6 +243,25 @@ class SecondaryFormBuilder
     public function setMasterModelId($masterModelId)
     {
         $this->masterModelId = $masterModelId;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isViewOnly(): bool
+    {
+        return $this->viewOnly;
+    }
+
+    /**
+     * @param bool $viewOnly
+     * @return SecondaryFormBuilder
+     */
+    public function setViewOnly(bool $viewOnly): SecondaryFormBuilder
+    {
+        $this->viewOnly = $viewOnly;
+
         return $this;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Design;
+use app\virtualModels\Admin\Domains\Version\VersionVm;
 use app\virtualModels\Admin\Form\SecondaryFormBuilder;
 use app\virtualModels\Admin\Form\SecondaryFormService;
 use app\virtualModels\Domains\Article\Models\ArticleVm;
@@ -188,9 +189,39 @@ return [
                             ->getConfig()
                         ;
 
+                        $configVersion = $secondaryService
+                            ->buildForm()
+                            ->setMasterModel($model)
+                            ->setMasterModelId($model->id.','.get_class($model))
+                            ->setMasterModelField('entity_id,entity_class')
+                            ->setRelationType(SecondaryFormBuilder::ONE_TO_MANY)
+                            ->setRelationClass(VersionVm::class)
+                            ->setViewOnly(true)
+                            ->setTabName('Версии')
+                            ->setRelationEntities(VersionVm::many(['where' => [
+                                ['=', 'entity_id', $model->id],
+                                ['=', 'entity_class', get_class($model)],
+                            ]]))
+                            ->setConfig(function ($inModel) use ($model) {
+                                return [
+                                    [
+                                        'field' => 'created_at',
+                                        'label' => 'Версия от',
+                                        'component' => DetailComponents::VERSION_FIELD,
+                                        'value' => $inModel->created_at,
+                                        'props' => [
+                                            'id' => $inModel->id,
+                                        ]
+                                    ],
+                                ];
+                            })
+                            ->getConfig()
+                        ;
+
                         return [
                             $config,
                             $configComment,
+                            $configVersion,
                         ];
                     },
                     'config' => function ($model) {

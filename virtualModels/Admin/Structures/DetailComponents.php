@@ -35,6 +35,8 @@ class DetailComponents
 
     const CONFIG_BUILDER_FIELD = 'ConfigBuilderField';
 
+    const VERSION_FIELD = 'VersionField';
+
     /**
      * @param $component
      * @param $field
