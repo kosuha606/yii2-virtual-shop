@@ -48,6 +48,10 @@ return [
                     'ad_url' => '/admin/'.$baseEntity.'/detail',
                     'crud' => [
                         'model' => $entityClass,
+                        'orderBy' => [
+                            'field' => 'id',
+                            'direction' => 'desc',
+                        ],
                         'action' => 'actionList'
                     ],
                     'filter_config' => [

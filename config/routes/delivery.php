@@ -36,7 +36,11 @@ return [
                     'ad_url' => '/admin/'.$baseEntity.'/detail',
                     'crud' => [
                         'model' => $entityClass,
-                        'action' => 'actionList'
+                        'action' => 'actionList',
+                        'orderBy' => [
+                            'field' => 'id',
+                            'direction' => 'desc',
+                        ],
                     ],
                     'filter' => function($filterKey) {
                         $function = '=';

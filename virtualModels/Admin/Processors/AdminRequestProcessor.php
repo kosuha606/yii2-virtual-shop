@@ -158,8 +158,11 @@ class AdminRequestProcessor
 
                 switch ($crudAction) {
                     case 'actionList':
+                        $defaultOrder = isset($handler['crud']['orderBy']) ?
+                            [$handler['crud']['orderBy']['field'] => $handler['crud']['orderBy']['direction']]
+                            : [];
                         $filter = $requestData['get']['filter'] ?? [];
-                        $order = $requestData['get']['order'] ?? [];
+                        $order = $requestData['get']['order'] ?? $defaultOrder;
                         $page  = $requestData['get']['page'] ?? 1;
                         $itemPerPage = $requestData['get']['itemPerPage'] ?? 10;
                         $pagination = new Pagination($page, $itemPerPage);
@@ -190,6 +193,11 @@ class AdminRequestProcessor
                             $filter,
                             $order
                         ));
+
+                        if (isset($handler['crud']['orderBy'])) {
+                            $response->json['defaultSort'] = $handler['crud']['orderBy'];
+                        }
+
                         $response->json['pagination'] = $pagination;
                         break;
                     case 'actionView':

@@ -35,7 +35,11 @@ return [
                     'ad_url' => '/admin/'.$baseEntity.'/detail',
                     'crud' => [
                         'model' => $entityClass,
-                        'action' => 'actionList'
+                        'action' => 'actionList',
+                        'orderBy' => [
+                            'field' => 'id',
+                            'direction' => 'desc',
+                        ],
                     ],
                     'filter_config' => [
                         [
@@ -56,17 +60,12 @@ return [
                             'label' => 'ID'
                         ],
                         [
-                            'field' => 'productIds',
+                            'field' => 'percent',
                             'component' => ListComponents::STRING_CELL,
-                            'label' => 'Продукты',
+                            'label' => 'Процент скидки',
                             'props' => [
                                 'link' => 1,
                             ]
-                        ],
-                        [
-                            'field' => 'percent',
-                            'component' => ListComponents::STRING_CELL,
-                            'label' => 'Процент скидки'
                         ],
                         [
                             'field' => 'created_at',

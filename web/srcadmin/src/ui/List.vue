@@ -1,6 +1,7 @@
 <template>
     <div>
         <vue-table
+                :default-sort="defaultSort"
                 :id="id"
                 ref="mainList"
                 :sync-url="fetchData"
@@ -86,6 +87,7 @@
             cellComponents: Array,
             filterComponents: Array,
             massOperationComponents: Array,
+            defaultSort: Object,
         },
         components: {
             VueTable

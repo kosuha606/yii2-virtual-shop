@@ -17,6 +17,7 @@ $ad_url = $ad_url ?? null;
 <?php } ?>
 
 <list
+        :default-sort="_admin.defaultSort"
         id="list"
         :entity-url="'/admin/'+_admin.entity"
         :cell-components="_admin.list_config"
