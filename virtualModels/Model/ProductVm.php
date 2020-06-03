@@ -5,6 +5,9 @@ namespace app\virtualModels\Model;
 
 
 use app\models\Comment;
+use app\virtualModels\Admin\Domains\Search\SearchableInterface;
+use app\virtualModels\Admin\Domains\Search\SearchIndexDto;
+use app\virtualModels\Admin\Domains\Search\SearchObserver;
 use app\virtualModels\Domains\Cache\CacheAimInterface;
 use app\virtualModels\Domains\Cache\CacheAimObserver;
 use app\virtualModels\Domains\Cache\CacheEntityDto;
@@ -19,7 +22,7 @@ use kosuha606\VirtualModelHelppack\Traits\ObserveVMTrait;
  * Продукт
  * @property $rests
  */
-class ProductVm extends VirtualModel implements CacheAimInterface
+class ProductVm extends VirtualModel implements CacheAimInterface, SearchableInterface
 {
     use ObserveVMTrait;
 
@@ -48,10 +51,16 @@ class ProductVm extends VirtualModel implements CacheAimInterface
         ];
     }
 
+    public function buildIndex(): SearchIndexDto
+    {
+        return new SearchIndexDto(1, []);
+    }
+
     public static function observers()
     {
         return [
-            CacheAimObserver::class
+            CacheAimObserver::class,
+            SearchObserver::class,
         ];
     }
 
