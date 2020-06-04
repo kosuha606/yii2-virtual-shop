@@ -80,9 +80,14 @@ class ZendSearchService
      */
     public function getIndex()
     {
-        $analyzer = new MyAnalizer();
-        Analyzer::setDefault($analyzer);
-        $index = Lucene::open($this->indexFile());
+        try {
+            $analyzer = new MyAnalizer();
+            Analyzer::setDefault($analyzer);
+            $index = Lucene::open($this->indexFile());
+        } catch (\Exception $exception) {
+            $index = $this->clearIndex();
+        }
+
         return $index;
     }
 
@@ -114,6 +119,7 @@ class ZendSearchService
     {
         $index = Lucene::create($this->indexFile());
         $this->commitIndex($index);
+        return $index;
     }
 
     /**
