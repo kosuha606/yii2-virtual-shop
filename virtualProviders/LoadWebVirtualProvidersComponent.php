@@ -2,6 +2,7 @@
 
 namespace app\virtualProviders;
 
+use app\virtualProviders\ZendLuceneSearch\ZendLuceneSearchProvider;
 use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModel\VirtualModelManager;
 use yii\base\Component;
@@ -25,6 +26,10 @@ class LoadWebVirtualProvidersComponent extends Component
         VirtualModelManager::getInstance()->setProvider(new SessionProvider());
 
         VirtualModelManager::getInstance()->setProvider(new CacheProvider());
+
+        $zendProvider = new ZendLuceneSearchProvider();
+        $zendProvider->zendService->setIndexPath('@runtime/zend_index');
+        VirtualModelManager::getInstance()->setProvider($zendProvider);
 
     }
 }

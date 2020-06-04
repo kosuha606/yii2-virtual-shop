@@ -117,6 +117,11 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionSearch()
+    {
+        return $this->render('search');
+    }
+
     /**
      * @return string
      * @throws \Exception

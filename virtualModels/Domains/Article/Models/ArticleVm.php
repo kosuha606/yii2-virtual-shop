@@ -10,6 +10,16 @@ use app\virtualModels\Domains\Multilang\MultilangTrait;
 use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModelHelppack\Traits\ObserveVMTrait;
 
+/**
+ *
+ * @property  $id
+ * @property  $title
+ * @property  $photo
+ * @property  $slug
+ * @property  $content
+ * @property  $created_at
+ *
+ */
 class ArticleVm extends VirtualModel implements SearchableInterface
 {
     use MultilangTrait;
@@ -26,7 +36,18 @@ class ArticleVm extends VirtualModel implements SearchableInterface
 
     public function buildIndex(): SearchIndexDto
     {
-        return new SearchIndexDto(1, []);
+        return new SearchIndexDto(1, [
+            [
+                'field' => 'title',
+                'value' => $this->title,
+                'type' => 'keyword',
+            ],
+            [
+                'field' => 'content',
+                'value' => $this->content,
+                'type' => 'text',
+            ],
+        ]);
     }
 
     public function attributes(): array

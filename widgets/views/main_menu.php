@@ -35,6 +35,7 @@ echo Nav::widget([
     'items' => [
         $langsbar,
         ['label' => 'Каталог', 'url' => ['/site/index']],
+        ['label' => 'Поиск', 'url' => ['/site/search']],
         [
             'label' => $cart->getAmount()
                 ? ('В корзине: ' . $cart->getAmount() . ' шт. на ' . $cart->getTotals() . ' руб.')
