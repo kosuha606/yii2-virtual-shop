@@ -40,7 +40,7 @@ class ArticleVm extends VirtualModel implements SearchableInterface
             [
                 'field' => 'title',
                 'value' => $this->title,
-                'type' => 'keyword',
+                'type' => 'text',
             ],
             [
                 'field' => 'content',

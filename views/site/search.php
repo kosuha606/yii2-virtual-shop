@@ -15,7 +15,7 @@ $provider = VirtualModelManager::getInstance()->getProvider(SearchVm::KEY);
 
 <?php
 
-$form = ActiveForm::begin(['method' => 'get']);
+$form = ActiveForm::begin(['method' => 'get', 'action' => '/site/search']);
 
 $q = Yii::$app->request->get('q', '');
 
@@ -40,9 +40,12 @@ ActiveForm::end();
 
 ?>
 
+<p>&nbsp;</p>
 
 <?php
-
-print_r($results['results']);
-
-?>
+foreach ($results['results'] as $result) { ?>
+    <div>
+        <b><?= $result->title ?></b>
+        <hr>
+    </div>
+<?php } ?>

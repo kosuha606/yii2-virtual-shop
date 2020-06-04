@@ -12,7 +12,9 @@ use ZendSearch\Lucene\Analysis\Analyzer\Common\Utf8;
 use ZendSearch\Lucene\Document;
 use ZendSearch\Lucene\Document\Field;
 use ZendSearch\Lucene\Index;
+use ZendSearch\Lucene\Index\Term;
 use ZendSearch\Lucene\Lucene;
+use ZendSearch\Lucene\Search\Query\MultiTerm;
 use ZendSearch\Lucene\Search\QueryParser;
 use ZendSearch\Lucene\SearchIndexInterface;
 
@@ -93,6 +95,21 @@ class ZendSearchService
         $index->commit();
     }
 
+    public function removeFromIndex($modelId, $modelClass)
+    {
+        $query = new MultiTerm();
+        $query->addTerm(new Term($modelId, 'model_id'), true);
+        $query->addTerm(new Term($modelClass, 'model_class'), true);
+        $index = $this->getIndex();
+        $data = $index->find($query);
+
+        foreach ($data as $hit) {
+            $index->delete($hit->id);
+        }
+
+        $this->commitIndex($index);
+    }
+
     public function clearIndex()
     {
         $index = Lucene::create($this->indexFile());
@@ -103,8 +120,9 @@ class ZendSearchService
      * @param $indexData
      * @param SearchIndexInterface $index
      * @throws Exception
+     * @throws \yii\base\InvalidConfigException
      */
-    public function indexArray($indexData, SearchIndexInterface $index)
+    public function indexArray($indexData)
     {
         $doc = new Document();
 
@@ -122,6 +140,7 @@ class ZendSearchService
             $doc->addField(Field::{$indexDatum['type']}($indexDatum['field'], $indexDatum['value'], 'UTF-8'));
         }
 
+        $index = $this->getIndex();
         $index->addDocument($doc);
         $this->commitIndex($index);
     }
@@ -135,6 +154,7 @@ class ZendSearchService
         $analyzer = new MyAnalizer();
         Analyzer::setDefault($analyzer);
         $index = Lucene::create($this->indexFile());
+        $this->clearIndex();
 
         foreach ($indexData as $indexDatum) {
             $this->indexArray($indexDatum, $index);

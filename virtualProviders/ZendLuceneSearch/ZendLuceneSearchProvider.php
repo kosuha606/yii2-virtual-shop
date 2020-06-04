@@ -29,7 +29,18 @@ class ZendLuceneSearchProvider extends MemoryModelProvider
     public function index($caller, SearchableInterface $model)
     {
         $indexDto = $model->buildIndex();
-        $this->zendService->indexArray($indexDto->getIndexData(), $this->zendService->getIndex());
+        $indexDtoData = $indexDto->getIndexData();
+        $indexDtoData[] = [
+            'field' => 'model_id',
+            'value' => $model->id,
+            'type' => 'keyword',
+        ];
+        $indexDtoData[] = [
+            'field' => 'model_class',
+            'value' => get_class($model),
+            'type' => 'keyword',
+        ];
+        $this->zendService->indexArray($indexDtoData);
     }
 
     /**
@@ -47,7 +58,9 @@ class ZendLuceneSearchProvider extends MemoryModelProvider
 
     public function removeIndex($caller,SearchableInterface $model)
     {
-        $this->zendService->clearIndex();
+        $modelId = $model->id;
+        $modelClass = get_class($model);
+        $this->zendService->removeFromIndex($modelId, $modelClass);
     }
 
     public function search($caller, $text)
