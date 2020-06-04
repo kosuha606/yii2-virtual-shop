@@ -53,7 +53,18 @@ class ProductVm extends VirtualModel implements CacheAimInterface, SearchableInt
 
     public function buildIndex(): SearchIndexDto
     {
-        return new SearchIndexDto(1, []);
+        return new SearchIndexDto(1, [
+            [
+                'field' => 'title',
+                'value' => $this->name,
+                'type' => 'text',
+            ],
+            [
+                'field' => 'content',
+                'value' => $this->price,
+                'type' => 'text',
+            ],
+        ]);
     }
 
     public static function observers()

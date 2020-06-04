@@ -43,9 +43,11 @@ ActiveForm::end();
 <p>&nbsp;</p>
 
 <?php
-foreach ($results['results'] as $result) { ?>
-    <div>
-        <b><?= $result->title ?></b>
-        <hr>
-    </div>
+if (isset($results['results'])) {
+    foreach ($results['results'] as $result) { ?>
+        <div>
+            <b><?= $result->title ?></b>
+            <hr>
+        </div>
+    <?php } ?>
 <?php } ?>

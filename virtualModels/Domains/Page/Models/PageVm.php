@@ -24,7 +24,18 @@ class PageVm extends VirtualModel implements SearchableInterface
 
     public function buildIndex(): SearchIndexDto
     {
-        return new SearchIndexDto(1, []);
+        return new SearchIndexDto(1, [
+            [
+                'field' => 'title',
+                'value' => $this->title,
+                'type' => 'text',
+            ],
+            [
+                'field' => 'content',
+                'value' => $this->content,
+                'type' => 'text',
+            ],
+        ]);
     }
 
     public function attributes(): array
