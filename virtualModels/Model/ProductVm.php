@@ -17,6 +17,7 @@ use kosuha606\VirtualModel\VirtualModel;
 use app\virtualModels\ServiceManager;
 use app\virtualModels\Services\ProductService;
 use kosuha606\VirtualModelHelppack\Traits\ObserveVMTrait;
+use yii\helpers\Url;
 
 /**
  * Продукт
@@ -58,6 +59,11 @@ class ProductVm extends VirtualModel implements CacheAimInterface, SearchableInt
                 'field' => 'title',
                 'value' => $this->name,
                 'type' => 'text',
+            ],
+            [
+                'field' => 'url',
+                'value' => Url::toRoute(['site/view', 'id' => $this->id]),
+                'type' => 'keyword',
             ],
             [
                 'field' => 'content',

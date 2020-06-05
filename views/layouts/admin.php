@@ -68,6 +68,8 @@ $this->registerJsFile('/srcadmin/dist/admin.js');
     ?>
 
     <div id="vue-app">
+        <vue-topprogress ref="topProgress" :height="7" :color="'#ffffff'"></vue-topprogress>
+
         <?= $this->render('_admin_template', [
             'content' => $content
         ])  ?>

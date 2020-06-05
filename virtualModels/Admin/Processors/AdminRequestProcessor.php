@@ -235,6 +235,11 @@ class AdminRequestProcessor
                             $response->json['model'] = $model->toArray();
                         }
 
+                        $response->json['detail_config'] = ['no' => 'config'];
+                        if (isset($handler['detail_config'])) {
+                            $response->json['detail_config'] = $handler['detail_config'];
+                        }
+
                         if ($successMessage) {
                             $this->alertService->success($successMessage);
                         }

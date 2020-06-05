@@ -4,6 +4,7 @@
 use app\virtualModels\Admin\Domains\Search\SearchVm;
 use app\virtualProviders\ZendLuceneSearch\ZendLuceneSearchProvider;
 use kosuha606\VirtualModel\VirtualModelManager;
+use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var ZendLuceneSearchProvider $provider */
@@ -23,7 +24,6 @@ $results = $provider->search($this, $q);
 
 ?>
 
-<h3>В индексе <?= $provider->zendService->getIndex()->numDocs() ?></h3>
 
 <div class="row">
     <div class="col-md-8">
@@ -46,7 +46,7 @@ ActiveForm::end();
 if (isset($results['results'])) {
     foreach ($results['results'] as $result) { ?>
         <div>
-            <b><?= $result->title ?></b>
+            <b><?= Html::a($result->title, $result->url) ?></b>
             <hr>
         </div>
     <?php } ?>

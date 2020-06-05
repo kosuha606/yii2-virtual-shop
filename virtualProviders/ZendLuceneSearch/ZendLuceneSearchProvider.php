@@ -3,21 +3,77 @@
 namespace app\virtualProviders\ZendLuceneSearch;
 
 use app\virtualModels\Admin\Domains\Search\SearchableInterface;
+use app\virtualModels\Admin\Domains\Search\SearchIndexInfoDTO;
+use app\virtualModels\Admin\Domains\Search\SearchProviderInterface;
+use app\virtualModels\Admin\Domains\Search\SearchService;
 use app\virtualModels\Admin\Domains\Search\SearchVm;
+use app\virtualModels\Domains\Article\Models\ArticleVm;
+use app\virtualModels\Domains\Page\Models\PageVm;
+use app\virtualModels\Model\ProductVm;
 use kosuha606\VirtualModel\Example\MemoryModelProvider;
+use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModelHelppack\ServiceManager;
 
-class ZendLuceneSearchProvider extends MemoryModelProvider
+class ZendLuceneSearchProvider extends MemoryModelProvider implements SearchProviderInterface
 {
     public $zendService;
+
+    private $indexModels = [
+        PageVm::class,
+        ArticleVm::class,
+        ProductVm::class,
+    ];
 
     public function type()
     {
         return SearchVm::KEY;
     }
 
+    /**
+     * @param $caller
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     * @throws \Exception
+     */
+    public function reindexAll($caller)
+    {
+        $searchService = ServiceManager::getInstance()->get(SearchService::class);
+
+        /** @var VirtualModel $modelClass */
+        foreach ($this->indexModels as $modelClass) {
+            /** @var SearchableInterface[] $models */
+            $models = $modelClass::many(['where' => [['all']]]);
+
+            foreach ($models as $model) {
+                $searchService->removeIndex($model);
+                $searchService->createIndex($model);
+            }
+        }
+    }
+
     public function __construct()
     {
         $this->zendService = new ZendSearchService();
+    }
+
+    public function indexInfo($caller): SearchIndexInfoDTO
+    {
+        $index = $this->zendService->getIndex();
+
+        return new SearchIndexInfoDTO(
+            $index->numDocs()
+        );
+    }
+
+    /**
+     * @param $caller
+     * @param SearchableInterface $model
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\db\Exception
+     */
+    public function createIndex($caller, SearchableInterface $model)
+    {
+        $this->index($caller, $model);
     }
 
     /**

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>
+        <div v-if="!detailConfig.noback">
             <button @click="back" class="btn btn-default">
                 <i class="fa fa-arrow-left"></i>
                 Назад
@@ -14,7 +14,7 @@
         </div>
 
 
-        <ul class="nav nav-tabs">
+        <ul v-if="!detailConfig.notabs" class="nav nav-tabs">
             <li class="nav-item active">
                 <a class="nav-link active" data-toggle="tab" href="#description">Основное</a>
             </li>
@@ -86,7 +86,7 @@
 
         <p>&nbsp;</p>
         <p>&nbsp;</p>
-        <div>
+        <div v-if="!detailConfig.nobuttons">
             <button @click="save" class="btn btn-success">
                 <i class="fa fa-save"></i>
                 Сохранить
@@ -116,6 +116,7 @@
         props: {
             id: [String, Number],
             defaultFormData: Object,
+            detailConfig: Object,
             saveUrl: String,
             detailComponents: Array,
             additionalComponents: Array,

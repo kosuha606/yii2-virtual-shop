@@ -39,6 +39,7 @@ use kosuha606\VirtualModel\VirtualModel; ?>
 
 <detail
     :id="_admin.model.id"
+    :detail-config="_admin.detail_config"
     :save-url="'/admin/'+_admin.entity+'/detail'"
     :item="_admin.model"
     :additional-components="_admin.additional_config"

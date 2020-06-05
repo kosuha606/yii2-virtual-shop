@@ -9,6 +9,7 @@ use app\virtualModels\Admin\Domains\Version\VersionObserver;
 use app\virtualModels\Domains\Multilang\MultilangTrait;
 use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModelHelppack\Traits\ObserveVMTrait;
+use yii\helpers\Url;
 
 /**
  *
@@ -41,6 +42,11 @@ class ArticleVm extends VirtualModel implements SearchableInterface
                 'field' => 'title',
                 'value' => $this->title,
                 'type' => 'text',
+            ],
+            [
+                'field' => 'url',
+                'value' => Url::toRoute(['article/detail', 'id' => $this->id, 'slug' => $this->slug]),
+                'type' => 'keyword',
             ],
             [
                 'field' => 'content',

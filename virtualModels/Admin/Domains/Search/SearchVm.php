@@ -14,6 +14,7 @@ use kosuha606\VirtualModel\VirtualModel;
  *
  *
  * @method static index($model)
+ * @method static info()
  * @method static batchIndex($models)
  * @method static removeIndex($model)
  * @method static search($text)

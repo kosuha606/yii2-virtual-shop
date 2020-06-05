@@ -3,14 +3,26 @@
 namespace app\virtualModels\Admin\Test;
 
 use app\virtualModels\Admin\Domains\Search\SearchableInterface;
+use app\virtualModels\Admin\Domains\Search\SearchIndexInfoDTO;
+use app\virtualModels\Admin\Domains\Search\SearchProviderInterface;
 use app\virtualModels\Admin\Domains\Search\SearchVm;
 use kosuha606\VirtualModel\Example\MemoryModelProvider;
 
-class TestSearchProvider extends MemoryModelProvider
+class TestSearchProvider extends MemoryModelProvider implements SearchProviderInterface
 {
     public function type()
     {
         return SearchVm::KEY;
+    }
+
+    public function createIndex($caller, SearchableInterface $model)
+    {
+        // TODO: Implement createIndex() method.
+    }
+
+    public function indexInfo($caller): SearchIndexInfoDTO
+    {
+        // TODO: Implement indexInfo() method.
     }
 
     public function index($caller, SearchableInterface $model)
@@ -18,7 +30,7 @@ class TestSearchProvider extends MemoryModelProvider
         // nothing
     }
 
-    public function batchIndex($caller, SearchableInterface $model)
+    public function batchIndex($caller, $models)
     {
         // nothing
     }
@@ -37,4 +49,10 @@ class TestSearchProvider extends MemoryModelProvider
     {
         // nothing
     }
+
+    public function reindexAll($caller)
+    {
+        // TODO: Implement reindexAll() method.
+    }
+
 }

@@ -13,6 +13,8 @@ Vue.component('ImageField', () => import('./ui/form/ImageField'));
 Vue.component('ConfigBuilderField', () => import('./ui/form/ConfigBuilderField'));
 Vue.component('VersionField', () => import('./ui/form/VersionField'));
 
+Vue.component('SearchPage', () => import('./ui/concrete/SearchPage'));
+
 Vue.component('List', () => import('./ui/List'));
 Vue.component('Detail', () => import('./ui/Detail'));
 Vue.component('DetailField', () => import('./ui/DetailField'));
