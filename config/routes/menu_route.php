@@ -124,11 +124,18 @@ return [
                                         'value' => $model->id,
                                     ],
                                     [
-                                        'field' => 'label',
-                                        'label' => 'Заголовок',
-                                        'component' => DetailComponents::INPUT_FIELD,
-                                        'value' => $inModel->label,
+                                        'field' => 'id',
+                                        'label' => '',
+                                        'component' => DetailComponents::HIDDEN_FIELD,
+                                        'value' => $inModel->id,
                                     ],
+                                    DetailComponents::MULTILANG_FIELD(
+                                        DetailComponents::INPUT_FIELD,
+                                        'label',
+                                        'Заголовок',
+                                        $inModel->label,
+                                        $inModel
+                                    ),
                                     [
                                         'field' => 'link',
                                         'label' => 'Ссылка',

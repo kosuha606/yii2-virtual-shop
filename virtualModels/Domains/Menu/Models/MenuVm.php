@@ -2,6 +2,7 @@
 
 namespace app\virtualModels\Domains\Menu\Models;
 
+use app\virtualModels\Domains\Multilang\MultilangTrait;
 use kosuha606\VirtualModel\VirtualModel;
 
 class MenuVm extends VirtualModel
