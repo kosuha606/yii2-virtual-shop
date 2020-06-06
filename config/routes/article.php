@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Design;
+use app\virtualModels\Admin\Domains\Seo\SeoPageVm;
 use app\virtualModels\Admin\Domains\Version\VersionVm;
 use app\virtualModels\Admin\Form\SecondaryFormBuilder;
 use app\virtualModels\Admin\Form\SecondaryFormService;
@@ -12,7 +13,6 @@ use app\virtualModels\Domains\Design\Models\DesignWidgetVm;
 use app\virtualModels\Domains\Design\Models\WidgetVm;
 use app\virtualModels\Domains\Menu\Models\MenuItemVm;
 use app\virtualModels\Domains\Page\Models\PageVm;
-use app\virtualModels\Domains\Page\Models\SeoPageVm;
 use app\virtualModels\Model\FilterCategoryVm;
 use app\virtualModels\Model\OrderReserveVm;
 use app\virtualModels\Model\ProductVm;
@@ -98,36 +98,46 @@ return [
                     'additional_config' => function($model) {
                         $secondaryService = ServiceManager::getInstance()->get(SecondaryFormService::class);
 
+
                         $config = $secondaryService->buildForm()
                             ->setMasterModel($model)
-                            ->setMasterModelField('article_id')
+                            ->setMasterModelId($model->id.','.get_class($model))
+                            ->setMasterModelField('entity_id,entity_class')
                             ->setRelationType(SecondaryFormBuilder::ONE_TO_ONE)
-                            ->setRelationClass(SeoArticleVm::class)
-                            ->setTabName('SEO')
-                            ->setRelationEntities(SeoArticleVm::many(['where' => [['=', 'article_id', $model->id]]]))
+                            ->setRelationClass(\app\virtualModels\Admin\Domains\Seo\SeoPageVm::class)
+                            ->setTabName('SEO_data')
+                            ->setRelationEntities(SeoPageVm::many(['where' => [
+                                ['=', 'entity_id', $model->id],
+                                ['=', 'entity_class', get_class($model)]
+                            ]]))
                             ->setConfig(function ($inModel) use ($model) {
                                 $stringService = ServiceManager::getInstance()->get(StringService::class);
                                 /** @var OrderReserveVm $inModel */
                                 return [
-                                    [
-                                        'field' => 'article_id',
-                                        'label' => 'Продукт',
-                                        'component' => DetailComponents::HIDDEN_FIELD,
-                                        'value' => $model->id,
-                                    ],
                                     [
                                         'field' => 'id',
                                         'label' => '',
                                         'component' => DetailComponents::HIDDEN_FIELD,
                                         'value' => $inModel->id,
                                     ],
-                                    DetailComponents::MULTILANG_FIELD(
-                                        DetailComponents::INPUT_FIELD,
-                                        'meta_title',
-                                        'Мета заголовок',
-                                        $inModel->meta_title,
-                                        $inModel
-                                    ),
+                                    [
+                                        'field' => 'entity_id',
+                                        'label' => '',
+                                        'component' => DetailComponents::HIDDEN_FIELD,
+                                        'value' => $model->id,
+                                    ],
+                                    [
+                                        'field' => 'entity_class',
+                                        'label' => '',
+                                        'component' => DetailComponents::HIDDEN_FIELD,
+                                        'value' => get_class($model),
+                                    ],
+                                    [
+                                        'field' => 'title',
+                                        'label' => 'Заголовок',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $inModel->title,
+                                    ],
                                     [
                                         'field' => 'meta_keywords',
                                         'label' => 'Мета ключевые слова',
@@ -135,10 +145,52 @@ return [
                                         'value' => $inModel->meta_keywords,
                                     ],
                                     [
-                                        'field' => 'meta_description',
+                                        'field' => 'mata_description',
                                         'label' => 'Мета описание',
+                                        'component' => DetailComponents::TEXTAREA_FIELD,
+                                        'value' => $inModel->mata_description,
+                                    ],
+                                    [
+                                        'field' => 'og_title',
+                                        'label' => 'OG заголовок',
                                         'component' => DetailComponents::INPUT_FIELD,
-                                        'value' => $inModel->meta_description,
+                                        'value' => $inModel->og_title,
+                                    ],
+                                    [
+                                        'field' => 'og_description',
+                                        'label' => 'OG описание',
+                                        'component' => DetailComponents::TEXTAREA_FIELD,
+                                        'value' => $inModel->og_description,
+                                    ],
+                                    [
+                                        'field' => 'og_url',
+                                        'label' => 'OG адресс',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $inModel->og_url,
+                                    ],
+                                    [
+                                        'field' => 'og_image',
+                                        'label' => 'OG изображение',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $inModel->og_image,
+                                    ],
+                                    [
+                                        'field' => 'og_type',
+                                        'label' => 'OG тип',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $inModel->og_type,
+                                    ],
+                                    [
+                                        'field' => 'canonical',
+                                        'label' => 'Canonical',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $inModel->canonical,
+                                    ],
+                                    [
+                                        'field' => 'noindex',
+                                        'label' => 'Noindex',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $inModel->noindex,
                                     ],
                                 ];
                             })

@@ -9,4 +9,6 @@ interface SeoModelInterface
     public function buildUrl();
 
     public function getSeo(): SeoPageVm;
+
+    public function getUrl();
 }

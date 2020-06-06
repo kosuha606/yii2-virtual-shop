@@ -19,8 +19,10 @@ class SeoUrlObserver
 
         /** @var SeoUrlVm[] $oldModels */
         $oldModels = SeoUrlVm::many([
-            'entity_id' => $id,
-            'entity_class' => $modelClass,
+            'where' => [
+                ['=', 'entity_id', $id],
+                ['=', 'entity_class', $modelClass],
+            ]
         ]);
 
         // Удаляем все старые url модели этой сущности

@@ -8,6 +8,9 @@ use app\models\Comment;
 use app\virtualModels\Admin\Domains\Search\SearchableInterface;
 use app\virtualModels\Admin\Domains\Search\SearchIndexDto;
 use app\virtualModels\Admin\Domains\Search\SearchObserver;
+use app\virtualModels\Admin\Domains\Seo\SeoModelInterface;
+use app\virtualModels\Admin\Domains\Seo\SeoModelTrait;
+use app\virtualModels\Admin\Domains\Seo\SeoUrlObserver;
 use app\virtualModels\Domains\Cache\CacheAimInterface;
 use app\virtualModels\Domains\Cache\CacheAimObserver;
 use app\virtualModels\Domains\Cache\CacheEntityDto;
@@ -22,12 +25,26 @@ use yii\helpers\Url;
 /**
  * Продукт
  * @property $rests
+ *
+ * @property $id
+ * @property $name
+ * @property $price
+ * @property $slug
+ * @property $price2B
+ * @property $actions
+ *
  */
-class ProductVm extends VirtualModel implements CacheAimInterface, SearchableInterface
+class ProductVm extends VirtualModel
+    implements
+    CacheAimInterface,
+    SearchableInterface,
+    SeoModelInterface
 {
     use ObserveVMTrait;
 
     use MultilangTrait;
+
+    use SeoModelTrait;
 
     /** @var ProductService */
     private $productService;
@@ -46,10 +63,16 @@ class ProductVm extends VirtualModel implements CacheAimInterface, SearchableInt
             'id',
             'name',
             'price',
+            'slug',
             'price2B',
             'actions',
             'rests',
         ];
+    }
+
+    public function buildUrl()
+    {
+        return '/product/'.$this->id.'_'.$this->slug;
     }
 
     public function buildIndex(): SearchIndexDto
@@ -78,6 +101,7 @@ class ProductVm extends VirtualModel implements CacheAimInterface, SearchableInt
         return [
             CacheAimObserver::class,
             SearchObserver::class,
+            SeoUrlObserver::class,
         ];
     }
 

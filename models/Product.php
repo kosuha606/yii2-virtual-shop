@@ -10,6 +10,7 @@ use kosuha606\VirtualModel\Example\Shop\Services\ProductService;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
+use yii\helpers\Inflector;
 
 /**
  * Продукт
@@ -46,11 +47,18 @@ class Product extends ActiveRecord
             ],
             [
                 [
+                    'slug',
                     'actions',
                     'rests',
                 ],
                 'safe'
             ]
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        $this->slug = Inflector::slug($this->name);
+        return parent::beforeSave($insert);
     }
 }
