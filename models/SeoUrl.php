@@ -6,7 +6,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-class SeoPage extends ActiveRecord
+class SeoUrl extends ActiveRecord
 {
     public function behaviors()
     {
@@ -22,7 +22,7 @@ class SeoPage extends ActiveRecord
 
     public static function tableName()
     {
-        return 'seo_page';
+        return 'seo_url';
     }
 
     public function rules(): array
@@ -32,24 +32,10 @@ class SeoPage extends ActiveRecord
                 [
                     'entity_id',
                     'entity_class',
+                    'url',
                 ],
                 'required'
             ],
-            [
-                [
-                    'title',
-                    'meta_keywords',
-                    'mata_description',
-                    'og_title',
-                    'og_description',
-                    'og_url',
-                    'og_image',
-                    'og_type',
-                    'canonical',
-                    'noindex',
-                ],
-                'safe'
-            ]
         ];
     }
 }

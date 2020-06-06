@@ -23,11 +23,15 @@ use app\models\ProductSeo;
 use app\models\Promocode;
 use app\models\SeoArticle;
 use app\models\SeoPage;
+use app\models\SeoRedirect;
+use app\models\SeoUrl;
 use app\models\Text;
 use app\models\Translation;
 use app\models\User;
 use app\models\Version;
 use app\models\Widget;
+use app\virtualModels\Admin\Domains\Seo\SeoRedirectVm;
+use app\virtualModels\Admin\Domains\Seo\SeoUrlVm;
 use app\virtualModels\Admin\Domains\Version\VersionVm;
 use app\virtualModels\Domains\Article\Models\ArticleVm;
 use app\virtualModels\Domains\Article\Models\SeoArticleVm;
@@ -76,6 +80,15 @@ $config = [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,
             'arRelations' => [
+                SeoRedirectVm::class => [
+                    'ar' => SeoRedirect::class
+                ],
+                SeoPageVm::class => [
+                    'ar' => SeoPage::class,
+                ],
+                SeoUrlVm::class => [
+                    'ar' => SeoUrl::class
+                ],
                 VersionVm::class => [
                     'ar' => Version::class,
                 ],
