@@ -30,6 +30,7 @@ use app\models\Translation;
 use app\models\User;
 use app\models\Version;
 use app\models\Widget;
+use app\urlRules\SeoUrlRule;
 use app\virtualModels\Admin\Domains\Seo\SeoPageVm;
 use app\virtualModels\Admin\Domains\Seo\SeoRedirectVm;
 use app\virtualModels\Admin\Domains\Seo\SeoUrlVm;
@@ -212,11 +213,12 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                [
+                    'class' => SeoUrlRule::class,
+                ],
                 '/admin' => '/admin/index',
                 '/admin/<route>/<act>' => '/admin/processor',
-                '/p_<id>_<slug>' => '/page/detail',
                 '/news' => '/article/list',
-                '/news/<id>_<slug>' => '/article/detail',
             ],
         ],
     ],

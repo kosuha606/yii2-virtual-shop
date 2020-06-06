@@ -22,6 +22,11 @@ class SeoService
         }
 
         $modelClass = $seoUrl->entity_class;
+
+        if (!$modelClass) {
+            return false;
+        }
+
         $model = $modelClass::one([
             'where' => [
                 ['=', 'id', $seoUrl->entity_id]
