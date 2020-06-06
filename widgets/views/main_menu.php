@@ -62,5 +62,15 @@ echo Nav::widget([
         ),
     ],
 ]);
+
+$q = Yii::$app->request->get('q', '');
+?>
+<div style="padding: 8px">
+<form action="/site/search" method="get" class="form-inline my-2 my-lg-0">
+    <input value="<?= Html::encode($q) ?>" name="q" class="form-control mr-sm-2" type="search" placeholder="Введите запрос" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+</form>
+</div>
+<?php
 NavBar::end();
 ?>
