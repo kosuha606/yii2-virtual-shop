@@ -10,7 +10,7 @@ use yii\helpers\Html;
 <?php foreach ($articles as $article) { ?>
     <div>
         <h3>
-            <?= Html::a($article->langAttribute('title'), ['article/detail', 'id' => $article->id, 'slug' => $article->slug]) ?>
+            <?= Html::a($article->langAttribute('title'), $article->getUrl()) ?>
         </h3>
         <?= $article->created_at ?>
         <hr>

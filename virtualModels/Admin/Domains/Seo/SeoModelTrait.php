@@ -31,8 +31,10 @@ trait SeoModelTrait
         $id = $this->id;
         $modelClass = get_class($this);
         $models = SeoUrlVm::many([
-            'entity_id' => $id,
-            'entity_class' => $modelClass,
+            'where' => [
+                ['=', 'entity_id', $id],
+                ['=', 'entity_class', $modelClass]
+            ]
         ]);
         $model = $models ? $models[0] : SeoUrlVm::create([]);
 

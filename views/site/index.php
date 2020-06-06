@@ -97,7 +97,7 @@ $order = Yii::$app->request->get('order');
                     <?php foreach ($products as $product) { ?>
                         <div class="product-item">
                             <h2>
-                                <a href="<?= Url::toRoute(['site/view', 'id' => $product->id]) ?>">
+                                <a href="<?= $product->getUrl() ?>">
                                     <?= $product->langAttribute('name') ?>
                                 </a>
                             </h2>
