@@ -353,6 +353,12 @@ return [
                                 $model
                             ),
                             [
+                                'field' => 'slug',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'label' => 'Ссылка',
+                                'value' => $model->slug,
+                            ],
+                            [
                                 'field' => 'price',
                                 'component' => DetailComponents::INPUT_FIELD,
                                 'label' => 'Цена',

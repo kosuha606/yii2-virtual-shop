@@ -1,5 +1,6 @@
 <?php
 
+use app\virtualModels\Admin\Domains\Search\SearchService;
 use app\virtualModels\Admin\Domains\Seo\SeoPageVm;
 use app\virtualModels\Admin\Domains\Seo\SeoRedirectVm;
 use app\virtualModels\Model\UserVm;

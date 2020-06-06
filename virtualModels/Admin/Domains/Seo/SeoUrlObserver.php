@@ -2,6 +2,8 @@
 
 namespace app\virtualModels\Admin\Domains\Seo;
 
+use kosuha606\VirtualModelHelppack\ServiceManager;
+
 class SeoUrlObserver
 {
     /**
@@ -13,30 +15,7 @@ class SeoUrlObserver
      */
     public function afterSave(SeoModelInterface $model)
     {
-        $url = $model->buildUrl();
-        $id = $model->id;
-        $modelClass = get_class($model);
-
-        /** @var SeoUrlVm[] $oldModels */
-        $oldModels = SeoUrlVm::many([
-            'where' => [
-                ['=', 'entity_id', $id],
-                ['=', 'entity_class', $modelClass],
-            ]
-        ]);
-
-        // Удаляем все старые url модели этой сущности
-        if ($oldModels) {
-            foreach ($oldModels as $oldModel) {
-                $oldModel->delete();
-            }
-        }
-
-        SeoUrlVm::create([
-            'entity_id' => $id,
-            'entity_class' => $modelClass,
-            'url' => $url,
-        ])->save();
+        ServiceManager::getInstance()->get(SeoService::class)->generateUrlByModel($model);
     }
 
     /**
@@ -45,20 +24,6 @@ class SeoUrlObserver
      */
     public function afterDelete(SeoModelInterface $model)
     {
-        $id = $model->id;
-        $modelClass = get_class($model);
-
-        /** @var SeoUrlVm[] $oldModels */
-        $oldModels = SeoUrlVm::many([
-            'entity_id' => $id,
-            'entity_class' => $modelClass,
-        ]);
-
-        // Удаляем все старые url модели этой сущности
-        if ($oldModels) {
-            foreach ($oldModels as $oldModel) {
-                $oldModel->delete();
-            }
-        }
+        ServiceManager::getInstance()->get(SeoService::class)->removeUrlByModel($model);
     }
 }

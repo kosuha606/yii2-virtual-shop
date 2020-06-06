@@ -14,6 +14,7 @@ Vue.component('ConfigBuilderField', () => import('./ui/form/ConfigBuilderField')
 Vue.component('VersionField', () => import('./ui/form/VersionField'));
 
 Vue.component('SearchPage', () => import('./ui/concrete/SearchPage'));
+Vue.component('GenurlsPage', () => import('./ui/concrete/GenurlsPage'));
 
 Vue.component('List', () => import('./ui/List'));
 Vue.component('Detail', () => import('./ui/Detail'));

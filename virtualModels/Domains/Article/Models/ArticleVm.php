@@ -58,7 +58,7 @@ class ArticleVm extends VirtualModel
             ],
             [
                 'field' => 'url',
-                'value' => Url::toRoute(['article/detail', 'id' => $this->id, 'slug' => $this->slug]),
+                'value' => $this->getUrl(),
                 'type' => 'keyword',
             ],
             [

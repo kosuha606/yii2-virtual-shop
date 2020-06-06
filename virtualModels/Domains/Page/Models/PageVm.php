@@ -58,7 +58,7 @@ class PageVm extends VirtualModel
                 ],
                 [
                     'field' => 'url',
-                    'value' => Url::toRoute(['page/detail', 'id' => $this->id, 'slug' => $this->slug]),
+                    'value' => $this->getUrl(),
                     'type' => 'keyword',
                 ],
                 [

@@ -85,7 +85,7 @@ class ProductVm extends VirtualModel
             ],
             [
                 'field' => 'url',
-                'value' => Url::toRoute(['site/view', 'id' => $this->id]),
+                'value' => $this->getUrl(),
                 'type' => 'keyword',
             ],
             [
