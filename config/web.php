@@ -25,6 +25,7 @@ use app\models\SeoArticle;
 use app\models\SeoPage;
 use app\models\SeoRedirect;
 use app\models\SeoUrl;
+use app\models\StaticTranslation;
 use app\models\Text;
 use app\models\Translation;
 use app\models\User;
@@ -45,6 +46,7 @@ use app\virtualModels\Domains\Design\Models\WidgetVm;
 use app\virtualModels\Domains\Menu\Models\MenuItemVm;
 use app\virtualModels\Domains\Menu\Models\MenuVm;
 use app\virtualModels\Domains\Multilang\LangVm;
+use app\virtualModels\Domains\Multilang\StaticTranslationVm;
 use app\virtualModels\Domains\Multilang\TranslationVm;
 use app\virtualModels\Domains\Page\Models\PageVm;
 use app\virtualModels\Domains\Text\Models\TextVm;
@@ -81,6 +83,9 @@ $config = [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,
             'arRelations' => [
+                StaticTranslationVm::class => [
+                    'ar' => StaticTranslation::class
+                ],
                 SeoRedirectVm::class => [
                     'ar' => SeoRedirect::class
                 ],

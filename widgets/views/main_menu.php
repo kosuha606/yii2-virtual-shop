@@ -2,6 +2,7 @@
 
 
 use app\virtualModels\Domains\Multilang\LangVm;
+use app\virtualModels\Domains\Multilang\TranslationService;
 use app\virtualModels\ServiceManager;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -11,6 +12,8 @@ use yii\helpers\Html;
 
 $user = ServiceManager::getInstance()->userService->current();
 $cart = ServiceManager::getInstance()->cartBuilder->getCart();
+
+$translationService = \kosuha606\VirtualModelHelppack\ServiceManager::getInstance()->get(TranslationService::class);
 
 $langsbar = '<li class="langs">';
 
@@ -34,27 +37,27 @@ echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-right'],
     'items' => [
         $langsbar,
-        ['label' => 'Каталог', 'url' => ['/site/index']],
-        ['label' => 'Поиск', 'url' => ['/site/search']],
+        ['label' => $translationService->translate('Каталог'), 'url' => ['/site/index']],
+        ['label' => $translationService->translate('Поиск'), 'url' => ['/site/search']],
         [
             'label' => $cart->getAmount()
-                ? ('В корзине: ' . $cart->getAmount() . ' шт. на ' . $cart->getTotals() . ' руб.')
-                : 'Корзина'
+                ? ($translationService->translate('В корзине: ') . $cart->getAmount() . ' шт. на ' . $cart->getTotals() . ' руб.')
+                : $translationService->translate('Корзина')
             ,
             'url' => ['/cart/index'],
         ],
-        ($user ? ($user->isAdmin() ? ['label' => 'Админка', 'url' => '/admin'] : '') : '')
+        ($user ? ($user->isAdmin() ? ['label' => $translationService->translate('Админка'), 'url' => '/admin'] : '') : '')
         ,
         Yii::$app->user->isGuest ? (
-        ['label' => 'Вход', 'url' => ['/guest/login']]
+        ['label' => $translationService->translate('Вход'), 'url' => ['/guest/login']]
         ) : (
             '<li>'
-            .Html::a('Кабинет', ['cabinet/orders'])
+            .Html::a($translationService->translate('Кабинет'), ['cabinet/orders'])
             . '</li>'
             .'<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Выход (' . Yii::$app->user->identity->username . ')',
+                $translationService->translate('Выход').'(' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()
@@ -67,8 +70,12 @@ $q = Yii::$app->request->get('q', '');
 ?>
 <div style="padding: 8px">
 <form action="/site/search" method="get" class="form-inline my-2 my-lg-0">
-    <input value="<?= Html::encode($q) ?>" name="q" class="form-control mr-sm-2" type="search" placeholder="Введите запрос" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+    <input value="<?= Html::encode($q) ?>" name="q" class="form-control mr-sm-2" type="search"
+           placeholder="<?= $translationService->translate('Введите запрос') ?>"
+           aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        <?= $translationService->translate('Найти') ?>
+    </button>
 </form>
 </div>
 <?php

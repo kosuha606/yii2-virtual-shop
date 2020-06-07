@@ -10,6 +10,9 @@ trait MultilangTrait
     /** @var LanguageService */
     private static $langService;
 
+    /** @var TranslationService */
+    private static $tralnslationService;
+
     /**
      * @param $name
      * @return mixed
@@ -20,6 +23,11 @@ trait MultilangTrait
         if (!self::$langService) {
             self::$langService = ServiceManager::getInstance()->get(LanguageService::class);
         }
+
+        if (!self::$tralnslationService) {
+            self::$tralnslationService = ServiceManager::getInstance()->get(TranslationService::class);
+        }
+
         $lang = self::$langService->getLang();
 
         if ($lang->is_default) {
@@ -38,6 +46,13 @@ trait MultilangTrait
 
         if ($translation && $translation->data) {
             return $translation->data;
+        }
+
+        if ($translation && self::$tralnslationService->enableAutoTranslate) {
+            if (!$lang->is_default) {
+                $result = self::$tralnslationService->autoTranslate($this, $name, $lang);
+                return $result;
+            }
         }
 
         return $this->$name;

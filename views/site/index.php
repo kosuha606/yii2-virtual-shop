@@ -3,9 +3,11 @@
 /* @var $this yii\web\View */
 
 use app\virtualModels\Classes\Pagination;
+use app\virtualModels\Domains\Multilang\TranslationService;
 use app\virtualModels\Model\FilterProductVm;
 use app\virtualModels\Model\ProductVm;
 use kosuha606\VirtualModel\Example\Shop\Model\Product;
+use kosuha606\VirtualModelHelppack\ServiceManager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -26,6 +28,8 @@ $pagerPagination = new \yii\data\Pagination(
 
 $order = Yii::$app->request->get('order');
 
+$translationService = ServiceManager::getInstance()->get(TranslationService::class);
+
 ?>
 <div class="site-index">
 
@@ -33,10 +37,10 @@ $order = Yii::$app->request->get('order');
 
         <div class="row">
             <div class="col-md-3">
-                <h2>Фильтры</h2>
+                <h2><?= $translationService->translate('Фильтры') ?></h2>
                 <form method="get">
                     <?php foreach ($filtersData as $categoryName => $filterProducts) { ?>
-                        <h3><?= $categoryName ?></h3>
+                        <h3><?= $translationService->translate($categoryName) ?></h3>
                         <?php
                         /** @var FilterProductVm $filterProduct */
                         foreach ($filterProducts as $filterProduct) { ?>
@@ -47,17 +51,17 @@ $order = Yii::$app->request->get('order');
                                            <?= $filterProduct->isActive() ? 'checked' : '' ?>
                                            name="filter[]"
                                            value="<?= $filterProduct->getKey() ?>">
-                                    <?= $filterProduct->value ?>
+                                    <?= $translationService->translate($filterProduct->value) ?>
                                 </label>
                             </div>
                         <?php } ?>
                     <?php } ?>
                     <hr>
                     <button class="btn btn-default">
-                        Применить
+                        <?= $translationService->translate('Применить') ?>
                     </button>
                     <div>
-                        <?= Html::a('Сбросить', ['site/index']) ?>
+                        <?= Html::a($translationService->translate('Сбросить'), ['site/index']) ?>
                     </div>
                 </form>
             </div>
@@ -75,16 +79,23 @@ $order = Yii::$app->request->get('order');
                             <div class="form-group">
                                 <div class="col-sm-8">
                                     <select name="order" class="form-control">
-                                        <option <?= $order == 'id' ? 'selected' : '' ?> value="id">По умолчанию</option>
-                                        <option <?= $order == 'name' ? 'selected' : '' ?> value="name">По имени &uarr;
+                                        <option <?= $order == 'id' ? 'selected' : '' ?> value="id">
+                                            <?= $translationService->translate('По умолчанию') ?>
+                                        </option>
+                                        <option <?= $order == 'name' ? 'selected' : '' ?> value="name">
+                                            <?= $translationService->translate('По имени') ?>
+                                             &uarr;
                                         </option>
                                         <option <?= $order == 'name_reverse' ? 'selected' : '' ?> value="name_reverse">
-                                            По имени &darr;
+                                            <?= $translationService->translate('По имени') ?>
+                                             &darr;
                                         </option>
                                     </select>
                                 </div>
                                 <div class="col-sm-4">
-                                    <button class="btn btn-default">Применить</button>
+                                    <button class="btn btn-default">
+                                        <?= $translationService->translate('Применить') ?>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -102,14 +113,19 @@ $order = Yii::$app->request->get('order');
                                 </a>
                             </h2>
                             <?php if ($product->hasDiscount) { ?>
-                                <span class="badge">Скидка</span>
+                                <span class="badge">
+                                    <?= $translationService->translate('Скидка') ?>
+                                </span>
                                 <p>
-                                    <strike><?= $product->price ?> руб.</strike>
-                                    <?= $product->sale_price ?> руб.
+                                    <strike><?= $product->price ?>
+                                        <?= $translationService->translate('руб') ?>
+                                    </strike>
+                                    <?= $product->sale_price ?>
+                                    <?= $translationService->translate('руб') ?>
                                 </p>
                             <?php } else { ?>
                                 <p>
-                                    <?= $product->price ?> руб.
+                                    <?= $product->price ?> <?= $translationService->translate('руб') ?>
                                 </p>
                             <?php } ?>
                             <?= $this->render('_tofavorite', ['product' => $product]) ?>
@@ -123,7 +139,9 @@ $order = Yii::$app->request->get('order');
                                 <div class="row">
                                     <div class="form-group mb-3">
                                         <div class="col-sm-4">
-                                            <button class="btn btn-default">В корзину</button>
+                                            <button class="btn btn-default">
+                                                <?= $translationService->translate('В корзину') ?>
+                                            </button>
                                         </div>
                                         <div class="col-sm-8">
                                             <input class="form-control" type="number" min="0"
@@ -132,7 +150,9 @@ $order = Yii::$app->request->get('order');
                                     </div>
                                 </div>
                             <?php } else { ?>
-                                <b>Нет в наличии</b>
+                                <b>
+                                    <?= $translationService->translate('Нет в наличии') ?>
+                                </b>
                             <?php } ?>
                             <?php ActiveForm::end(); ?>
                         </div>
