@@ -39,8 +39,8 @@ class SettingsService
             }
         }
 
-        $this->buildSettingsHash();
         $this->settings = $resultSettings;
+        $this->buildSettingsHash();
     }
 
     private function buildSettingsHash()
