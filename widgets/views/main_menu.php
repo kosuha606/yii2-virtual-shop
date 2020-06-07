@@ -1,6 +1,7 @@
 <?php
 
 
+use app\virtualModels\Admin\Domains\Settings\SettingsService;
 use app\virtualModels\Domains\Multilang\LangVm;
 use app\virtualModels\Domains\Multilang\TranslationService;
 use app\virtualModels\ServiceManager;
@@ -24,8 +25,12 @@ foreach ($languages as $language) {
 
 $langsbar .= '</li>';
 
+$settingsService = \kosuha606\VirtualModelHelppack\ServiceManager::getInstance()->get(SettingsService::class);
+
 NavBar::begin([
-    'brandLabel' => Yii::$app->name,
+    'brandLabel' =>
+    Html::img('/'.$settingsService->setting('site_logo'), ['style' => 'margin-right: 10px;width: 23px;vertical-align: top;display: inline-block;']).
+        Yii::$app->name,
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
         'class' => 'navbar-inverse navbar-fixed-top',

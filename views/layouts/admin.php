@@ -4,7 +4,9 @@
 /* @var $content string */
 
 use app\assets\AdminAsset;
+use app\virtualModels\Admin\Domains\Settings\SettingsService;
 use app\widgets\Alert;
+use kosuha606\VirtualModelHelppack\ServiceManager;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -13,6 +15,8 @@ use app\assets\AppAsset;
 
 AppAsset::register($this);
 AdminAsset::register($this);
+
+$settingsService = ServiceManager::getInstance()->get(SettingsService::class);
 
 $this->registerJsVar('webpack_asset_path', '/srcadmin/dist/');
 
@@ -37,7 +41,7 @@ $this->registerJsFile('/srcadmin/dist/admin.js');
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => Html::img($settingsService->setting('site_logo')) . Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',

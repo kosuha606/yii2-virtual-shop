@@ -1,8 +1,10 @@
 <?php
 
 use app\controllers\AdminController;
+use app\virtualModels\Admin\Domains\Settings\SettingsService;
 use app\widgets\Alert;
 use http\Url;
+use kosuha606\VirtualModelHelppack\ServiceManager;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\Breadcrumbs;
@@ -14,6 +16,8 @@ use yii\widgets\Breadcrumbs;
 $controller = $this->context;
 
 $route = Yii::$app->request->get('route');
+
+$settingsService = ServiceManager::getInstance()->get(SettingsService::class);
 
 ?>
 
@@ -32,18 +36,15 @@ $route = Yii::$app->request->get('route');
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand pt-20" href="/" style="padding-top: 18px">
+                <?=  Html::img('/'.$settingsService->setting('site_logo'), ['style' => 'width: 23px;vertical-align: top;display: inline-block;']) ?>
                 AdminPane
             </a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
-            <li><a href="#" data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="Stats"><i class="fa fa-bar-chart-o"></i>
-                </a>
-            </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администратор <b class="fa fa-angle-down"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#"><i class="fa fa-fw fa-user"></i> Профиль</a></li>
                     <li class="divider"></li>
                     <li>
                         <?php

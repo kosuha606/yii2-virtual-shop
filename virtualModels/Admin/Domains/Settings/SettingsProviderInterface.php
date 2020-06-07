@@ -4,5 +4,9 @@ namespace app\virtualModels\Admin\Domains\Settings;
 
 interface SettingsProviderInterface
 {
-    public function setting();
+    public function getDefaultSettings();
+
+    public function getSettings();
+
+    public function saveSettings($settings);
 }
