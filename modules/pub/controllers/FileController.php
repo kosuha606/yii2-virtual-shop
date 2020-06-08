@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\pub\controllers;
 
 use app\forms\CkeditorForm;
 use app\forms\UploadDocForm;

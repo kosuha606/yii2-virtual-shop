@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\pub\controllers;
 
 use app\virtualModels\Domains\Article\Models\ArticleVm;
 use app\virtualModels\Domains\Page\Models\PageVm;

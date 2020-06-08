@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\pub\controllers;
 
 use app\models\FilterProduct;
 use app\virtualModels\Admin\Services\SessionService;

@@ -31,6 +31,7 @@ use app\models\Translation;
 use app\models\User;
 use app\models\Version;
 use app\models\Widget;
+use app\modules\pub\Module;
 use app\urlRules\SeoUrlRule;
 use app\virtualModels\Admin\Domains\Seo\SeoPageVm;
 use app\virtualModels\Admin\Domains\Seo\SeoRedirectVm;
@@ -78,6 +79,11 @@ $config = [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+    ],
+    'modules' => [
+        'pub' => [
+            'class' => Module::class,
+        ]
     ],
     'components' => [
         'providers_loader' => [
@@ -194,7 +200,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => '/pub/site/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -223,7 +229,9 @@ $config = [
                 ],
                 '/admin' => '/admin/index',
                 '/admin/<route>/<act>' => '/admin/processor',
-                '/news' => '/article/list',
+                '/news' => '/pub/article/list',
+                '/' => '/pub/site/index',
+                '/<controller>/<action>' => '/pub/<controller>/<action>'
             ],
         ],
     ],

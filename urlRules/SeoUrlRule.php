@@ -28,15 +28,15 @@ class SeoUrlRule extends BaseObject implements UrlRuleInterface
 
         if ($model = $seoService->findModelByUrl($pathInfo)) {
             if ($model instanceof ProductVm) {
-                return ['site/view',[ 'id' => $model->id ]];
+                return ['/pub/site/view',[ 'id' => $model->id ]];
             }
 
             if ($model instanceof ArticleVm) {
-                return ['article/detail',[ 'id' => $model->id, 'slug' => $model->slug ]];
+                return ['/pub/article/detail',[ 'id' => $model->id, 'slug' => $model->slug ]];
             }
 
             if ($model instanceof PageVm) {
-                return ['page/detail',[ 'id' => $model->id, 'slug' => $model->slug ]];
+                return ['/pub/page/detail',[ 'id' => $model->id, 'slug' => $model->slug ]];
             }
         }
 
