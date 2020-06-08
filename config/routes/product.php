@@ -34,6 +34,7 @@ return [
                     'label' => $listTitle,
                     'url' => '/admin/'.$baseEntity.'/list',
                     'parent' => 'store',
+                    'sort' => -2,
                 ],
                 'handler' => [
                     'type' => 'vue',

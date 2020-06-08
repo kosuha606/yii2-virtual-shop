@@ -32,7 +32,7 @@
             "version": "3.3.11",
             "source": {
                 "type": "git",
-                "url": "https://github.com/RobinHerbots/Inputmask.git",
+                "url": "git@github.com:RobinHerbots/Inputmask.git",
                 "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
@@ -579,16 +579,16 @@
         },
         {
             "name": "kosuha606/virtual-model",
-            "version": "1.2.0",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kosuha606/virtual-model.git",
-                "reference": "e5351d4600591904b0b45195ffde9751c09da7b8"
+                "reference": "f39ed5a3d38a93653034dad17a63a0dbf33b35b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kosuha606/virtual-model/zipball/e5351d4600591904b0b45195ffde9751c09da7b8",
-                "reference": "e5351d4600591904b0b45195ffde9751c09da7b8",
+                "url": "https://api.github.com/repos/kosuha606/virtual-model/zipball/f39ed5a3d38a93653034dad17a63a0dbf33b35b0",
+                "reference": "f39ed5a3d38a93653034dad17a63a0dbf33b35b0",
                 "shasum": ""
             },
             "require": {
@@ -611,7 +611,7 @@
                 }
             ],
             "description": "VirtualModel",
-            "time": "2020-05-14T14:32:55+00:00"
+            "time": "2020-06-08T17:28:06+00:00"
         },
         {
             "name": "kosuha606/virtual-model-helppack",

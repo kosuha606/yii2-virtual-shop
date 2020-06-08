@@ -33,6 +33,7 @@ return [
                     'label' => $listTitle,
                     'url' => '/admin/'.$baseEntity.'/detail',
                     'parent' => 'system',
+                    'sort' => 99,
                 ],
                 'handler' => [
                     'type' => 'vue',

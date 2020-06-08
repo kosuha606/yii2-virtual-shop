@@ -35,6 +35,7 @@ return [
                     'label' => $listTitle,
                     'url' => '/admin/'.$baseEntity.'/detail',
                     'parent' => 'system',
+                    'sort' => 100,
                 ],
                 'handler' => function() {
                     $settingsService = ServiceManager::getInstance()->get(SettingsService::class);
