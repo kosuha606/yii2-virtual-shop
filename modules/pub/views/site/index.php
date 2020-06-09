@@ -17,7 +17,6 @@ use yii\widgets\LinkPager;
 /** @var Pagination $pagination */
 /** @var $filtersData */
 
-$this->title = 'My Yii Application';
 
 $pagerPagination = new \yii\data\Pagination(
     [

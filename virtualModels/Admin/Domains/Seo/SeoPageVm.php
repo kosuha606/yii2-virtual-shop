@@ -7,6 +7,7 @@ use kosuha606\VirtualModel\VirtualModel;
 /**
  *
  * @property $id
+ * @property $url
  * @property $entity_id
  * @property $entity_class
  * @property $title
@@ -29,6 +30,7 @@ class SeoPageVm extends VirtualModel
             'id',
             'entity_id',
             'entity_class',
+            'url',
             'title',
             'meta_keywords',
             'mata_description',

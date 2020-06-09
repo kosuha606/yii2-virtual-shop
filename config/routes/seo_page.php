@@ -58,13 +58,16 @@ return [
                             'component' => ListComponents::STRING_CELL,
                             'label' => 'Заголовок',
                             'props' => [
-//                                'link' => 1,
+                                'link' => 1,
                             ]
                         ],
                         [
                             'field' => 'entity_class',
                             'component' => ListComponents::STRING_CELL,
                             'label' => 'Класс',
+                            'props' => [
+                                'link' => 1,
+                            ]
                         ],
                     ]
                 ]
@@ -88,16 +91,82 @@ return [
                     'config' => function ($model) {
                         return [
                             [
-                                'field' => 'from_url',
-                                'component' => DetailComponents::INPUT_FIELD,
-                                'label' => 'Из',
-                                'value' => $model->from_url,
+                                'field' => 'entity_id',
+                                'component' => DetailComponents::HIDDEN_FIELD,
+                                'label' => '',
+                                'value' => $model->entity_id,
                             ],
                             [
-                                'field' => 'to_url',
+                                'field' => 'entity_class',
+                                'component' => DetailComponents::HIDDEN_FIELD,
+                                'label' => '',
+                                'value' => $model->entity_class,
+                            ],
+                            [
+                                'field' => 'url',
                                 'component' => DetailComponents::INPUT_FIELD,
-                                'label' => 'В',
-                                'value' => $model->to_url,
+                                'label' => 'Url',
+                                'value' => $model->url,
+                            ],
+                            [
+                                'field' => 'title',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'label' => 'Заголовок',
+                                'value' => $model->title,
+                            ],
+                            [
+                                'field' => 'meta_keywords',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'label' => 'Ключевые слова',
+                                'value' => $model->meta_keywords,
+                            ],
+                            [
+                                'field' => 'mata_description',
+                                'component' => DetailComponents::TEXTAREA_FIELD,
+                                'label' => 'Мета описания',
+                                'value' => $model->mata_description,
+                            ],
+                            [
+                                'field' => 'og_title',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'label' => 'OG title',
+                                'value' => $model->og_title,
+                            ],
+                            [
+                                'field' => 'og_description',
+                                'label' => 'OG описание',
+                                'component' => DetailComponents::TEXTAREA_FIELD,
+                                'value' => $model->og_description,
+                            ],
+                            [
+                                'field' => 'og_url',
+                                'label' => 'OG адресс',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'value' => $model->og_url,
+                            ],
+                            [
+                                'field' => 'og_image',
+                                'label' => 'OG изображение',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'value' => $model->og_image,
+                            ],
+                            [
+                                'field' => 'og_type',
+                                'label' => 'OG тип',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'value' => $model->og_type,
+                            ],
+                            [
+                                'field' => 'canonical',
+                                'label' => 'Canonical',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'value' => $model->canonical,
+                            ],
+                            [
+                                'field' => 'noindex',
+                                'label' => 'Noindex',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'value' => $model->noindex,
                             ],
                         ];
                     },

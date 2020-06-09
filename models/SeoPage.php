@@ -30,16 +30,17 @@ class SeoPage extends ActiveRecord
         return [
             [
                 [
-                    'entity_id',
-                    'entity_class',
+                    'title',
+                    'meta_keywords',
+                    'mata_description',
                 ],
                 'required'
             ],
             [
                 [
-                    'title',
-                    'meta_keywords',
-                    'mata_description',
+                    'entity_id',
+                    'entity_class',
+                    'url',
                     'og_title',
                     'og_description',
                     'og_url',

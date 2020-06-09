@@ -2,9 +2,50 @@
 
 namespace app\virtualModels\Admin\Domains\Seo;
 
+use app\models\SeoPage;
+
 class SeoService
 {
     /**
+     * Получить SeoPageVm по урл адресу
+     *
+     * @param $url
+     * @return SeoPageVm
+     * @throws \Exception
+     */
+    public function findSeoPageByUrl($url)
+    {
+        $seoPage = SeoPageVm::one(['where' => [
+            ['=', 'url', $url]
+        ]]);
+
+        if ($seoPage && $seoPage->id) {
+            return $seoPage;
+        }
+
+        $seoUrl = SeoUrlVm::one([
+            'where' => [
+                ['=', 'url', $url]
+            ]
+        ]);
+
+        $seoPage = SeoPageVm::one([
+            'where' => [
+                ['=', 'entity_id', $seoUrl->entity_id],
+                ['=', 'entity_class', $seoUrl->entity_class],
+            ]
+        ]);
+
+        if ($seoPage && $seoPage->id) {
+            return $seoPage;
+        }
+
+        return SeoPageVm::create();
+    }
+
+    /**
+     * Получить модель по url
+     *
      * @param $url
      * @return bool
      * @throws \Exception
@@ -37,6 +78,8 @@ class SeoService
     }
 
     /**
+     * Генерация модели SeoUrlVm по модели сео
+     *
      * @param SeoModelInterface $model
      * @throws \Exception
      */
@@ -55,6 +98,8 @@ class SeoService
     }
 
     /**
+     * Удалить SeoUrlVm по связанной сео модели
+     *
      * @param SeoModelInterface $model
      * @throws \Exception
      */
