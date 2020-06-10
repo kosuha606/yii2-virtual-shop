@@ -231,7 +231,8 @@ $config = [
                 '/admin/<route>/<act>' => '/admin/processor',
                 '/news' => '/pub/article/list',
                 '/' => '/pub/site/index',
-                '/<controller>/<action>' => '/pub/<controller>/<action>'
+                '/<controller>/<action>' => '/pub/<controller>/<action>',
+                'sitemap.xml' => '/pub/site/sitemap',
             ],
         ],
     ],

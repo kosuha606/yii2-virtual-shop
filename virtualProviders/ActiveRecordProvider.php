@@ -180,4 +180,9 @@ class ActiveRecordProvider extends VirtualModelProvider
 
         return $query->count();
     }
+
+    public function getAvailableModelClasses()
+    {
+        return array_keys($this->relations);
+    }
 }

@@ -3,6 +3,7 @@
 namespace app\modules\pub\controllers;
 
 use app\models\FilterProduct;
+use app\virtualModels\Admin\Domains\Sitemap\SitemapVm;
 use app\virtualModels\Admin\Services\SessionService;
 use app\virtualModels\Domains\Multilang\LanguageService;
 use app\virtualModels\Model\FilterCategoryVm;
@@ -159,5 +160,13 @@ class SiteController extends Controller
         $langService->setLang($l);
 
         return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionSitemap()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        Yii::$app->response->headers->add('Content-Type', 'text/xml');
+
+        return SitemapVm::getSitemapContent();
     }
 }

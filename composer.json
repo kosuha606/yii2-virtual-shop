@@ -21,7 +21,8 @@
         "kosuha606/virtual-model": "^1.0.7",
         "kosuha606/virtual-model-helppack": "dev-master",
         "zendframework/zendsearch": "dev-master",
-        "stichoza/google-translate-php": "dev-master"
+        "stichoza/google-translate-php": "dev-master",
+        "samdark/sitemap": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

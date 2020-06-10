@@ -20,6 +20,8 @@ use kosuha606\VirtualModel\VirtualModel;
  * @property $og_type
  * @property $canonical
  * @property $noindex
+ * @property $sitemap_importance
+ * @property $sitemap_freq
  *
  */
 class SeoPageVm extends VirtualModel
@@ -41,6 +43,8 @@ class SeoPageVm extends VirtualModel
             'og_type',
             'canonical',
             'noindex',
+            'sitemap_importance',
+            'sitemap_freq',
         ];
     }
 }

@@ -11,6 +11,9 @@ class LoadWebVirtualProvidersComponent extends Component
 {
     public $arRelations = [];
 
+    /**
+     * @throws \Exception
+     */
     public function init()
     {
         $arProvider = new ActiveRecordProvider();
@@ -28,6 +31,8 @@ class LoadWebVirtualProvidersComponent extends Component
         VirtualModelManager::getInstance()->setProvider(new CacheProvider());
 
         VirtualModelManager::getInstance()->setProvider(new SettingsProvider());
+
+        VirtualModelManager::getInstance()->setProvider(new SitemapProvider());
 
         $zendProvider = new ZendLuceneSearchProvider();
         $zendProvider->zendService->setIndexPath('@runtime/zend_index');

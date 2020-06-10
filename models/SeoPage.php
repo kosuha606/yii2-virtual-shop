@@ -48,6 +48,8 @@ class SeoPage extends ActiveRecord
                     'og_type',
                     'canonical',
                     'noindex',
+                    'sitemap_importance',
+                    'sitemap_freq',
                 ],
                 'safe'
             ]

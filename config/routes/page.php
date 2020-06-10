@@ -182,6 +182,18 @@ return [
                                         'component' => DetailComponents::INPUT_FIELD,
                                         'value' => $inModel->noindex,
                                     ],
+                                    [
+                                        'field' => 'sitemap_importance',
+                                        'label' => 'Sitemap приоритет',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $inModel->sitemap_importance,
+                                    ],
+                                    [
+                                        'field' => 'sitemap_freq',
+                                        'label' => 'Sitemap частота обновления',
+                                        'component' => DetailComponents::INPUT_FIELD,
+                                        'value' => $inModel->sitemap_freq,
+                                    ],
                                 ];
                             })
                             ->getConfig()
