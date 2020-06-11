@@ -9,6 +9,10 @@ import './async_components';
 import Request from './objects/Request';
 import VueTopprogress from 'vue-top-progress';
 
+import 'admin-lte';
+import 'admin-lte/dist/css/adminlte.css';
+
+
 __webpack_public_path__ = webpack_asset_path;
 
 window.Request = Request;

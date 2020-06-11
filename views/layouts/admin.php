@@ -13,8 +13,8 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
-AppAsset::register($this);
-AdminAsset::register($this);
+// AppAsset::register($this);
+// AdminAsset::register($this);
 
 $settingsService = ServiceManager::getInstance()->get(SettingsService::class);
 
@@ -35,44 +35,13 @@ $this->registerJsFile('/srcadmin/dist/admin.js');
     <?php $this->head() ?>
     <link rel="manifest" href="/admin/dist/mix-manifest.json">
 </head>
-<body>
+<body class="skin-blue">
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Html::img($settingsService->setting('site_logo')) . Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Главная', 'url' => ['/site/index']],
-            Yii::$app->user->isGuest ? (
-            ['label' => 'Вход', 'url' => ['/guest/login']]
-            ) : (
-                '<li>'
-                .Html::a('Кабинет', ['cabinet/profile'])
-                . '</li>'
-                .'<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Выход (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            ),
-        ],
-    ]);
-    NavBar::end();
-    ?>
 
-    <div id="vue-app">
-        <vue-topprogress ref="topProgress" :height="7" :color="'#ffffff'"></vue-topprogress>
+    <div id="vue-app" v-cloak>
+        <vue-topprogress ref="topProgress" :height="7" :color="'#0ff'"></vue-topprogress>
 
         <?= $this->render('_admin_template', [
             'content' => $content
@@ -80,23 +49,6 @@ $this->registerJsFile('/srcadmin/dist/admin.js');
     </div>
 
 </div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">
-            <a target="_blank" href="https://github.com/kosuha606">
-                &copy; kosuha606
-            </a>
-            <?= date('Y') ?></p>
-
-        <p class="pull-right">
-            Based on
-            <a target="_blank" href="https://github.com/kosuha606/virtual-model">
-                VirtualModel
-            </a>
-        </p>
-    </div>
-</footer>
 
 <?php $this->endBody() ?>
 </body>
