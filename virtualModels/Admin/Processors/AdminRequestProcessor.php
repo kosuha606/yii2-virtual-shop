@@ -2,6 +2,7 @@
 
 namespace app\virtualModels\Admin\Processors;
 
+use app\virtualModels\Admin\Domains\Transaction\TransactionVm;
 use app\virtualModels\Admin\Dto\AdminResponseDTO;
 use app\virtualModels\Admin\Form\SecondaryFormService;
 use app\virtualModels\Admin\Interfaces\AdminControllerInterface;
@@ -121,7 +122,14 @@ class AdminRequestProcessor
         $this->permissionService->ensureActionAvailable('admin.access', $user);
         $this->ensureConfigCorrect($controller, $action);
 
-        $this->secondaryFormService->processRememberedForm();
+        try {
+            TransactionVm::begin('secondary');
+            $this->secondaryFormService->processRememberedForm();
+            TransactionVm::commit('secondary');
+        } catch (\Exception $exception) {
+            TransactionVm::rollback('secondary');
+            throw $exception;
+        }
 
         $handler = $this->config['routes'][$controller][$action]['handler'];
         $response = new AdminResponseDTO('', []);

@@ -2,6 +2,7 @@
 
 namespace app\virtualModels\Controllers;
 
+use app\virtualModels\Admin\Domains\Transaction\TransactionVm;
 use app\virtualModels\Classes\Pagination;
 use kosuha606\VirtualModel\VirtualModel;
 use yii\web\Controller;
@@ -68,24 +69,36 @@ class CrudController
      */
     public function actionEdit($modelClass, $data, $id=null)
     {
-        /** @var VirtualModel $modelClass */
-        if ($id) {
-            $model = $modelClass::one([
-                'where' => [
-                    ['=', 'id', $id]
-                ]
-            ]);
-            foreach ($data as $field => $value) {
-                if (!$model->hasAttribute($field)) {
-                    continue;
+        $model = null;
+
+        try {
+            TransactionVm::begin('crud_edit');
+
+            /** @var VirtualModel $modelClass */
+            if ($id) {
+                $model = $modelClass::one([
+                    'where' => [
+                        ['=', 'id', $id]
+                    ]
+                ]);
+                foreach ($data as $field => $value) {
+                    if (!$model->hasAttribute($field)) {
+                        continue;
+                    }
+                    $model->setAttribute($field, $value);
                 }
-                $model->setAttribute($field, $value);
+            } else {
+                $model = $modelClass::create($data);
             }
-        } else {
-            $model = $modelClass::create($data);
+            $model->save();
+
+            TransactionVm::commit('crud_edit');
+        } catch (\Exception $exception) {
+            TransactionVm::rollback('crud_edit');
+            throw $exception;
         }
-        $model->save();
 
         return $model;
+
     }
 }
