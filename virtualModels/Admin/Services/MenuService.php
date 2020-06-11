@@ -50,6 +50,22 @@ class MenuService
             });
         }
 
+        uasort($plainMenu, function ($a, $b) {
+            if (!isset($a['sort'])) {
+                $a['sort'] = 1;
+            }
+
+            if (!isset($b['sort'])) {
+                $b['sort'] = 1;
+            }
+
+            if ($a['sort'] === $b['sort']) {
+                return 0;
+            }
+
+            return $a['sort'] > $b['sort'] ? 1 : -1;
+        });
+
         $this->menu = $plainMenu;
     }
 

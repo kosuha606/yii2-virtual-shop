@@ -195,6 +195,10 @@ class AdminRequestProcessor
                             $filter = $resultFilter;
                         }
 
+                        if (isset($handler['filter']) && is_array($handler['filter'])) {
+                            $filter = array_merge($filter, $handler['filter']);
+                        }
+
                         $response->json['models'] = VirtualModel::allToArray($this->crudController->actionList(
                             $crudModel,
                             $pagination,

@@ -32,6 +32,9 @@ return [
                     'entity' => $baseEntity,
                     'component' => 'list',
                     'ad_url' => '/admin/'.$baseEntity.'/detail',
+                    'filter' => [
+                        ['=', 'entity_id', null]
+                    ],
                     'crud' => [
                         'model' => $entityClass,
                         'action' => 'actionList',

@@ -16,6 +16,7 @@ Vue.component('VersionField', () => import('./ui/form/VersionField'));
 Vue.component('SearchPage', () => import('./ui/concrete/SearchPage'));
 Vue.component('GenurlsPage', () => import('./ui/concrete/GenurlsPage'));
 Vue.component('SettingsPage', () => import('./ui/concrete/SettingsPage'));
+Vue.component('DashboardPage', () => import('./ui/concrete/DashboardPage'));
 
 Vue.component('List', () => import('./ui/List'));
 Vue.component('Detail', () => import('./ui/Detail'));
