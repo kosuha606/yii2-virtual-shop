@@ -43,7 +43,9 @@ use kosuha606\VirtualModel\VirtualModel; ?>
                             <?php } ?>
                         </div>
 
+                        <?php if ($prev->id || $next->id) { ?>
                         <hr>
+                        <?php } ?>
 
                         <div>
                             <detail

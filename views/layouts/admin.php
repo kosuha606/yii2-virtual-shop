@@ -23,6 +23,7 @@ $this->registerJsVar('webpack_asset_path', '/srcadmin/dist/');
 $this->registerCssFile('/srcadmin/dist/admin.css');
 $this->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css');
 $this->registerJsFile('/srcadmin/dist/admin.js');
+$this->registerJsFile('https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js');
 
 ?>
 <?php $this->beginPage() ?>

@@ -28,7 +28,7 @@
         <div class="tab-content">
             <p>&nbsp;</p>
 
-            <div class="tab-pane fade active in" id="description">
+            <div class="tab-pane fade active show" id="description">
                 <div class="form">
                     <slot v-bind:default="formData">
                         <template v-for="(component, index) in formData">
@@ -83,9 +83,8 @@
             </template>
         </div>
 
+        <p>&nbsp;</p>
 
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
         <div v-if="!detailConfig.nobuttons">
             <button @click="save" class="btn btn-success">
                 <i class="fa fa-save"></i>
@@ -98,11 +97,6 @@
                 Удалить
             </button>
         </div>
-
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
 
     </div>
 </template>

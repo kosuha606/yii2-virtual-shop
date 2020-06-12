@@ -20,6 +20,8 @@ class AdminController extends Controller implements AdminControllerInterface
 
     public $menu = [];
 
+    public $enableCsrfValidation = false;
+
     /**
      * @param $action
      * @return bool
