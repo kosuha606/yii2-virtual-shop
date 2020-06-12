@@ -20,6 +20,8 @@ $settingsService = ServiceManager::getInstance()->get(SettingsService::class);
 
 $this->registerJsVar('webpack_asset_path', '/srcadmin/dist/');
 
+$this->registerCssFile('/srcadmin/dist/admin.css');
+$this->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css');
 $this->registerJsFile('/srcadmin/dist/admin.js');
 
 ?>
@@ -41,7 +43,7 @@ $this->registerJsFile('/srcadmin/dist/admin.js');
 <div class="wrap">
 
     <div id="vue-app" v-cloak>
-        <vue-topprogress ref="topProgress" :height="7" :color="'#0ff'"></vue-topprogress>
+        <vue-topprogress ref="topProgress" :height="7" :color="'#007bff'"></vue-topprogress>
 
         <?= $this->render('_admin_template', [
             'content' => $content

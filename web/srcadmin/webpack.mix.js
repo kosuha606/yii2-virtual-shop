@@ -15,7 +15,7 @@ mix.webpackConfig({
 mix
     .setPublicPath('dist')
     .js('src/admin.js', '')
-    .js('src/css/admin.scss', '')
+    .sass('src/css/admin.scss', '')
     .version()
     .sourceMaps()
 ;

@@ -6,8 +6,11 @@ use yii\helpers\Html; ?>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <?=  Html::img('/'.$settingsService->setting('site_logo'), ['style' => 'width: 23px;vertical-align: top;display: inline-block;']) ?>
+    <a href="/" class="brand-link">
+        <?=  Html::img('/'.$settingsService->setting('site_logo'),
+            [
+                'class' => 'brand-image img-circle elevation-3'
+            ]) ?>
         <span class="brand-text font-weight-light">AdminPane</span>
     </a>
 
@@ -32,13 +35,15 @@ use yii\helpers\Html; ?>
                     <?php } ?>
                     <li class="nav-item has-treeview menu-open">
                         <?php if (isset($menu['url'])) { ?>
-                            <a  class="nav-link active" href="<?= $menu['url'] ?>" data-toggle="collapse" data-target="#<?= $menu['name'] ?>">
+                            <a  class="nav-link" href="<?= $menu['url'] ?>" data-target="#<?= $menu['name'] ?>">
                                 <?= $menu['label'] ?>
                             </a>
                         <?php } else { ?>
-                            <a class="nav-link active" href="#" data-toggle="collapse" data-target="#<?= $menu['name'] ?>">
-                                <?= $menu['label'] ?>
-                                &darr;
+                            <a class="nav-link" href="#" data-target="#<?= $menu['name'] ?>">
+                                <p>
+                                    <?= $menu['label'] ?>
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                             </a>
                         <?php } ?>
                         <?php if (isset($menu['children'])) { ?>
@@ -59,9 +64,12 @@ use yii\helpers\Html; ?>
                                     <?php if (isset($menuChild['visible']) && $menuChild['visible'] === false) { ?>
                                         <?php continue; ?>
                                     <?php } ?>
-                                    <li>
-                                        <a href="<?= $menuChild['url'] ?>">
-                                            <?= $menuChild['label'] ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="<?= $menuChild['url'] ?>">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>
+                                                <?= $menuChild['label'] ?>
+                                            </p>
                                         </a>
                                     </li>
                                 <?php } ?>
@@ -70,14 +78,9 @@ use yii\helpers\Html; ?>
                     </li>
                 <?php } ?>
                 <li class="nav-item">
-                    <?php
-                    echo Html::beginForm(['/site/logout'], 'post');
-                    echo Html::submitButton(
-                        '<i class="fa fa-fw fa-power-off"></i> Выход',
-                        ['class' => 'nav-link ']
-                    );
-                    echo Html::endForm();
-                    ?>
+                    <a href="/site/logout" class="nav-link">
+                        Выход
+                    </a>
                 </li>
             </ul>
         </nav>

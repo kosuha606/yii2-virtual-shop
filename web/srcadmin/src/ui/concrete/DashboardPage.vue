@@ -1,29 +1,60 @@
 <template>
     <div>
-        <h1>Рабочий стол</h1>
 
-        <hr>
+        <div class="content-header">
+        </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Кол-во статей</h3>
-                {{ props.articles_count }}
-            </div>
-            <div class="col-md-6">
-                <h3>Кол-во заказов</h3>
-                {{ props.orders_count }}
+        <div class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Кол-во статей</h3>
+                            </div>
+                            <div class="card-body">
+                                {{ props.articles_count }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                            <h3>Кол-во заказов</h3>
+                            </div>
+                            <div class="card-body">
+                            {{ props.orders_count }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Кол-во продуктов</h3>
+                            </div>
+                            <div class="card-body">
+                                {{ props.products_count }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>В поиске</h3>
+                            </div>
+                            <div class="card-body">
+                                {{ props.search_index_count }} записей
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Кол-во продуктов</h3>
-                {{ props.products_count }}
-            </div>
-            <div class="col-md-6">
-                <h3>В поиске</h3>
-                {{ props.search_index_count }} записей
-            </div>
-        </div>
+
     </div>
 </template>
 

@@ -14,27 +14,29 @@
                     <button v-if="$refs.mainList.pagination.appendMode" @click="$refs.mainList.pagination.nextPage()" type="button">
                         Показать еще
                     </button>
-                    <div v-else class="pagination-wrapper">
-                        <ul class="pagination pull-left">
-                            <li class="pagination-item">
-                                <button class="btn btn-default" @click="$refs.mainList.pagination.gotoBegin()" type="button">В начало</button>
-                            </li>
-                            <li class="pagination-item">
-                                <button class="btn btn-default" @click="$refs.mainList.pagination.prevPage()" type="button">Назад</button>
-                            </li>
-                            <li :class="{'pagination-item':1, 'pagination-item__active': $refs.mainList.page == $refs.mainList.pagination.page}" v-for="page in $refs.mainList.helpers.range(1, $refs.mainList.pagination.pagesCount())">
-                                <button class="btn btn-default" @click="$refs.mainList.pagination.gotoPage(page)" type="button">
-                                    {{ page }}
-                                </button>
-                            </li>
-                            <li class="pagination-item">
-                                <button class="btn btn-default" @click="$refs.mainList.pagination.nextPage()" type="button">Вперед</button>
-                            </li>
-                            <li class="pagination-item">
-                                <button class="btn btn-default" @click="$refs.mainList.pagination.gotoEnd()" type="button">В конец</button>
-                            </li>
-                        </ul>
-                        <div class="items-per-page pull-right">
+                    <div v-else class="pagination-wrapper row">
+                        <div class="col-md-10">
+                            <ul class="pagination">
+                                <li class="pagination-item">
+                                    <button class="btn btn-default" @click="$refs.mainList.pagination.gotoBegin()" type="button">В начало</button>
+                                </li>
+                                <li class="pagination-item">
+                                    <button class="btn btn-default" @click="$refs.mainList.pagination.prevPage()" type="button">Назад</button>
+                                </li>
+                                <li :class="{'pagination-item':1, 'pagination-item__active': $refs.mainList.page == $refs.mainList.pagination.page}" v-for="page in $refs.mainList.helpers.range(1, $refs.mainList.pagination.pagesCount())">
+                                    <button class="btn btn-default" @click="$refs.mainList.pagination.gotoPage(page)" type="button">
+                                        {{ page }}
+                                    </button>
+                                </li>
+                                <li class="pagination-item">
+                                    <button class="btn btn-default" @click="$refs.mainList.pagination.nextPage()" type="button">Вперед</button>
+                                </li>
+                                <li class="pagination-item">
+                                    <button class="btn btn-default" @click="$refs.mainList.pagination.gotoEnd()" type="button">В конец</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="items-per-page col-md-2">
                             <select class="form-control" v-model="$refs.mainList.pagination.itemsPerPage">
                                 <option
                                         :selected="variant==$refs.mainList.pagination.itemsPerPage"
@@ -50,7 +52,6 @@
             </template>
             <template v-slot:filter>
                 <div class="vue-table-filter" v-if="$refs && $refs.mainList">
-                    <h3 v-if="$refs.mainList.filterComponents.length">Фильтр</h3>
                     <div class="row">
                         <div class="col-md-4"
                              v-for="component in $refs.mainList.filterComponents"

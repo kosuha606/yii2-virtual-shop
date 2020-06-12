@@ -44,5 +44,11 @@ $settingsService = ServiceManager::getInstance()->get(SettingsService::class);
         </div>
 
     </div>
+    <footer class="main-footer">
+        <strong>© <?= date('Y') ?></strong>
+        <div class="float-right d-none d-sm-inline-block">
+            <b>VirtualModel</b>
+        </div>
+    </footer>
 </div>
 
