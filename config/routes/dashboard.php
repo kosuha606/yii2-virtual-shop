@@ -29,7 +29,7 @@ return [
                     $infoDto = ServiceManager::getInstance()->get(SearchService::class)->indexInfo();
 
                     $dateTimeService = ServiceManager::getInstance()->get(DateTimeService::class);
-                    $lastWeekRange = $dateTimeService->lastDaysRange('-14 day');
+                    $lastWeekRange = $dateTimeService->lastDaysRange('-14 day', 14);
                     $ordersDynamic = ['dates' => [], 'values' => []];
 
                     foreach ($lastWeekRange as $item) {

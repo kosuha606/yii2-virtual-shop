@@ -83,11 +83,11 @@ class DateTimeService
         return (new \DateTime('now', new \DateTimeZone($this->timezone)))->format('Y-m-d H:i:s');
     }
 
-    public function lastDaysRange($daysAgo = '-7 day')
+    public function lastDaysRange($daysAgo = '-7 day', $splitParts = 7)
     {
         $now = $this->now();
         $weekAgo = date('Y-m-d H:i:s', strtotime($daysAgo, strtotime($now)));
 
-        return $this->splitDatesToEqualRanges($weekAgo, $now, 7);
+        return $this->splitDatesToEqualRanges($weekAgo, $now, $splitParts);
     }
 }
