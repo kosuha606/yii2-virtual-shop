@@ -20,9 +20,7 @@ $settingsService = ServiceManager::getInstance()->get(SettingsService::class);
 
 
 <div class="wrapper">
-    <div class="main-header">
-        <?php require_once '_admin_header.php' ?>
-    </div>
+    <?php require_once '_admin_header.php' ?>
     <div class="sidebar-wrapper">
         <?php require_once '_admin_sidebar.php' ?>
     </div>

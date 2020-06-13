@@ -1,7 +1,11 @@
 <?php
 
 
-use yii\helpers\Html; ?>
+use yii\helpers\Html;
+
+$pathInfo = '/'.Yii::$app->request->pathInfo;
+
+?>
 
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -33,9 +37,24 @@ use yii\helpers\Html; ?>
                     <?php if (isset($menu['visible']) && $menu['visible'] === false) { ?>
                         <?php continue; ?>
                     <?php } ?>
-                    <li class="nav-item has-treeview menu-open">
+                    <?php
+                    $isActive = false;
+                    if (isset($menu['children'])) {
+                        $childrentNames = array_column($menu['children'], 'name');
+                        foreach ($childrentNames as $childrentName) {
+                            if (strpos($childrentName, $route) !== false) {
+                                $isActive = true;
+                                break;
+                            }
+                        }
+                    }
+                    ?>
+                    <li class="nav-item has-treeview <?= $isActive ? 'menu-open' : '' ?>">
                         <?php if (isset($menu['url'])) { ?>
-                            <a  class="nav-link" href="<?= $menu['url'] ?>" data-target="#<?= $menu['name'] ?>">
+                            <?php
+                            $isSubActive = $pathInfo === $menu['url'];
+                            ?>
+                            <a  class="nav-link <?= $isSubActive ? 'active' : '' ?>" href="<?= $menu['url'] ?>" data-target="#<?= $menu['name'] ?>">
                                 <?= $menu['label'] ?>
                             </a>
                         <?php } else { ?>
@@ -47,25 +66,16 @@ use yii\helpers\Html; ?>
                             </a>
                         <?php } ?>
                         <?php if (isset($menu['children'])) { ?>
-                            <?php
-                            $isActive = false;
-                            $childrentNames = array_column($menu['children'], 'name');
-                            foreach ($childrentNames as $childrentName) {
-                                if (strpos($childrentName, $route) !== false) {
-                                    $isActive = true;
-                                    break;
-                                }
-                            }
-
-                            $k = 1;
-                            ?>
                             <ul id="<?= $menu['name'] ?>" class="nav nav-treeview <?= $isActive ? 'in' : '' ?>">
                                 <?php foreach ($menu['children'] as $menuChild) { ?>
                                     <?php if (isset($menuChild['visible']) && $menuChild['visible'] === false) { ?>
                                         <?php continue; ?>
                                     <?php } ?>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="<?= $menuChild['url'] ?>">
+                                        <?php
+                                        $isSubActive = $pathInfo === $menuChild['url'];
+                                        ?>
+                                        <a class="nav-link <?= $isSubActive ? 'active' : '' ?>" href="<?= $menuChild['url'] ?>">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>
                                                 <?= $menuChild['label'] ?>
@@ -77,11 +87,6 @@ use yii\helpers\Html; ?>
                         <?php } ?>
                     </li>
                 <?php } ?>
-                <li class="nav-item">
-                    <a href="/site/logout" class="nav-link">
-                        Выход
-                    </a>
-                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

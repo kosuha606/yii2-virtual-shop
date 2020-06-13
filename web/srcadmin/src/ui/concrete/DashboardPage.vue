@@ -11,7 +11,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h3>Кол-во статей</h3>
+                                <h3>Всего статей</h3>
                             </div>
                             <div class="card-body">
                                 {{ props.articles_count }}
@@ -21,7 +21,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
-                            <h3>Кол-во заказов</h3>
+                            <h3>Всего заказов</h3>
                             </div>
                             <div class="card-body">
                             {{ props.orders_count }}
@@ -33,7 +33,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h3>Кол-во продуктов</h3>
+                                <h3>Всего продуктов</h3>
                             </div>
                             <div class="card-body">
                                 {{ props.products_count }}

@@ -18,7 +18,7 @@
 
                                 <ul class="nav nav-tabs">
                                     <li :class="'nav-item '+(tab === 'Основные' ? 'active' : '')" v-for="(item, tab) in props.settingsData">
-                                        <a :class="'nav-link'" data-toggle="tab" :href="'#'+tab">{{ tab }}</a>
+                                        <a :class="'nav-link '+(tab === 'Основные' ? 'active' : '')" data-toggle="tab" :href="'#'+tab">{{ tab }}</a>
                                     </li>
                                 </ul>
 

@@ -42,6 +42,8 @@ return [
                         }
                     }
 
+                    Yii::$app->session->addFlash('success', 'Успешно сгенерированы url');
+
                     return new AdminResponseDTO('', $result);
                 }
             ],

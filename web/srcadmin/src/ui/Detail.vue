@@ -32,7 +32,7 @@
                 <div class="form">
                     <slot v-bind:default="formData">
                         <template v-for="(component, index) in formData">
-                            <div class="form-row">
+                            <div>
                                 <detail-field
                                         :key="'main_data_field'+index"
                                         :component="component"
@@ -68,7 +68,7 @@
                     <div v-else>
                         <div v-for="dataComponent in component.dataConfig">
                             <template v-for="(inDataComponent, index) in dataComponent">
-                                <div class="form-row">
+                                <div>
                                     <detail-field
                                             :key="'data_component'+index"
                                             :component="inDataComponent"
