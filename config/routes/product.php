@@ -109,7 +109,9 @@ return [
                 ],
                 'handler' => [
                     'type' => 'vue',
-                    'h1' => $detailTitle,
+                    'h1' => function($model) use($detailTitle) {
+                        return ($model->name ?: $detailTitle );
+                    },
                     'entity' => $baseEntity,
                     'component' => 'detail',
                     'crud' => [

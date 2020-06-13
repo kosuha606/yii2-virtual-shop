@@ -6,16 +6,8 @@ use app\virtualModels\Admin\Domains\Version\VersionVm;
 use app\virtualModels\Admin\Form\SecondaryFormBuilder;
 use app\virtualModels\Admin\Form\SecondaryFormService;
 use app\virtualModels\Domains\Article\Models\ArticleVm;
-use app\virtualModels\Domains\Article\Models\SeoArticleVm;
 use app\virtualModels\Domains\Comment\Models\CommentVm;
-use app\virtualModels\Domains\Design\Models\DesignVm;
-use app\virtualModels\Domains\Design\Models\DesignWidgetVm;
-use app\virtualModels\Domains\Design\Models\WidgetVm;
-use app\virtualModels\Domains\Menu\Models\MenuItemVm;
-use app\virtualModels\Domains\Page\Models\PageVm;
-use app\virtualModels\Model\FilterCategoryVm;
 use app\virtualModels\Model\OrderReserveVm;
-use app\virtualModels\Model\ProductVm;
 use app\virtualModels\Model\UserVm;
 use app\virtualModels\Services\StringService;
 use app\virtualModels\Admin\Structures\DetailComponents;
@@ -27,7 +19,7 @@ use yii\helpers\Inflector;
 $baseEntity = 'article';
 $baseEntityCamel = Inflector::camelize($baseEntity);
 $entityClass = ArticleVm::class;
-$listTitle = 'Статья';
+$listTitle = 'Статьи';
 $detailTitle = 'Статья';
 
 return [
@@ -87,7 +79,9 @@ return [
                 ],
                 'handler' => [
                     'type' => 'vue',
-                    'h1' => $detailTitle,
+                    'h1' => function($model) use($detailTitle) {
+                        return ($detailTitle.' '.$model->title ?: $detailTitle );
+                    },
                     'entity' => $baseEntity,
                     'component' => 'detail',
                     'crud' => [
