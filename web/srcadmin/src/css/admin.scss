@@ -57,3 +57,11 @@ html :not(body[style]) {
     background: transparent;
   }
 }
+
+
+@media(min-width: 1024px) {
+  .form-row .selecter,
+  .form-control {
+    min-width: 400px;
+  }
+}

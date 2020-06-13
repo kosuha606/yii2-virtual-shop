@@ -50,10 +50,9 @@
                     <div v-if="component.type !== 'one.to.one'">
 
                         <div v-for="(dataComponent, dataIndex) in component.dataConfig">
-                            <p>&nbsp;</p>
                             <button v-if="!component.isViewOnly" @click="deleteAdditionalData(additionalIndex, dataIndex)" type="button" class="btn btn-danger">Удалить</button>
                             <template v-for="(inDataComponent, index) in dataComponent">
-                                <div class="form-row">
+                                <div>
                                     <detail-field
                                             :key="'data_component'+index"
                                             :component="inDataComponent"
@@ -61,8 +60,8 @@
                                     </detail-field>
                                 </div>
                             </template>
+                            <hr>
                         </div>
-                        <hr>
                         <button v-if="!component.isViewOnly" @click="addAdditionalData(additionalIndex, component.initialConfig)" type="button" class="btn btn-primary" style="margin-top: 10px;">Добавить</button>
 
                     </div>

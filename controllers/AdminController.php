@@ -91,9 +91,17 @@ class AdminController extends Controller implements AdminControllerInterface
             return $this->asJson($response->json);
         }
 
+        $this->handleAlerts();
+
         return $this->render('processor', [
             'response' => $response
         ]);
+    }
+
+    private function handleAlerts()
+    {
+        $alerts = Yii::$app->session->getAllFlashes(true);
+        $this->getView()->registerJsVar('_alerts', $alerts);
     }
 
     /**

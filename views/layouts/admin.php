@@ -1,6 +1,7 @@
 <?php
 
-/* @var $this \yii\web\View */
+/* @var $this View */
+
 /* @var $content string */
 
 use app\assets\AdminAsset;
@@ -10,6 +11,7 @@ use kosuha606\VirtualModelHelppack\ServiceManager;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\web\View;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -42,15 +44,16 @@ $this->registerJsFile('https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/boo
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-
     <div id="vue-app" v-cloak>
         <vue-topprogress ref="topProgress" :height="7" :color="'#007bff'"></vue-topprogress>
 
-        <?= $this->render('_admin_template', [
-            'content' => $content
-        ])  ?>
+        <?= $this->render(
+            '_admin_template',
+            [
+                'content' => $content,
+            ]
+        ) ?>
     </div>
-
 </div>
 
 <?php $this->endBody() ?>

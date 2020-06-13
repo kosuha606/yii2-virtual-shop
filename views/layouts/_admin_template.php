@@ -13,9 +13,7 @@ use yii\widgets\Breadcrumbs;
 
 /** @var AdminController $controller */
 $controller = $this->context;
-
 $route = Yii::$app->request->get('route');
-
 $settingsService = ServiceManager::getInstance()->get(SettingsService::class);
 
 ?>
@@ -36,7 +34,6 @@ $settingsService = ServiceManager::getInstance()->get(SettingsService::class);
                     <?= Breadcrumbs::widget([
                         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                     ]) ?>
-                    <?= Alert::widget() ?>
 
                     <?= $content ?>
                 </div>

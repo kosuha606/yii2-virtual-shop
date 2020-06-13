@@ -8,9 +8,13 @@ import selectPicker from 'vue-selectpicker'
 import './async_components';
 import Request from './objects/Request';
 import VueTopprogress from 'vue-top-progress';
+import {each} from 'lodash';
 
 import 'admin-lte';
 import 'admin-lte/dist/css/adminlte.css';
+
+import 'toastr/build/toastr.min.css';
+import toastr from 'toastr';
 
 
 __webpack_public_path__ = webpack_asset_path;
@@ -21,11 +25,13 @@ Vue.use(selectPicker);
 Vue.use(VueCookie);
 Vue.use(VueTopprogress);
 
-
 const app = new Vue({
     el: '#vue-app',
     created() {
         Request.app = this;
+    },
+    mounted() {
+        this.handleAlerts();
     },
     methods: {
         startProgress() {
@@ -33,7 +39,16 @@ const app = new Vue({
         },
         stopProgress() {
             this.$refs.topProgress.done();
+        },
+        handleAlerts() {
+            each(_alerts, (items, key) => {
+                each (items, (item) => {
+                    this.toast(key, item);
+                });
+            });
+        },
+        toast(type, message) {
+            toastr[type](message);
         }
-
     }
 });

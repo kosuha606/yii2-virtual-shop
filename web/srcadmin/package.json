@@ -28,6 +28,7 @@
     "jquery": "^3.4.1",
     "laravel-mix": "^5.0.4",
     "lodash": "^4.17.15",
+    "toastr": "^2.1.4",
     "vue": "^2.6.11",
     "vue-component-table": "^1.0.1",
     "vue-cookie": "^1.1.4",
