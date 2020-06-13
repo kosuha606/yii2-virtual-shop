@@ -15,7 +15,9 @@ $pathInfo = '/'.Yii::$app->request->pathInfo;
             [
                 'class' => 'brand-image img-circle elevation-3'
             ]) ?>
-        <span class="brand-text font-weight-light">AdminPane</span>
+        <span class="brand-text font-weight-light">
+            <?= $settingsService->setting('site_name') ?>
+        </span>
     </a>
 
     <!-- Sidebar -->
