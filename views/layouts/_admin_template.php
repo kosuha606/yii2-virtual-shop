@@ -26,8 +26,8 @@ $settingsService = ServiceManager::getInstance()->get(SettingsService::class);
     </div>
     <div class="content-wrapper">
 
-        <div class="row" id="main" >
-            <div class="col-sm-12 col-md-12 well" id="content">
+        <div id="main" >
+            <div id="content">
                 <div class="container">
                     <?= Breadcrumbs::widget([
                         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
