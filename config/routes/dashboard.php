@@ -26,6 +26,8 @@ return [
                     'sort' => -1,
                 ],
                 'handler' => function() {
+                    Yii::$app->controller->getView()->registerJsFile('https://cdn.jsdelivr.net/npm/chart.js@2.8.0');
+
                     $infoDto = ServiceManager::getInstance()->get(SearchService::class)->indexInfo();
 
                     $dateTimeService = ServiceManager::getInstance()->get(DateTimeService::class);
