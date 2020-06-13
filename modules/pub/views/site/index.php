@@ -106,6 +106,10 @@ $translationService = ServiceManager::getInstance()->get(TranslationService::cla
                 <div class="products">
                     <?php foreach ($products as $product) { ?>
                         <div class="product-item">
+
+                            <div class="product-image">
+                                <?= Html::img($product->getPhotoSafe(), []) ?>
+                            </div>
                             <h2>
                                 <a href="<?= $product->getUrl() ?>">
                                     <?= $product->langAttribute('name') ?>

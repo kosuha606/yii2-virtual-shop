@@ -12,8 +12,8 @@ html :not(body[style]) {
   font-size: 0;
 }
 
-.form-row .selecter,
-.form-row input {
+.selecter,
+.form-control {
   display: block;
   width: 100%;
 }
@@ -60,8 +60,9 @@ html :not(body[style]) {
 
 
 @media(min-width: 1024px) {
-  .form-row .selecter,
+  .selecter,
   .form-control {
+    display: block !important;
     max-width: 400px;
   }
 }

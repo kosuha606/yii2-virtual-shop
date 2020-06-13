@@ -4,6 +4,7 @@ use app\virtualModels\Admin\Domains\Seo\SeoPageVm;
 use app\virtualModels\Admin\Form\SecondaryFormBuilder;
 use app\virtualModels\Admin\Form\SecondaryFormService;
 use app\virtualModels\Domains\Comment\Models\CommentVm;
+use app\virtualModels\Model\CategoryVm;
 use app\virtualModels\Model\FilterCategoryVm;
 use app\virtualModels\Model\FilterProductVm;
 use app\virtualModels\Model\OrderReserveVm;
@@ -370,6 +371,21 @@ return [
                                 'component' => DetailComponents::INPUT_FIELD,
                                 'label' => 'Ссылка',
                                 'value' => $model->slug,
+                            ],
+                            [
+                                'field' => 'category_id',
+                                'label' => 'Категория',
+                                'component' => DetailComponents::SELECT_FIELD,
+                                'value' => $model->category_id,
+                                'props' => [
+                                    'items' => $stringService->map(VirtualModel::allToArray(CategoryVm::many(['where' => [['all']]])), 'id', 'name')
+                                ]
+                            ],
+                            [
+                                'field' => 'photo',
+                                'component' => DetailComponents::IMAGE_FIELD,
+                                'label' => 'Фотография',
+                                'value' => $model->photo,
                             ],
                             [
                                 'field' => 'price',

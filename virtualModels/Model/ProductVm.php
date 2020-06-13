@@ -32,6 +32,8 @@ use yii\helpers\Url;
  * @property $slug
  * @property $price2B
  * @property $actions
+ * @property $photo
+ * @property $category_id
  *
  */
 class ProductVm extends VirtualModel
@@ -67,6 +69,8 @@ class ProductVm extends VirtualModel
             'price2B',
             'actions',
             'rests',
+            'photo',
+            'category_id',
         ];
     }
 
@@ -164,6 +168,11 @@ class ProductVm extends VirtualModel
         }
 
         return $this->attributes['rests'];
+    }
+
+    public function getPhotoSafe()
+    {
+        return $this->attributes['photo'] ?: 'https://via.placeholder.com/300x300';
     }
 
     /**

@@ -144,6 +144,17 @@ a.desc:after {
     padding: 15px;
 }
 
+.product-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.product-image img {
+    display: block;
+    height: 200px;
+    object-fit: cover;
+}
+
 .breadcrumb {
     background: transparent;
     padding: 8px 0;

@@ -3,6 +3,7 @@
 use app\models\Action;
 use app\models\Article;
 use app\models\Cache;
+use app\models\Category;
 use app\models\Comment;
 use app\models\Delivery;
 use app\models\Design;
@@ -52,6 +53,7 @@ use app\virtualModels\Domains\Multilang\TranslationVm;
 use app\virtualModels\Domains\Page\Models\PageVm;
 use app\virtualModels\Domains\Text\Models\TextVm;
 use app\virtualModels\Model\ActionVm;
+use app\virtualModels\Model\CategoryVm;
 use app\virtualModels\Model\DeliveryVm;
 use app\virtualModels\Model\FavoriteVm;
 use app\virtualModels\Model\FilterCategoryVm;
@@ -89,6 +91,9 @@ $config = [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,
             'arRelations' => [
+                CategoryVm::class => [
+                    'ar' => Category::class
+                ],
                 StaticTranslationVm::class => [
                     'ar' => StaticTranslation::class
                 ],
