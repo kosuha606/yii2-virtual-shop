@@ -16,6 +16,7 @@ import 'admin-lte/dist/css/adminlte.css';
 import 'toastr/build/toastr.min.css';
 import toastr from 'toastr';
 
+import pluralize from 'pluralize-ru';
 
 __webpack_public_path__ = webpack_asset_path;
 
@@ -24,6 +25,14 @@ window.Request = Request;
 Vue.use(selectPicker);
 Vue.use(VueCookie);
 Vue.use(VueTopprogress);
+
+Vue.mixin({
+    methods: {
+        $pluralize(number, no, one, two, five) {
+            return pluralize(number, no, one, two, five);
+        }
+    }
+});
 
 const app = new Vue({
     el: '#vue-app',
