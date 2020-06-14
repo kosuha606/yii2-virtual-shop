@@ -18,6 +18,24 @@ $detailTitle = 'Рабочий стол';
 return [
     'routes' => [
         $baseEntity => [
+            'orders_chart' => [
+                'handler' => function() {
+                    $result = [
+                        'result' => true,
+                    ];
+                    $nowOffset = \Yii::$app->request->get('now_offset');
+
+                    $dateTimeService = ServiceManager::getInstance()->get(DateTimeService::class);
+                    $lastWeekRange = $dateTimeService->lastDaysRange('-14 day', 14, $nowOffset);
+                    $ordersDynamic = \app\virtualModels\ServiceManager::getInstance()->orderService->buildOrdersStatistic($lastWeekRange);
+                    $result['data'] = $ordersDynamic;
+
+                    $response = new AdminResponseDTO(null, $result);
+                    $response->json = $result;
+
+                    return $response;
+                }
+            ],
             'detail' => [
                 'menu' => [
                     'name' => $baseEntity.'_detail',
@@ -32,17 +50,7 @@ return [
 
                     $dateTimeService = ServiceManager::getInstance()->get(DateTimeService::class);
                     $lastWeekRange = $dateTimeService->lastDaysRange('-14 day', 14);
-                    $ordersDynamic = ['dates' => [], 'values' => []];
-
-                    foreach ($lastWeekRange as $item) {
-                        $ordersDynamic['dates'][] = $item[1];
-                        $ordersDynamic['values'][] = OrderVm::count([
-                            'where' => [
-                                ['>=', 'created_at', $item[0].' 00:00:00'],
-                                ['<=', 'created_at', $item[1].' 23:59:59'],
-                            ]
-                        ]);
-                    }
+                    $ordersDynamic = \app\virtualModels\ServiceManager::getInstance()->orderService->buildOrdersStatistic($lastWeekRange);
 
                     return new AdminResponseDTO('<dashboard-page :props="_admin.config"></dashboard-page>', [
                         'config' => [

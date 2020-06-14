@@ -105,4 +105,21 @@ class OrderService
 
         return $items;
     }
+
+    public function buildOrdersStatistic($range)
+    {
+        $ordersDynamic = ['dates' => [], 'values' => []];
+
+        foreach ($range as $item) {
+            $ordersDynamic['dates'][] = $item[1];
+            $ordersDynamic['values'][] = OrderVm::count([
+                'where' => [
+                    ['>=', 'created_at', $item[0].' 00:00:00'],
+                    ['<=', 'created_at', $item[1].' 23:59:59'],
+                ]
+            ]);
+        }
+
+        return $ordersDynamic;
+    }
 }

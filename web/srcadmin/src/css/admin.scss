@@ -58,6 +58,9 @@ html :not(body[style]) {
   }
 }
 
+#mychart {
+  height: 200px;
+}
 
 @media(min-width: 1024px) {
   .selecter,

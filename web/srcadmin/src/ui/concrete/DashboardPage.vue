@@ -15,10 +15,22 @@
                             </div>
                             <div class="card-body">
 
-                                <canvas id="myChart" width="400" height="150"></canvas>
+                                <canvas id="myChart"></canvas>
 
                             </div>
                             <div class="card-footer clearfix">
+                                <button @click="changeNowOffset(-7)" class="btn btn-primary">
+                                    <i data-v-02c5127a="" class="fa fa-arrow-left"></i>
+                                    Назад -7 дней
+                                </button>
+                                <button @click="changeNowOffset(+7)" class="btn btn-primary">
+                                    Вперед +7 дней
+                                    <i data-v-02c5127a="" class="fa fa-arrow-right"></i>
+                                </button>
+                                <b v-if="nowOffset !== 0">
+                                    Смещение:
+                                    {{ nowOffset }} дней
+                                </b>
                             </div>
                         </div>
                     </div>
@@ -100,23 +112,47 @@
     export default {
         name: "DashboardPage",
         props: ['props'],
+        data() {
+            return {
+                nowOffset: 0,
+                orders_dynamic: this.props.orders_dynamic
+            }
+        },
+        watch: {
+            nowOffset(value) {
+                Request.get('/admin/dashboard/orders_chart', {
+                    now_offset: value
+                }, (resp) => {
+                    if (resp.result) {
+                        this.orders_dynamic = resp.data;
+                        this.$forceUpdate();
+                        this.loadChart();
+                    }
+                });
+            }
+        },
         mounted() {
             this.loadChart();
         },
         methods: {
+            changeNowOffset(value) {
+                this.nowOffset = this.nowOffset+value;
+            },
             loadChart() {
                 var ctx = document.getElementById('myChart');
+                ctx.height = 200;
                 var myChart = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: this.props.orders_dynamic.dates,
+                        labels: this.orders_dynamic.dates,
                         datasets: [{
                             label: 'Кол-во заказов',
-                            data: this.props.orders_dynamic.values,
+                            data: this.orders_dynamic.values,
                             borderWidth: 1
                         }]
                     },
                     options: {
+                        maintainAspectRatio: false,
                         scales: {
                             yAxes: [{
                                 ticks: {
