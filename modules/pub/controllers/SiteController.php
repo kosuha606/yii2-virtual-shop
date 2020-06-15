@@ -71,7 +71,6 @@ class SiteController extends Controller
     {
         $cartData = Yii::$app->session->get('cart');
         ServiceManager::getInstance()->cartBuilder->unserialize($cartData);
-
         ServiceManager::getInstance()->userService->login(Yii::$app->user->id);
 
         return parent::beforeAction($action);

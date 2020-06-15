@@ -5,7 +5,9 @@ namespace app\virtualModels\Model;
 use app\virtualModels\Admin\Domains\Seo\SeoModelInterface;
 use app\virtualModels\Admin\Domains\Seo\SeoModelTrait;
 use app\virtualModels\Admin\Domains\Seo\SeoPageVm;
+use app\virtualModels\Admin\Domains\Seo\SeoUrlObserver;
 use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModelHelppack\Traits\ObserveVMTrait;
 
 /**
  *
@@ -18,6 +20,15 @@ use kosuha606\VirtualModel\VirtualModel;
 class CategoryVm extends VirtualModel implements SeoModelInterface
 {
     use SeoModelTrait;
+
+    use ObserveVMTrait;
+
+    public static function observers()
+    {
+        return [
+            SeoUrlObserver::class,
+        ];
+    }
 
     public function attributes(): array
     {
@@ -37,5 +48,14 @@ class CategoryVm extends VirtualModel implements SeoModelInterface
     public function getPhotoSafe()
     {
         return $this->attributes['photo'] ?: 'https://via.placeholder.com/300x300';
+    }
+
+    public function getProductsCount()
+    {
+        return ProductVm::count([
+            'where' => [
+                ['=', 'category_id', $this->id]
+            ]
+        ]);
     }
 }

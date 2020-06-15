@@ -5,6 +5,7 @@ namespace app\urlRules;
 use app\virtualModels\Admin\Domains\Seo\SeoService;
 use app\virtualModels\Domains\Article\Models\ArticleVm;
 use app\virtualModels\Domains\Page\Models\PageVm;
+use app\virtualModels\Model\CategoryVm;
 use app\virtualModels\Model\ProductVm;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 use yii\base\BaseObject;
@@ -27,6 +28,10 @@ class SeoUrlRule extends BaseObject implements UrlRuleInterface
         $seoService = ServiceManager::getInstance()->get(SeoService::class);
 
         if ($model = $seoService->findModelByUrl($pathInfo)) {
+            if ($model instanceof CategoryVm) {
+                return ['/pub/category/category', ['id' => $model->id]];
+            }
+
             if ($model instanceof ProductVm) {
                 return ['/pub/site/view',[ 'id' => $model->id ]];
             }

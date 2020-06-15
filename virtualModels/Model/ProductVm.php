@@ -76,7 +76,14 @@ class ProductVm extends VirtualModel
 
     public function buildUrl()
     {
-        return '/product/'.$this->id.'_'.$this->slug;
+        $category = $this->getCategory();
+        $result = '/'.$this->id.'_'.$this->slug;
+
+        if ($category->id) {
+            $result = $category->getUrl().$result;
+        }
+
+        return $result;
     }
 
     public function buildIndex(): SearchIndexDto
@@ -232,5 +239,14 @@ class ProductVm extends VirtualModel
         }
 
         return $this->productService->calculateProductSalePrice($this);
+    }
+
+    public function getCategory()
+    {
+        return CategoryVm::one([
+            'where' => [
+                ['=', 'id', $this->category_id]
+            ]
+        ]);
     }
 }
