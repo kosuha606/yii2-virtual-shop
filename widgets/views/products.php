@@ -41,7 +41,7 @@ $translationService = ServiceManager::getInstance()->get(TranslationService::cla
             <?php foreach ($categories as $category) { ?>
             <a href="<?= $category->getUrl() ?>" class="list-group-item <?= $currentCategoryId == $category->id ? 'active' : '' ?>">
                 <span class="badge"><?= $category->getProductsCount() ?></span>
-                <?= $category->name ?>
+                <?= $category->langAttribute('name') ?>
             </a>
             <?php } ?>
         </div>
@@ -50,6 +50,11 @@ $translationService = ServiceManager::getInstance()->get(TranslationService::cla
         <h2><?= $translationService->translate('Фильтры') ?></h2>
         <form method="get">
             <?php foreach ($filtersData as $categoryName => $filterProducts) { ?>
+                <?php
+                if ($currentCategoryId && $categoryName === 'Тип') {
+                    continue;
+                }
+                ?>
                 <h3><?= $translationService->translate($categoryName) ?></h3>
                 <?php
                 /** @var FilterProductVm $filterProduct */

@@ -6,6 +6,7 @@ use app\virtualModels\Admin\Domains\Seo\SeoModelInterface;
 use app\virtualModels\Admin\Domains\Seo\SeoModelTrait;
 use app\virtualModels\Admin\Domains\Seo\SeoPageVm;
 use app\virtualModels\Admin\Domains\Seo\SeoUrlObserver;
+use app\virtualModels\Domains\Multilang\MultilangTrait;
 use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModelHelppack\Traits\ObserveVMTrait;
 
@@ -22,6 +23,8 @@ class CategoryVm extends VirtualModel implements SeoModelInterface
     use SeoModelTrait;
 
     use ObserveVMTrait;
+
+    use MultilangTrait;
 
     public static function observers()
     {

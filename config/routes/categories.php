@@ -84,12 +84,13 @@ return [
                         $stringService = ServiceManager::getInstance()->get(StringService::class);
 
                         return [
-                            [
-                                'field' => 'name',
-                                'component' => DetailComponents::INPUT_FIELD,
-                                'label' => 'Название',
-                                'value' => $model->name,
-                            ],
+                            DetailComponents::MULTILANG_FIELD(
+                                DetailComponents::INPUT_FIELD,
+                                'name',
+                                'Название',
+                                $model->name,
+                                $model
+                            ),
                             [
                                 'field' => 'photo',
                                 'component' => DetailComponents::IMAGE_FIELD,
