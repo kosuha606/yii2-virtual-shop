@@ -1,5 +1,6 @@
 <?php
 
+use app\virtualModels\Admin\Structures\SecondaryForms;
 use app\virtualModels\Model\CategoryVm;
 use app\virtualModels\Services\StringService;
 use app\virtualModels\Admin\Structures\DetailComponents;
@@ -80,6 +81,11 @@ return [
                         'model' => $entityClass,
                         'action' => 'actionView',
                     ],
+                    'additional_config' => function($model) {
+                        return [
+                            SecondaryForms::SEO_PAGE($model),
+                        ];
+                    },
                     'config' => function ($model) {
                         $stringService = ServiceManager::getInstance()->get(StringService::class);
 
