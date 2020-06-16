@@ -9,6 +9,7 @@ use app\virtualModels\Admin\Dto\AdminResponseDTO;
 use app\virtualModels\Admin\Services\AlertService;
 use app\virtualModels\Domains\Article\Models\ArticleVm;
 use app\virtualModels\Domains\Page\Models\PageVm;
+use app\virtualModels\Model\CategoryVm;
 use app\virtualModels\Model\ProductVm;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 use yii\helpers\Inflector;
@@ -28,6 +29,7 @@ return [
                         'result' => true
                     ];
                     $modelClasses = [
+                        CategoryVm::class,
                         ProductVm::class,
                         ArticleVm::class,
                         PageVm::class,
