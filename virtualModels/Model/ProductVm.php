@@ -77,7 +77,7 @@ class ProductVm extends VirtualModel
     public function buildUrl()
     {
         $category = $this->getCategory();
-        $result = '/'.$this->id.'_'.$this->slug;
+        $result = '/'.$this->id.'-'.$this->slug;
 
         if ($category->id) {
             $result = $category->getUrl().$result;

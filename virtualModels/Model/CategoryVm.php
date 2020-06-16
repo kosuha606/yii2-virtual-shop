@@ -45,7 +45,7 @@ class CategoryVm extends VirtualModel implements SeoModelInterface
 
     public function buildUrl()
     {
-        return '/'.$this->id.'_'.$this->slug;
+        return '/'.$this->id.'-'.$this->slug;
     }
 
     public function getPhotoSafe()
