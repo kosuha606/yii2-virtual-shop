@@ -111,11 +111,11 @@ class OrderService
         $ordersDynamic = ['dates' => [], 'values' => []];
 
         foreach ($range as $item) {
-            $ordersDynamic['dates'][] = $item[1];
+            $ordersDynamic['dates'][] = $item[0];
             $ordersDynamic['values'][] = OrderVm::count([
                 'where' => [
-                    ['>', 'created_at', $item[0].' 00:00:00'],
-                    ['<', 'created_at', $item[1].' 23:59:59'],
+                    ['>=', 'created_at', $item[0]],
+                    ['<=', 'created_at', $item[1]],
                 ]
             ]);
         }
