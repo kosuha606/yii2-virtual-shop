@@ -2,6 +2,7 @@
 
 namespace app\urlRules;
 
+use app\virtualModels\Admin\Domains\Seo\SeoFilterService;
 use app\virtualModels\Admin\Domains\Seo\SeoService;
 use app\virtualModels\Domains\Article\Models\ArticleVm;
 use app\virtualModels\Domains\Page\Models\PageVm;
@@ -24,12 +25,31 @@ class SeoUrlRule extends BaseObject implements UrlRuleInterface
     public function parseRequest($manager, $request)
     {
         $pathInfo = '/'.$request->pathInfo;
+        $pathParts = explode('filter-', $pathInfo);
+        $pathInfo = $pathParts[0];
+        $pathInfo = rtrim($pathInfo, '/');
+
         /** @var SeoService $seoService */
         $seoService = ServiceManager::getInstance()->get(SeoService::class);
+        $seoFilterService = ServiceManager::getInstance()->get(SeoFilterService::class);
+
+        if ($pathInfo === '' && isset($pathParts[1])) {
+            $filter = [];
+            if (isset($pathParts[1])) {
+                $filter = $seoFilterService->parseUrl($pathParts[1]);
+            }
+
+            return ['/pub/site/index', ['filter' => $filter]];
+        }
 
         if ($model = $seoService->findModelByUrl($pathInfo)) {
             if ($model instanceof CategoryVm) {
-                return ['/pub/category/category', ['id' => $model->id]];
+                $filter = [];
+                if (isset($pathParts[1])) {
+                    $filter = $seoFilterService->parseUrl($pathParts[1]);
+                }
+
+                return ['/pub/category/category', ['id' => $model->id, 'filter' => $filter]];
             }
 
             if ($model instanceof ProductVm) {

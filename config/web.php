@@ -23,6 +23,7 @@ use app\models\ProductRests;
 use app\models\ProductSeo;
 use app\models\Promocode;
 use app\models\SeoArticle;
+use app\models\SeoFilter;
 use app\models\SeoPage;
 use app\models\SeoRedirect;
 use app\models\SeoUrl;
@@ -34,6 +35,7 @@ use app\models\Version;
 use app\models\Widget;
 use app\modules\pub\Module;
 use app\urlRules\SeoUrlRule;
+use app\virtualModels\Admin\Domains\Seo\SeoFilterVm;
 use app\virtualModels\Admin\Domains\Seo\SeoPageVm;
 use app\virtualModels\Admin\Domains\Seo\SeoRedirectVm;
 use app\virtualModels\Admin\Domains\Seo\SeoUrlVm;
@@ -102,6 +104,9 @@ $config = [
                 ],
                 SeoPageVm::class => [
                     'ar' => SeoPage::class,
+                ],
+                SeoFilterVm::class => [
+                    'ar' => SeoFilter::class,
                 ],
                 SeoUrlVm::class => [
                     'ar' => SeoUrl::class

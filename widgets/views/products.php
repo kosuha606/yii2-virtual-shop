@@ -1,6 +1,7 @@
 <?php
 
 
+use app\virtualModels\Admin\Domains\Seo\SeoFilterService;
 use app\virtualModels\Classes\Pagination;
 use app\virtualModels\Domains\Multilang\TranslationService;
 use app\virtualModels\Model\CategoryVm;
@@ -48,7 +49,7 @@ $translationService = ServiceManager::getInstance()->get(TranslationService::cla
 
 
         <h2><?= $translationService->translate('Фильтры') ?></h2>
-        <form method="get">
+        <?php $form = ActiveForm::begin(['method' => 'post', 'action' => ['/pub/category/filter']]) ?>
             <?php foreach ($filtersData as $categoryName => $filterProducts) { ?>
                 <?php
                 if ($currentCategoryId && $categoryName === 'Тип') {
@@ -76,9 +77,12 @@ $translationService = ServiceManager::getInstance()->get(TranslationService::cla
                 <?= $translationService->translate('Применить') ?>
             </button>
             <div>
-                <?= Html::a($translationService->translate('Сбросить'), ['site/index']) ?>
+                <?php
+                    $seoFilterService = ServiceManager::getInstance()->get(SeoFilterService::class);
+                ?>
+                <?= Html::a($translationService->translate('Сбросить'), $seoFilterService->urlWithoutFilter(Yii::$app->request->pathInfo)) ?>
             </div>
-        </form>
+        <?php ActiveForm::end() ?>
     </div>
     <div class="col-md-9">
         <div class="row">

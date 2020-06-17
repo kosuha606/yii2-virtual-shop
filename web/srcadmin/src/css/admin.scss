@@ -62,6 +62,12 @@ html :not(body[style]) {
   height: 200px;
 }
 
+.virtual {
+  &-form-row {
+    margin-bottom: 10px;
+  }
+}
+
 @media(min-width: 1024px) {
   .selecter,
   .form-control {

@@ -2,6 +2,7 @@
 
 namespace app\modules\pub\controllers;
 
+use app\virtualModels\Admin\Domains\Seo\SeoFilterService;
 use app\virtualModels\Model\CategoryVm;
 use app\virtualModels\Model\ProductVm;
 use app\virtualModels\ServiceManager;
@@ -42,5 +43,27 @@ class CategoryController extends Controller
         return $this->render('view', [
             'category' => $category,
         ]);
+    }
+
+    /**
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     */
+    public function actionFilter()
+    {
+        $filters = Yii::$app->request->post('filter', []);
+        $seoFilterService = \kosuha606\VirtualModelHelppack\ServiceManager::getInstance()->get(SeoFilterService::class);
+        $url = $seoFilterService->createUrl($filters);
+        $referer = Yii::$app->request->referrer;
+
+        if ($url) {
+            $referer = rtrim($referer, '/');
+            $refererParts = explode('/filter-', $referer);
+            return $this->redirect($refererParts[0].'/filter-'.$url);
+        }
+
+        return $this->redirect($referer.'?'.http_build_query([
+            'filter' => $filters
+        ]));
     }
 }

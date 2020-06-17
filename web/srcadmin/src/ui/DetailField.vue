@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="virtual-form-row">
         <component
                 :is="component.component"
                 :field="component.field"
