@@ -69,6 +69,11 @@ return [
                             'component' => ListComponents::STRING_CELL,
                             'label' => 'Тип',
                         ],
+                        [
+                            'field' => 'order',
+                            'component' => ListComponents::STRING_CELL,
+                            'label' => 'Сортировка',
+                        ],
                     ]
                 ]
             ],
@@ -112,6 +117,12 @@ return [
                                 'props' => [
                                     'items' => $stringService->map(VirtualModel::allToArray(FilterCategoryVm::many(['where' => [['all']]])), 'id', 'name')
                                 ]
+                            ],
+                            [
+                                'field' => 'order',
+                                'component' => DetailComponents::INPUT_FIELD,
+                                'label' => 'Сортировка',
+                                'value' => $model->order,
                             ],
                         ];
                     },

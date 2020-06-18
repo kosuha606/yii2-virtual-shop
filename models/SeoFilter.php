@@ -33,6 +33,7 @@ class SeoFilter extends ActiveRecord
                 [
                     'type',
                     'value',
+                    'order',
                 ],
                 'required'
             ],

@@ -179,7 +179,7 @@ class ProductVm extends VirtualModel
 
     public function getPhotoSafe()
     {
-        return $this->attributes['photo'] ?: 'https://via.placeholder.com/300x300';
+        return $this->attributes['photo'] ? '/'.$this->attributes['photo'] : 'https://via.placeholder.com/300x300';
     }
 
     /**

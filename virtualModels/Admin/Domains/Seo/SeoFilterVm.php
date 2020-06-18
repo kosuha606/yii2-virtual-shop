@@ -10,6 +10,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @property $type
  * @property $value
  * @property $slug
+ * @property $order
  *
  */
 class SeoFilterVm extends VirtualModel
@@ -21,6 +22,7 @@ class SeoFilterVm extends VirtualModel
             'type',
             'value',
             'slug',
+            'order',
         ];
     }
 }

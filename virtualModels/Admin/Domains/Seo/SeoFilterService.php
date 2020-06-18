@@ -15,7 +15,7 @@ class SeoFilterService
     {
         $urlParts = [];
 
-        foreach ($data as $item) {
+        foreach ($data as $index => $item) {
             $itemParts = explode('_', $item);
             $filter = SeoFilterVm::one(['where' => [
                 ['=', 'value', $itemParts[0]],
@@ -23,9 +23,19 @@ class SeoFilterService
             ]]);
 
             if ($filter) {
-                $urlParts[] = $filter->slug;
+                $order = $filter->order ?: $index;
+                $urlParts[] = [
+                    'slug' => $filter->slug,
+                    'order' => (int)$order
+                ];
             }
         }
+
+        uasort($urlParts, function ($a, $b) {
+            return $a['order'] <=> $b['order'];
+        });
+
+        $urlParts = array_column($urlParts, 'slug');
 
         if (count($data) === count($urlParts)) {
             return implode('_', $urlParts);
