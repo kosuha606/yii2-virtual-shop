@@ -89,6 +89,18 @@ return [
                             ]
                         ],
                         [
+                            'field' => 'category',
+                            'component' => ListComponents::STRING_CELL,
+                            'label' => 'Категория',
+                            'value' => function($model) {
+                                $product = ProductVm::one(['where' => [['=', 'id', $model['id']]]]);
+                                /** @var CategoryVm $category */
+                                $category = $product->getCategory();
+
+                                return $category->name ?? '--';
+                            }
+                        ],
+                        [
                             'field' => 'price',
                             'component' => ListComponents::STRING_CELL,
                             'label' => 'Цена'
@@ -96,7 +108,10 @@ return [
                         [
                             'field' => 'created_at',
                             'component' => ListComponents::STRING_CELL,
-                            'label' => 'Создан'
+                            'label' => 'Создан',
+                            'value' => function($model) {
+                                return $model['created_at'] ? date('d.m.Y H:i', strtotime($model['created_at'])) : '--';
+                            }
                         ],
                     ]
                 ]

@@ -27,6 +27,9 @@ class AdminRequestProcessor
      */
     private $adminConfigService;
 
+    /**
+     * @var null|array
+     */
     private $config = null;
 
     /** @var AdminControllerInterface */
@@ -205,6 +208,17 @@ class AdminRequestProcessor
                             $filter,
                             $order
                         ));
+
+                        if (isset($handler['list_config'])) {
+                            foreach ($handler['list_config'] as $fieldConfig) {
+                                if (isset($fieldConfig['value']) && is_callable($fieldConfig['value'])) {
+                                    $listConfigCallback = $fieldConfig['value'];
+                                    foreach ($response->json['models'] as $modelIndex => $model) {
+                                        $response->json['models'][$modelIndex][$fieldConfig['field']] = $listConfigCallback($model);
+                                    }
+                                }
+                            }
+                        }
 
                         if (isset($handler['crud']['orderBy'])) {
                             $response->json['defaultSort'] = $handler['crud']['orderBy'];
