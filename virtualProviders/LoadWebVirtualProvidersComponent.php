@@ -36,6 +36,8 @@ class LoadWebVirtualProvidersComponent extends Component
 
         VirtualModelManager::getInstance()->setProvider(new TransactionProvider());
 
+        VirtualModelManager::getInstance()->setProvider(new AutoTranslateProvider());
+
         $zendProvider = new ZendLuceneSearchProvider();
         $zendProvider->zendService->setIndexPath('@runtime/zend_index');
         VirtualModelManager::getInstance()->setProvider($zendProvider);

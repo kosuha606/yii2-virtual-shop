@@ -2,7 +2,7 @@
 
 namespace app\modules\pub\controllers;
 
-use kosuha606\VritualContent\Domains\Page\Models\PageVm;
+use kosuha606\VirtualContent\Domains\Page\Models\PageVm;
 use yii\web\Controller;
 use yii\web\HttpException;
 

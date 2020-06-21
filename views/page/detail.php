@@ -3,7 +3,7 @@
 /** @var PageVm $page */
 
 
-use kosuha606\VritualContent\Domains\Page\Models\PageVm;
+use kosuha606\VirtualContent\Domains\Page\Models\PageVm;
 ?>
 
 <h1><?= $page->langAttribute('title') ?></h1>

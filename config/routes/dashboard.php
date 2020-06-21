@@ -7,7 +7,7 @@ use kosuha606\VirtualAdmin\Dto\AdminResponseDTO;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 use kosuha606\VirtualShop\Model\OrderVm;
 use kosuha606\VirtualShop\Model\ProductVm;
-use kosuha606\VritualContent\Domains\Article\Models\ArticleVm;
+use kosuha606\VirtualContent\Domains\Article\Models\ArticleVm;
 use yii\helpers\Inflector;
 
 $baseEntity = 'dashboard';

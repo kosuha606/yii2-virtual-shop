@@ -4,6 +4,7 @@ namespace app\modules\pub;
 
 use kosuha606\VirtualAdmin\Domains\Seo\SeoService;
 use kosuha606\VirtualModelHelppack\ServiceManager;
+use kosuha606\VirtualShop\ServiceManager as ShopServiceManager;
 use Yii;
 
 class Module extends \yii\base\Module
@@ -19,8 +20,8 @@ class Module extends \yii\base\Module
     {
         $this->registerMetaData();
         $cartData = Yii::$app->session->get('cart');
-        \kosuha606\VirtualShop\ServiceManager::getInstance()->cartBuilder->unserialize($cartData);
-        ServiceManager::getInstance()->userService->login(Yii::$app->user->id);
+        ShopServiceManager::getInstance()->cartBuilder->unserialize($cartData);
+        ShopServiceManager::getInstance()->userService->login(Yii::$app->user->id);
 
         return parent::beforeAction($action);
     }

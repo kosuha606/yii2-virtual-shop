@@ -558,16 +558,16 @@
         },
         {
             "name": "kosuha606/virtual-content",
-            "version": "1.0.1",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kosuha606/virtual-content.git",
-                "reference": "d112268f62ac2897f0f33af86b8adb619c8ba2e5"
+                "reference": "5e521cfe244c99ab459d2630ca50f663819a7f0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kosuha606/virtual-content/zipball/d112268f62ac2897f0f33af86b8adb619c8ba2e5",
-                "reference": "d112268f62ac2897f0f33af86b8adb619c8ba2e5",
+                "url": "https://api.github.com/repos/kosuha606/virtual-content/zipball/5e521cfe244c99ab459d2630ca50f663819a7f0c",
+                "reference": "5e521cfe244c99ab459d2630ca50f663819a7f0c",
                 "shasum": ""
             },
             "require": {
@@ -591,7 +591,7 @@
                 }
             ],
             "description": "VirtualContent",
-            "time": "2020-06-21T14:37:12+00:00"
+            "time": "2020-06-21T18:55:32+00:00"
         },
         {
             "name": "kosuha606/virtual-model",
@@ -669,16 +669,16 @@
         },
         {
             "name": "kosuha606/virtual-shop",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kosuha606/virtual-shop.git",
-                "reference": "145967dde06a7bbb4a5a59d90e060e4856f0f11f"
+                "reference": "cb4a5bd1a821541499e296cc4c40f04be7d1c4e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kosuha606/virtual-shop/zipball/145967dde06a7bbb4a5a59d90e060e4856f0f11f",
-                "reference": "145967dde06a7bbb4a5a59d90e060e4856f0f11f",
+                "url": "https://api.github.com/repos/kosuha606/virtual-shop/zipball/cb4a5bd1a821541499e296cc4c40f04be7d1c4e3",
+                "reference": "cb4a5bd1a821541499e296cc4c40f04be7d1c4e3",
                 "shasum": ""
             },
             "require": {
@@ -702,7 +702,7 @@
                 }
             ],
             "description": "VirtualShop",
-            "time": "2020-06-21T14:23:11+00:00"
+            "time": "2020-06-21T14:59:19+00:00"
         },
         {
             "name": "opis/closure",

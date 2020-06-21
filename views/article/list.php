@@ -1,6 +1,6 @@
 <?php
 
-use kosuha606\VritualContent\Domains\Article\Models\ArticleVm;
+use kosuha606\VirtualContent\Domains\Article\Models\ArticleVm;
 use yii\helpers\Html;
 
 /** @var ArticleVm[] $articles */

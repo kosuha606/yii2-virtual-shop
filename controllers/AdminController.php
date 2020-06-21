@@ -10,7 +10,7 @@ use kosuha606\VirtualAdmin\Interfaces\AdminControllerInterface;
 use kosuha606\VirtualAdmin\Processors\AdminRequestProcessor;
 use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModelHelppack\ServiceManager;
-use kosuha606\VirtualShop\ContentRoutesLoader;
+use kosuha606\VirtualContent\ContentRoutesLoader;
 use kosuha606\VirtualShop\Services\UserService;
 use kosuha606\VirtualShop\ShopRoutesLoader;
 use yii\web\Controller;
@@ -80,7 +80,7 @@ class AdminController extends Controller implements AdminControllerInterface
             ->addRoutesLoader(new ContentRoutesLoader())
             ->addRoutesLoader(new AppRoutesLoader())
         ;
-        $processor->loadConfig(__DIR__.'/../config/routes');
+        $processor->loadConfig();
         $processor->setController($this);
 
         $response = new AdminResponseDTO('', []);

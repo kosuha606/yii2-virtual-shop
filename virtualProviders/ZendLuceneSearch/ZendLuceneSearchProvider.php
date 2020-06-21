@@ -11,8 +11,8 @@ use kosuha606\VirtualModel\Example\MemoryModelProvider;
 use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 use kosuha606\VirtualShop\Model\ProductVm;
-use kosuha606\VritualContent\Domains\Article\Models\ArticleVm;
-use kosuha606\VritualContent\Domains\Page\Models\PageVm;
+use kosuha606\VirtualContent\Domains\Article\Models\ArticleVm;
+use kosuha606\VirtualContent\Domains\Page\Models\PageVm;
 
 class ZendLuceneSearchProvider extends MemoryModelProvider implements SearchProviderInterface
 {
