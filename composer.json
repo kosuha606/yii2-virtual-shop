@@ -12,7 +12,7 @@
         "irc": "irc://irc.freenode.net/yii",
         "source": "https://github.com/yiisoft/yii2"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=7.0",
         "yiisoft/yii2": "~2.0.14",
@@ -21,9 +21,8 @@
         "zendframework/zendsearch": "2.0.0rc6",
         "samdark/sitemap": "^2.2",
         "stichoza/google-translate-php": "^4.1",
-        "kosuha606/virtual-admin": "^1.0",
-        "kosuha606/virtual-shop": "^1.0",
-        "kosuha606/virtual-content": "^1.0"
+        "kosuha606/virtual-shop": "dev-master",
+        "kosuha606/virtual-content": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
