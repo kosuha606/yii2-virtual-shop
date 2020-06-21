@@ -2,7 +2,7 @@
 
 /** @var ArticleVm $article */
 
-use app\virtualModels\Domains\Article\Models\ArticleVm;
+use kosuha606\VritualContent\Domains\Article\Models\ArticleVm;
 
 ?>
 

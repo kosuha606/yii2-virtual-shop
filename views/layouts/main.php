@@ -3,10 +3,9 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use app\virtualModels\Domains\Design\Services\DesignService;
-use app\virtualModels\Domains\Menu\Widgets\MenuWidget;
-use app\virtualModels\ServiceManager;
 use app\widgets\Alert;
+use kosuha606\VirtualAdmin\Domains\Design\DesignService;
+use kosuha606\VirtualShop\ServiceManager;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -23,6 +22,7 @@ $designService = \kosuha606\VirtualModelHelppack\ServiceManager::getInstance()->
 $alert = Alert::widget();
 
 $content = $alert.$content;
+$route = \Yii::$app->requestedRoute ?: 'site/index';
 
 ?>
 <?php $this->beginPage() ?>
@@ -39,7 +39,7 @@ $content = $alert.$content;
 <body>
 <?php $this->beginBody() ?>
 
-<?= $designService->renderDesignForRoute($content) ?>
+<?= $designService->renderDesignForRoute($route, $content) ?>
 
 <?php $this->endBody() ?>
 </body>

@@ -2,7 +2,6 @@
 
 namespace app\modules\pub\controllers;
 
-use app\virtualModels\Domains\Cache\CacheService;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 use yii\web\Controller;
 

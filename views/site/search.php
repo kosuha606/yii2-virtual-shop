@@ -1,8 +1,8 @@
 <?php
 
 
-use app\virtualModels\Admin\Domains\Search\SearchVm;
 use app\virtualProviders\ZendLuceneSearch\ZendLuceneSearchProvider;
+use kosuha606\VirtualAdmin\Domains\Search\SearchVm;
 use kosuha606\VirtualModel\VirtualModelManager;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;

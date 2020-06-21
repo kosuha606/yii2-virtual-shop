@@ -1,7 +1,7 @@
 <?php
 
 
-use app\virtualModels\Admin\Structures\DetailComponents;
+use kosuha606\VirtualAdmin\Structures\DetailComponents;
 
 return [
     'Основные' => [

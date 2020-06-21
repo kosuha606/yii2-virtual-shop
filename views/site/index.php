@@ -2,12 +2,12 @@
 
 /* @var $this yii\web\View */
 
-use app\virtualModels\Classes\Pagination;
-use app\virtualModels\Domains\Multilang\TranslationService;
-use app\virtualModels\Model\FilterProductVm;
-use app\virtualModels\Model\ProductVm;
+use kosuha606\VirtualAdmin\Classes\Pagination;
+use kosuha606\VirtualAdmin\Domains\Multilang\TranslationService;
 use kosuha606\VirtualModel\Example\Shop\Model\Product;
 use kosuha606\VirtualModelHelppack\ServiceManager;
+use kosuha606\VirtualShop\Model\FilterProductVm;
+use kosuha606\VirtualShop\Model\ProductVm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;

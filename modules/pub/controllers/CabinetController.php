@@ -2,15 +2,18 @@
 
 namespace app\modules\pub\controllers;
 
-use app\virtualModels\Model\FavoriteVm;
-use app\virtualModels\Model\OrderVm;
-use app\virtualModels\Model\ProductVm;
-use app\virtualModels\ServiceManager;
+use kosuha606\VirtualShop\Model\FavoriteVm;
+use kosuha606\VirtualShop\Model\OrderVm;
+use kosuha606\VirtualShop\Model\ProductVm;
+use kosuha606\VirtualShop\ServiceManager;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
+/**
+ * @package app\modules\pub\controllers
+ */
 class CabinetController extends Controller
 {
     public function behaviors()
@@ -45,12 +48,15 @@ class CabinetController extends Controller
     {
         $cartData = Yii::$app->session->get('cart');
         ServiceManager::getInstance()->cartBuilder->unserialize($cartData);
-
         ServiceManager::getInstance()->userService->login(Yii::$app->user->id);
 
         return parent::beforeAction($action);
     }
 
+    /**
+     * @return string
+     * @throws \Exception
+     */
     public function actionOrders()
     {
         $user = ServiceManager::getInstance()->userService->current();
@@ -66,6 +72,10 @@ class CabinetController extends Controller
         ]);
     }
 
+    /**
+     * @return string
+     * @throws \Exception
+     */
     public function actionFavorites()
     {
         $user = ServiceManager::getInstance()->userService->current();
@@ -106,7 +116,6 @@ class CabinetController extends Controller
     public function actionAddFavorite()
     {
         $productId = Yii::$app->request->post('product_id');
-
         $product = ProductVm::one([
             'where' => [
                 ['=', 'id', $productId]

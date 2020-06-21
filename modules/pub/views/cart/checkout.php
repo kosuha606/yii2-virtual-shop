@@ -1,7 +1,7 @@
 <?php
 
-use app\virtualModels\Model\Cart;
-use app\virtualModels\ServiceManager;
+use kosuha606\VirtualShop\Model\Cart;
+use kosuha606\VirtualShop\ServiceManager;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;

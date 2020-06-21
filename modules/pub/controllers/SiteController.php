@@ -2,15 +2,12 @@
 
 namespace app\modules\pub\controllers;
 
-use app\models\FilterProduct;
-use app\virtualModels\Admin\Domains\Sitemap\SitemapVm;
-use app\virtualModels\Admin\Services\SessionService;
-use app\virtualModels\Domains\Multilang\LanguageService;
-use app\virtualModels\Model\FilterCategoryVm;
-use app\virtualModels\Model\FilterProductVm;
-use app\virtualModels\Model\ProductVm;
-use app\virtualModels\ServiceManager;
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualAdmin\Domains\Multilang\LanguageService;
+use kosuha606\VirtualAdmin\Domains\Sitemap\SitemapVm;
+use kosuha606\VirtualShop\Model\FilterCategoryVm;
+use kosuha606\VirtualShop\Model\FilterProductVm;
+use kosuha606\VirtualShop\Model\ProductVm;
+use kosuha606\VirtualShop\ServiceManager;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -152,6 +149,12 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    /**
+     * @return Response
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     * @throws \Exception
+     */
     public function actionLang()
     {
         $l = Yii::$app->request->get('l', 'ru');

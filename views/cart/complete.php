@@ -3,7 +3,7 @@
 /** @var Cart $cart */
 /** @var array $cartData */
 
-use app\virtualModels\Model\Cart;
+use kosuha606\VirtualShop\Model\Cart;
 use yii\helpers\Html;
 
 ?>

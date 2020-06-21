@@ -3,7 +3,7 @@
 /** @var AdminResponseDTO $response */
 /** @var View $this */
 
-use app\virtualModels\Admin\Dto\AdminResponseDTO;
+use kosuha606\VirtualAdmin\Dto\AdminResponseDTO;
 use yii\web\View;
 
 $this->registerJsVar('_admin', $response->jsVars);

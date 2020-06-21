@@ -1,7 +1,7 @@
 <?php
 
-use app\virtualModels\Model\CategoryVm;
 use app\widgets\ProductsWidget;
+use kosuha606\VirtualShop\Model\CategoryVm;
 
 /** @var CategoryVm $category */
 

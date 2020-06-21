@@ -2,9 +2,9 @@
 
 /** @var ProductVm $product */
 
-use app\virtualModels\Domains\Multilang\TranslationService;
-use app\virtualModels\Model\ProductVm;
-use app\virtualModels\ServiceManager;
+use kosuha606\VirtualAdmin\Domains\Multilang\TranslationService;
+use kosuha606\VirtualShop\Model\ProductVm;
+use kosuha606\VirtualShop\ServiceManager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;

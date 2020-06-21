@@ -2,7 +2,7 @@
 
 /** @var ProductVm $product */
 
-use app\virtualModels\Model\ProductVm;
+use kosuha606\VirtualShop\Model\ProductVm;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 

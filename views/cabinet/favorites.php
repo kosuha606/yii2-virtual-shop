@@ -3,7 +3,7 @@
 /** @var View $this */
 /** @var FavoriteVm[] $favorites */
 
-use app\virtualModels\Model\FavoriteVm;
+use kosuha606\VirtualShop\Model\FavoriteVm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;

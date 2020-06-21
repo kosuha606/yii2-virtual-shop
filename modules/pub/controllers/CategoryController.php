@@ -2,10 +2,9 @@
 
 namespace app\modules\pub\controllers;
 
-use app\virtualModels\Admin\Domains\Seo\SeoFilterService;
-use app\virtualModels\Model\CategoryVm;
-use app\virtualModels\Model\ProductVm;
-use app\virtualModels\ServiceManager;
+use kosuha606\VirtualAdmin\Domains\Seo\SeoFilterService;
+use kosuha606\VirtualShop\Model\CategoryVm;
+use kosuha606\VirtualShop\ServiceManager;
 use Yii;
 use yii\web\Controller;
 
@@ -48,6 +47,7 @@ class CategoryController extends Controller
     /**
      * @throws \DI\DependencyException
      * @throws \DI\NotFoundException
+     * @throws \Exception
      */
     public function actionFilter()
     {

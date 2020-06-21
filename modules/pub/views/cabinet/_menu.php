@@ -1,8 +1,8 @@
 <?php
 
-use app\virtualModels\Model\FavoriteVm;
-use app\virtualModels\Model\OrderVm;
-use app\virtualModels\ServiceManager;
+use kosuha606\VirtualShop\Model\FavoriteVm;
+use kosuha606\VirtualShop\Model\OrderVm;
+use kosuha606\VirtualShop\ServiceManager;
 use yii\helpers\Html;
 
 $user = ServiceManager::getInstance()->userService->current();

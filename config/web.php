@@ -35,7 +35,6 @@ use app\models\Version;
 use app\models\Widget;
 use app\modules\pub\Module;
 use app\urlRules\SeoUrlRule;
-use app\virtualModels\Model\UserVm;
 use app\virtualProviders\LoadWebVirtualProvidersComponent;
 use kosuha606\VirtualAdmin\Domains\Cache\CacheVm;
 use kosuha606\VirtualAdmin\Domains\Comment\CommentVm;

@@ -6,10 +6,9 @@
 /** @var DeliveryVm[] $deliveries */
 /** @var PaymentVm[] $payments */
 
-use app\virtualModels\Model\Cart;
-use app\virtualModels\Model\DeliveryVm;
-use app\virtualModels\Model\PaymentVm;
-use yii\helpers\Html;
+use kosuha606\VirtualShop\Model\Cart;
+use kosuha606\VirtualShop\Model\DeliveryVm;
+use kosuha606\VirtualShop\Model\PaymentVm;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 

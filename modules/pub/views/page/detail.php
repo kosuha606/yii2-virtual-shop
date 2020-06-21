@@ -2,7 +2,7 @@
 
 /** @var PageVm $page */
 
-use app\virtualModels\Domains\Page\Models\PageVm;
+use kosuha606\VritualContent\Domains\Page\Models\PageVm;
 
 ?>
 

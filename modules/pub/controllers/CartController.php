@@ -2,9 +2,9 @@
 
 namespace app\modules\pub\controllers;
 
-use app\virtualModels\Model\DeliveryVm;
-use app\virtualModels\Model\PaymentVm;
-use app\virtualModels\ServiceManager;
+use kosuha606\VirtualShop\Model\DeliveryVm;
+use kosuha606\VirtualShop\Model\PaymentVm;
+use kosuha606\VirtualShop\ServiceManager;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;

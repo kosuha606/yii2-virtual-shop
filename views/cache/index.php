@@ -1,7 +1,7 @@
 <?php
 
 
-use app\virtualModels\Domains\Cache\CacheService;
+use kosuha606\VirtualAdmin\Domains\Cache\CacheService;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 
 $cacheService = ServiceManager::getInstance()->get(CacheService::class);
