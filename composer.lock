@@ -669,16 +669,16 @@
         },
         {
             "name": "kosuha606/virtual-shop",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kosuha606/virtual-shop.git",
-                "reference": "cb4a5bd1a821541499e296cc4c40f04be7d1c4e3"
+                "reference": "fdad65fe75b55e1622ed1a0f6c89aa1815550c28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kosuha606/virtual-shop/zipball/cb4a5bd1a821541499e296cc4c40f04be7d1c4e3",
-                "reference": "cb4a5bd1a821541499e296cc4c40f04be7d1c4e3",
+                "url": "https://api.github.com/repos/kosuha606/virtual-shop/zipball/fdad65fe75b55e1622ed1a0f6c89aa1815550c28",
+                "reference": "fdad65fe75b55e1622ed1a0f6c89aa1815550c28",
                 "shasum": ""
             },
             "require": {
@@ -702,7 +702,7 @@
                 }
             ],
             "description": "VirtualShop",
-            "time": "2020-06-21T14:59:19+00:00"
+            "time": "2020-06-21T19:15:39+00:00"
         },
         {
             "name": "opis/closure",

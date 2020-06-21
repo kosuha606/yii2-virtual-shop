@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\virtual\AppRoutesLoader;
 use kosuha606\VirtualAdmin\Classes\AdminDefaultRoutesLoader;
+use kosuha606\VirtualAdmin\Domains\User\UserService;
 use kosuha606\VirtualAdmin\Domains\Version\VersionService;
 use kosuha606\VirtualAdmin\Dto\AdminResponseDTO;
 use kosuha606\VirtualAdmin\Interfaces\AdminControllerInterface;
@@ -11,7 +12,6 @@ use kosuha606\VirtualAdmin\Processors\AdminRequestProcessor;
 use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 use kosuha606\VirtualContent\ContentRoutesLoader;
-use kosuha606\VirtualShop\Services\UserService;
 use kosuha606\VirtualShop\ShopRoutesLoader;
 use yii\web\Controller;
 use Yii;

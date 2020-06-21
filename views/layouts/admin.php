@@ -12,11 +12,9 @@ use yii\web\View;
 
 $settingsService = ServiceManager::getInstance()->get(SettingsService::class);
 
-$this->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css');
-$this->registerJsFile('https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js');
-
 $bundle = VirtualAdminAsset::register($this);
-$this->registerJsVar('webpack_asset_path', $bundle->baseUrl);
+
+$this->registerJsVar('webpack_asset_path', $bundle->baseUrl.'/');
 
 ?>
 <?php $this->beginPage() ?>
