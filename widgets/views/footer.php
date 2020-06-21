@@ -2,7 +2,8 @@
 
 /** @var $menus */
 
-use app\virtualModels\Domains\Menu\Widgets\MenuWidget; ?>
+
+use app\widgets\MenuWidget; ?>
 
 <footer class="footer">
     <div class="container">

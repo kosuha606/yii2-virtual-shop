@@ -2,11 +2,11 @@
 
 namespace app\widgets;
 
-use app\virtualModels\Model\CategoryVm;
+use kosuha606\VirtualShop\Model\CategoryVm;
+use kosuha606\VirtualShop\Model\FilterCategoryVm;
+use kosuha606\VirtualShop\Model\FilterProductVm;
+use kosuha606\VirtualShop\ServiceManager;
 use yii\base\Widget;
-use app\virtualModels\Model\FilterCategoryVm;
-use app\virtualModels\Model\FilterProductVm;
-use app\virtualModels\ServiceManager;
 use Yii;
 
 class ProductsWidget extends Widget

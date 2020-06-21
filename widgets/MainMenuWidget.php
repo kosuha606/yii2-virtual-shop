@@ -2,7 +2,7 @@
 
 namespace app\widgets;
 
-use app\virtualModels\Domains\Multilang\LanguageService;
+use kosuha606\VirtualAdmin\Domains\Multilang\LanguageService;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 use yii\base\Widget;
 

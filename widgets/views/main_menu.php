@@ -1,10 +1,10 @@
 <?php
 
 
-use app\virtualModels\Admin\Domains\Settings\SettingsService;
-use app\virtualModels\Domains\Multilang\LangVm;
-use app\virtualModels\Domains\Multilang\TranslationService;
-use app\virtualModels\ServiceManager;
+use kosuha606\VirtualAdmin\Domains\Multilang\LangVm;
+use kosuha606\VirtualAdmin\Domains\Multilang\TranslationService;
+use kosuha606\VirtualAdmin\Domains\Settings\SettingsService;
+use kosuha606\VirtualShop\ServiceManager;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;

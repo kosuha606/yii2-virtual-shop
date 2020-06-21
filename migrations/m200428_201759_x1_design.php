@@ -5,7 +5,6 @@ use app\models\DesignWidget;
 use app\models\MenuItem;
 use app\models\ProductSeo;
 use app\models\Widget;
-use app\virtualModels\Domains\Menu\Models\DesignWidgetVm;
 use yii\db\Migration;
 
 class m200428_201759_x1_design extends Migration

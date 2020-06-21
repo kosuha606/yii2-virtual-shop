@@ -9,7 +9,6 @@ use app\models\SeoRedirect;
 use app\models\SeoUrl;
 use app\models\Text;
 use app\models\Version;
-use app\virtualModels\Admin\Domains\Seo\SeoUrlVm;
 use yii\db\Migration;
 
 class m200428_201759_x5_product_slug extends Migration

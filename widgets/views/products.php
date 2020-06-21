@@ -1,13 +1,13 @@
 <?php
 
 
-use app\virtualModels\Admin\Domains\Seo\SeoFilterService;
-use app\virtualModels\Classes\Pagination;
-use app\virtualModels\Domains\Multilang\TranslationService;
-use app\virtualModels\Model\CategoryVm;
-use app\virtualModels\Model\FilterProductVm;
-use app\virtualModels\Model\ProductVm;
+use kosuha606\VirtualAdmin\Classes\Pagination;
+use kosuha606\VirtualAdmin\Domains\Multilang\TranslationService;
+use kosuha606\VirtualAdmin\Domains\Seo\SeoFilterService;
 use kosuha606\VirtualModelHelppack\ServiceManager;
+use kosuha606\VirtualShop\Model\CategoryVm;
+use kosuha606\VirtualShop\Model\FilterProductVm;
+use kosuha606\VirtualShop\Model\ProductVm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
