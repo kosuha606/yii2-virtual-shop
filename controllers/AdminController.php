@@ -75,10 +75,10 @@ class AdminController extends Controller implements AdminControllerInterface
 
         $processor = ServiceManager::getInstance()->get(AdminRequestProcessor::class);
         $processor
-            ->addRoutesLoader(new AdminDefaultRoutesLoader())
-            ->addRoutesLoader(new ShopRoutesLoader())
-            ->addRoutesLoader(new ContentRoutesLoader())
             ->addRoutesLoader(new AppRoutesLoader())
+            ->addRoutesLoader(new ContentRoutesLoader())
+            ->addRoutesLoader(new ShopRoutesLoader())
+            ->addRoutesLoader(new AdminDefaultRoutesLoader())
         ;
         $processor->loadConfig();
         $processor->setController($this);
