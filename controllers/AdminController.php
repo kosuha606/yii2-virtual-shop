@@ -2,15 +2,17 @@
 
 namespace app\controllers;
 
-use app\virtualModels\Admin\Domains\Version\VersionService;
-use app\virtualModels\Admin\Domains\Version\VersionVm;
-use app\virtualModels\Admin\Dto\AdminResponseDTO;
-use app\virtualModels\Admin\Interfaces\AdminControllerInterface;
-use app\virtualModels\Admin\Processors\AdminRequestProcessor;
-use app\virtualModels\Controllers\CrudController;
-use app\virtualModels\Services\UserService;
+use app\virtual\AppRoutesLoader;
+use kosuha606\VirtualAdmin\Classes\AdminDefaultRoutesLoader;
+use kosuha606\VirtualAdmin\Domains\Version\VersionService;
+use kosuha606\VirtualAdmin\Dto\AdminResponseDTO;
+use kosuha606\VirtualAdmin\Interfaces\AdminControllerInterface;
+use kosuha606\VirtualAdmin\Processors\AdminRequestProcessor;
 use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModelHelppack\ServiceManager;
+use kosuha606\VirtualShop\ContentRoutesLoader;
+use kosuha606\VirtualShop\Services\UserService;
+use kosuha606\VirtualShop\ShopRoutesLoader;
 use yii\web\Controller;
 use Yii;
 
@@ -28,6 +30,7 @@ class AdminController extends Controller implements AdminControllerInterface
      * @throws \DI\DependencyException
      * @throws \DI\NotFoundException
      * @throws \yii\web\BadRequestHttpException
+     * @throws \Exception
      */
     public function beforeAction($action)
     {
@@ -71,6 +74,12 @@ class AdminController extends Controller implements AdminControllerInterface
         }
 
         $processor = ServiceManager::getInstance()->get(AdminRequestProcessor::class);
+        $processor
+            ->addRoutesLoader(new AdminDefaultRoutesLoader())
+            ->addRoutesLoader(new ShopRoutesLoader())
+            ->addRoutesLoader(new ContentRoutesLoader())
+            ->addRoutesLoader(new AppRoutesLoader())
+        ;
         $processor->loadConfig(__DIR__.'/../config/routes');
         $processor->setController($this);
 

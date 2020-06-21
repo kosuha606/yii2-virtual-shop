@@ -2,7 +2,7 @@
 
 namespace app\virtualProviders;
 
-use app\virtualModels\Admin\Model\Request;
+use kosuha606\VirtualAdmin\Model\Request;
 use kosuha606\VirtualModel\Example\MemoryModelProvider;
 use Yii;
 

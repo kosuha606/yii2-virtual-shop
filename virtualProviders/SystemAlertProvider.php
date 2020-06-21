@@ -2,7 +2,7 @@
 
 namespace app\virtualProviders;
 
-use app\virtualModels\Admin\Model\Alert;
+use kosuha606\VirtualAdmin\Model\Alert;
 use kosuha606\VirtualModel\Example\MemoryModelProvider;
 
 class SystemAlertProvider extends MemoryModelProvider

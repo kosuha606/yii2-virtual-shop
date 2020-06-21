@@ -2,7 +2,7 @@
 
 namespace app\virtualProviders;
 
-use app\virtualModels\Admin\Model\Permission;
+use kosuha606\VirtualAdmin\Model\Permission;
 use kosuha606\VirtualModel\Example\MemoryModelProvider;
 use yii\web\HttpException;
 

@@ -1,8 +1,8 @@
 <?php
 
 use app\controllers\AdminController;
-use app\virtualModels\Admin\Domains\Settings\SettingsService;
 use app\widgets\Alert;
+use kosuha606\VirtualAdmin\Domains\Settings\SettingsService;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 use yii\helpers\Html;
 use yii\web\View;

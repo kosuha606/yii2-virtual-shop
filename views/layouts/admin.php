@@ -4,28 +4,19 @@
 
 /* @var $content string */
 
-use app\assets\AdminAsset;
-use app\virtualModels\Admin\Domains\Settings\SettingsService;
-use app\widgets\Alert;
+use app\assets\VirtualAdminAsset;
+use kosuha606\VirtualAdmin\Domains\Settings\SettingsService;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\web\View;
-use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
-
-// AppAsset::register($this);
-// AdminAsset::register($this);
 
 $settingsService = ServiceManager::getInstance()->get(SettingsService::class);
 
-$this->registerJsVar('webpack_asset_path', '/srcadmin/dist/');
-
-$this->registerCssFile('/srcadmin/dist/admin.css');
 $this->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css');
-$this->registerJsFile('/srcadmin/dist/admin.js');
 $this->registerJsFile('https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js');
+
+$bundle = VirtualAdminAsset::register($this);
+$this->registerJsVar('webpack_asset_path', $bundle->baseUrl);
 
 ?>
 <?php $this->beginPage() ?>

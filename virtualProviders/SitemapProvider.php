@@ -2,8 +2,8 @@
 
 namespace app\virtualProviders;
 
-use app\virtualModels\Admin\Domains\Sitemap\SitemapProviderInterface;
-use app\virtualModels\Admin\Domains\Sitemap\SitemapService;
+use kosuha606\VirtualAdmin\Domains\Sitemap\SitemapService;
+use kosuha606\VirtualAdmin\Domains\Sitemap\SitemapProviderInterface;
 use kosuha606\VirtualModel\VirtualModelProvider;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 use samdark\sitemap\Sitemap;

@@ -4,7 +4,7 @@ namespace app\virtualProviders;
 
 use kosuha606\VirtualModel\VirtualModel;
 use Yii;
-use app\virtualModels\Admin\Model\Session;
+use kosuha606\VirtualAdmin\Model\Session;
 use kosuha606\VirtualModel\Example\MemoryModelProvider;
 
 class SessionProvider extends MemoryModelProvider

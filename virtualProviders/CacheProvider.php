@@ -2,8 +2,8 @@
 
 namespace app\virtualProviders;
 
-use app\virtualModels\Domains\Cache\CacheProviderInterface;
-use app\virtualModels\Domains\Cache\CacheVm;
+use kosuha606\VirtualAdmin\Domains\Cache\CacheProviderInterface;
+use kosuha606\VirtualAdmin\Domains\Cache\CacheVm;
 use kosuha606\VirtualModel\VirtualModelProvider;
 use Yii;
 use yii\db\Query;

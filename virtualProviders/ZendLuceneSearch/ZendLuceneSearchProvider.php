@@ -2,17 +2,17 @@
 
 namespace app\virtualProviders\ZendLuceneSearch;
 
-use app\virtualModels\Admin\Domains\Search\SearchableInterface;
-use app\virtualModels\Admin\Domains\Search\SearchIndexInfoDTO;
-use app\virtualModels\Admin\Domains\Search\SearchProviderInterface;
-use app\virtualModels\Admin\Domains\Search\SearchService;
-use app\virtualModels\Admin\Domains\Search\SearchVm;
-use app\virtualModels\Domains\Article\Models\ArticleVm;
-use app\virtualModels\Domains\Page\Models\PageVm;
-use app\virtualModels\Model\ProductVm;
+use kosuha606\VirtualAdmin\Domains\Search\SearchableInterface;
+use kosuha606\VirtualAdmin\Domains\Search\SearchIndexInfoDTO;
+use kosuha606\VirtualAdmin\Domains\Search\SearchProviderInterface;
+use kosuha606\VirtualAdmin\Domains\Search\SearchService;
+use kosuha606\VirtualAdmin\Domains\Search\SearchVm;
 use kosuha606\VirtualModel\Example\MemoryModelProvider;
 use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModelHelppack\ServiceManager;
+use kosuha606\VirtualShop\Model\ProductVm;
+use kosuha606\VritualContent\Domains\Article\Models\ArticleVm;
+use kosuha606\VritualContent\Domains\Page\Models\PageVm;
 
 class ZendLuceneSearchProvider extends MemoryModelProvider implements SearchProviderInterface
 {
@@ -56,6 +56,11 @@ class ZendLuceneSearchProvider extends MemoryModelProvider implements SearchProv
         $this->zendService = new ZendSearchService();
     }
 
+    /**
+     * @param $caller
+     * @return SearchIndexInfoDTO
+     * @throws \yii\base\InvalidConfigException
+     */
     public function indexInfo($caller): SearchIndexInfoDTO
     {
         $index = $this->zendService->getIndex();

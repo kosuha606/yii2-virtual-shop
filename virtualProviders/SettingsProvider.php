@@ -2,8 +2,8 @@
 
 namespace app\virtualProviders;
 
-use app\virtualModels\Admin\Domains\Settings\SettingsProviderInterface;
-use app\virtualModels\Admin\Domains\Settings\SettingsVm;
+use kosuha606\VirtualAdmin\Domains\Settings\SettingsVm;
+use kosuha606\VirtualAdmin\Domains\Settings\SettingsProviderInterface;
 use kosuha606\VirtualModel\VirtualModelProvider;
 
 class SettingsProvider extends VirtualModelProvider implements SettingsProviderInterface

@@ -2,13 +2,13 @@
 
 namespace app\urlRules;
 
-use app\virtualModels\Admin\Domains\Seo\SeoFilterService;
-use app\virtualModels\Admin\Domains\Seo\SeoService;
-use app\virtualModels\Domains\Article\Models\ArticleVm;
-use app\virtualModels\Domains\Page\Models\PageVm;
-use app\virtualModels\Model\CategoryVm;
-use app\virtualModels\Model\ProductVm;
+use kosuha606\VirtualAdmin\Domains\Seo\SeoFilterService;
+use kosuha606\VirtualAdmin\Domains\Seo\SeoService;
 use kosuha606\VirtualModelHelppack\ServiceManager;
+use kosuha606\VirtualShop\Model\CategoryVm;
+use kosuha606\VirtualShop\Model\ProductVm;
+use kosuha606\VritualContent\Domains\Article\Models\ArticleVm;
+use kosuha606\VritualContent\Domains\Page\Models\PageVm;
 use yii\base\BaseObject;
 use yii\web\Request;
 use yii\web\UrlManager;

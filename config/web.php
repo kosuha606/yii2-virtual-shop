@@ -35,40 +35,40 @@ use app\models\Version;
 use app\models\Widget;
 use app\modules\pub\Module;
 use app\urlRules\SeoUrlRule;
-use app\virtualModels\Admin\Domains\Seo\SeoFilterVm;
-use app\virtualModels\Admin\Domains\Seo\SeoPageVm;
-use app\virtualModels\Admin\Domains\Seo\SeoRedirectVm;
-use app\virtualModels\Admin\Domains\Seo\SeoUrlVm;
-use app\virtualModels\Admin\Domains\Version\VersionVm;
-use app\virtualModels\Domains\Article\Models\ArticleVm;
-use app\virtualModels\Domains\Article\Models\SeoArticleVm;
-use app\virtualModels\Domains\Cache\CacheVm;
-use app\virtualModels\Domains\Comment\Models\CommentVm;
-use app\virtualModels\Domains\Design\Models\DesignVm;
-use app\virtualModels\Domains\Design\Models\DesignWidgetVm;
-use app\virtualModels\Domains\Design\Models\WidgetVm;
-use app\virtualModels\Domains\Menu\Models\MenuItemVm;
-use app\virtualModels\Domains\Menu\Models\MenuVm;
-use app\virtualModels\Domains\Multilang\LangVm;
-use app\virtualModels\Domains\Multilang\StaticTranslationVm;
-use app\virtualModels\Domains\Multilang\TranslationVm;
-use app\virtualModels\Domains\Page\Models\PageVm;
-use app\virtualModels\Domains\Text\Models\TextVm;
-use app\virtualModels\Model\ActionVm;
-use app\virtualModels\Model\CategoryVm;
-use app\virtualModels\Model\DeliveryVm;
-use app\virtualModels\Model\FavoriteVm;
-use app\virtualModels\Model\FilterCategoryVm;
-use app\virtualModels\Model\FilterProductVm;
-use app\virtualModels\Model\OrderVm;
-use app\virtualModels\Model\OrderReserveVm;
-use app\virtualModels\Model\PaymentVm;
-use app\virtualModels\Model\ProductSeoVm;
-use app\virtualModels\Model\ProductVm;
-use app\virtualModels\Model\ProductRestsVm;
-use app\virtualModels\Model\PromocodeVm;
 use app\virtualModels\Model\UserVm;
 use app\virtualProviders\LoadWebVirtualProvidersComponent;
+use kosuha606\VirtualAdmin\Domains\Cache\CacheVm;
+use kosuha606\VirtualAdmin\Domains\Comment\CommentVm;
+use kosuha606\VirtualAdmin\Domains\Design\DesignVm;
+use kosuha606\VirtualAdmin\Domains\Design\DesignWidgetVm;
+use kosuha606\VirtualAdmin\Domains\Design\WidgetVm;
+use kosuha606\VirtualAdmin\Domains\Menu\MenuItemVm;
+use kosuha606\VirtualAdmin\Domains\Menu\MenuVm;
+use kosuha606\VirtualAdmin\Domains\Multilang\LangVm;
+use kosuha606\VirtualAdmin\Domains\Multilang\StaticTranslationVm;
+use kosuha606\VirtualAdmin\Domains\Multilang\TranslationVm;
+use kosuha606\VirtualAdmin\Domains\Seo\SeoFilterVm;
+use kosuha606\VirtualAdmin\Domains\Seo\SeoPageVm;
+use kosuha606\VirtualAdmin\Domains\Seo\SeoRedirectVm;
+use kosuha606\VirtualAdmin\Domains\Seo\SeoUrlVm;
+use kosuha606\VirtualAdmin\Domains\Version\VersionVm;
+use kosuha606\VirtualShop\Model\ActionVm;
+use kosuha606\VirtualShop\Model\CategoryVm;
+use kosuha606\VirtualShop\Model\DeliveryVm;
+use kosuha606\VirtualShop\Model\FavoriteVm;
+use kosuha606\VirtualShop\Model\FilterCategoryVm;
+use kosuha606\VirtualShop\Model\FilterProductVm;
+use kosuha606\VirtualShop\Model\OrderReserveVm;
+use kosuha606\VirtualShop\Model\OrderVm;
+use kosuha606\VirtualShop\Model\PaymentVm;
+use kosuha606\VirtualShop\Model\ProductRestsVm;
+use kosuha606\VirtualShop\Model\ProductSeoVm;
+use kosuha606\VirtualShop\Model\ProductVm;
+use kosuha606\VirtualShop\Model\PromocodeVm;
+use kosuha606\VritualContent\Domains\Article\Models\ArticleVm;
+use kosuha606\VritualContent\Domains\Article\Models\SeoArticleVm;
+use kosuha606\VritualContent\Domains\Page\Models\PageVm;
+use kosuha606\VritualContent\Domains\Text\Models\TextVm;
 use yii\db\ActiveRecord;
 
 $params = require __DIR__ . '/params.php';
@@ -131,9 +131,6 @@ $config = [
                 ],
                 TextVm::class => [
                     'ar' => Text::class,
-                ],
-                SeoPageVm::class => [
-                    'ar' => SeoPage::class,
                 ],
                 ArticleVm::class => [
                     'ar' => Article::class

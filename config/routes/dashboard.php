@@ -1,13 +1,13 @@
 <?php
 
 
-use app\virtualModels\Admin\Domains\DateTime\DateTimeService;
-use app\virtualModels\Admin\Domains\Search\SearchService;
-use app\virtualModels\Admin\Dto\AdminResponseDTO;
-use app\virtualModels\Domains\Article\Models\ArticleVm;
-use app\virtualModels\Model\OrderVm;
-use app\virtualModels\Model\ProductVm;
+use kosuha606\VirtualAdmin\Domains\DateTime\DateTimeService;
+use kosuha606\VirtualAdmin\Domains\Search\SearchService;
+use kosuha606\VirtualAdmin\Dto\AdminResponseDTO;
 use kosuha606\VirtualModelHelppack\ServiceManager;
+use kosuha606\VirtualShop\Model\OrderVm;
+use kosuha606\VirtualShop\Model\ProductVm;
+use kosuha606\VritualContent\Domains\Article\Models\ArticleVm;
 use yii\helpers\Inflector;
 
 $baseEntity = 'dashboard';
@@ -27,7 +27,7 @@ return [
 
                     $dateTimeService = ServiceManager::getInstance()->get(DateTimeService::class);
                     $lastWeekRange = $dateTimeService->lastDaysRange('-14 day', 14, $nowOffset);
-                    $ordersDynamic = \app\virtualModels\ServiceManager::getInstance()->orderService->buildOrdersStatistic($lastWeekRange);
+                    $ordersDynamic = \kosuha606\VirtualShop\ServiceManager::getInstance()->orderService->buildOrdersStatistic($lastWeekRange);
                     $result['data'] = $ordersDynamic;
 
                     $response = new AdminResponseDTO(null, $result);
@@ -50,7 +50,7 @@ return [
 
                     $dateTimeService = ServiceManager::getInstance()->get(DateTimeService::class);
                     $lastWeekRange = $dateTimeService->lastDaysRange('-14 day', 14);
-                    $ordersDynamic = \app\virtualModels\ServiceManager::getInstance()->orderService->buildOrdersStatistic($lastWeekRange);
+                    $ordersDynamic = \kosuha606\VirtualShop\ServiceManager::getInstance()->orderService->buildOrdersStatistic($lastWeekRange);
 
                     return new AdminResponseDTO('<dashboard-page :props="_admin.config"></dashboard-page>', [
                         'config' => [

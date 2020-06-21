@@ -2,7 +2,7 @@
 
 namespace app\virtualProviders;
 
-use app\virtualModels\Admin\Domains\Transaction\TransactionVm;
+use kosuha606\VirtualAdmin\Domains\Transaction\TransactionVm;
 use kosuha606\VirtualModel\VirtualModelProvider;
 use yii\db\Transaction;
 
