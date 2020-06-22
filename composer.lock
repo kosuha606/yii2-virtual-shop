@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a33779a006c20fd098e8a6fcdaf35683",
+    "content-hash": "eb909658e5150f7ed546130eec71d49f",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -402,24 +402,24 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "89b1a76b7fda5853401297dc4b2a093cba1fda23"
+                "reference": "bbf3b200bc83c1e9298580a9f99b9be248543467"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/89b1a76b7fda5853401297dc4b2a093cba1fda23",
-                "reference": "89b1a76b7fda5853401297dc4b2a093cba1fda23",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/bbf3b200bc83c1e9298580a9f99b9be248543467",
+                "reference": "bbf3b200bc83c1e9298580a9f99b9be248543467",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6"
+                "php": ">=5.5"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.7.27 || ^7.5"
+                "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^7.5"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
@@ -445,7 +445,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2020-02-15T23:33:03+00:00"
+            "time": "2020-06-21T23:10:57+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -520,16 +520,16 @@
         },
         {
             "name": "kosuha606/virtual-admin",
-            "version": "1.0.5",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kosuha606/virtual-admin.git",
-                "reference": "c0cd38855be6ab9908fd2a007efc4f4f3ae4f3a2"
+                "reference": "98d6b0bc6ee776fb82e591bd6a4fb8c2faaf132e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kosuha606/virtual-admin/zipball/c0cd38855be6ab9908fd2a007efc4f4f3ae4f3a2",
-                "reference": "c0cd38855be6ab9908fd2a007efc4f4f3ae4f3a2",
+                "url": "https://api.github.com/repos/kosuha606/virtual-admin/zipball/98d6b0bc6ee776fb82e591bd6a4fb8c2faaf132e",
+                "reference": "98d6b0bc6ee776fb82e591bd6a4fb8c2faaf132e",
                 "shasum": ""
             },
             "require": {
@@ -554,7 +554,7 @@
                 }
             ],
             "description": "VirtualAdmin",
-            "time": "2020-06-21T14:27:13+00:00"
+            "time": "2020-06-22T18:02:01+00:00"
         },
         {
             "name": "kosuha606/virtual-content",
@@ -562,16 +562,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kosuha606/virtual-content.git",
-                "reference": "7faa4e9601b209d22e17dee783acf1733569c5f4"
+                "reference": "46f9e8ef4b0eaa2dd240592075acb61d02459e13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kosuha606/virtual-content/zipball/7faa4e9601b209d22e17dee783acf1733569c5f4",
-                "reference": "7faa4e9601b209d22e17dee783acf1733569c5f4",
+                "url": "https://api.github.com/repos/kosuha606/virtual-content/zipball/46f9e8ef4b0eaa2dd240592075acb61d02459e13",
+                "reference": "46f9e8ef4b0eaa2dd240592075acb61d02459e13",
                 "shasum": ""
             },
             "require": {
-                "kosuha606/virtual-admin": "^1.0",
+                "kosuha606/virtual-admin": "dev-master",
                 "php": ">=7.0.0"
             },
             "require-dev": {
@@ -591,7 +591,7 @@
                 }
             ],
             "description": "VirtualContent",
-            "time": "2020-06-21T20:06:15+00:00"
+            "time": "2020-06-22T18:39:48+00:00"
         },
         {
             "name": "kosuha606/virtual-model",
@@ -673,16 +673,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kosuha606/virtual-shop.git",
-                "reference": "575c3d0b65e4c038b2ee1040db63907604feaef9"
+                "reference": "983764e48e54905c0caa1cac44f860f79c480b26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kosuha606/virtual-shop/zipball/575c3d0b65e4c038b2ee1040db63907604feaef9",
-                "reference": "575c3d0b65e4c038b2ee1040db63907604feaef9",
+                "url": "https://api.github.com/repos/kosuha606/virtual-shop/zipball/983764e48e54905c0caa1cac44f860f79c480b26",
+                "reference": "983764e48e54905c0caa1cac44f860f79c480b26",
                 "shasum": ""
             },
             "require": {
-                "kosuha606/virtual-admin": "^1.0",
+                "kosuha606/virtual-admin": "dev-master",
                 "php": ">=7.0.0"
             },
             "require-dev": {
@@ -702,7 +702,7 @@
                 }
             ],
             "description": "VirtualShop",
-            "time": "2020-06-21T20:05:20+00:00"
+            "time": "2020-06-22T18:41:17+00:00"
         },
         {
             "name": "opis/closure",
@@ -1458,12 +1458,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "5fd07d986520b3787132ceb4058614ee6f1b664f"
+                "reference": "c8ede87bd97bfc59db2e492b59519c69b960fb84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/5fd07d986520b3787132ceb4058614ee6f1b664f",
-                "reference": "5fd07d986520b3787132ceb4058614ee6f1b664f",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/c8ede87bd97bfc59db2e492b59519c69b960fb84",
+                "reference": "c8ede87bd97bfc59db2e492b59519c69b960fb84",
                 "shasum": ""
             },
             "require": {
@@ -1550,7 +1550,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2020-06-19T08:35:14+00:00"
+            "time": "2020-06-22T15:22:42+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -5195,6 +5195,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "kosuha606/virtual-admin": 20,
         "kosuha606/virtual-shop": 20,
         "kosuha606/virtual-content": 20
     },

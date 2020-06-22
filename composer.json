@@ -21,6 +21,7 @@
         "zendframework/zendsearch": "2.0.0rc6",
         "samdark/sitemap": "^2.2",
         "stichoza/google-translate-php": "^4.1",
+        "kosuha606/virtual-admin": "dev-master",
         "kosuha606/virtual-shop": "dev-master",
         "kosuha606/virtual-content": "dev-master"
     },
