@@ -127,14 +127,14 @@ $translationService = ServiceManager::getInstance()->get(TranslationService::cla
             <?php foreach ($products as $product) { ?>
                 <div class="product-item">
 
-                    <div class="product-image">
-                        <?= Html::img($product->getPhotoSafe(), []) ?>
-                    </div>
-                    <h2>
-                        <a href="<?= $product->getUrl() ?>">
+                    <a href="<?= $product->getUrl() ?>">
+                        <div class="product-image">
+                            <?= Html::img($product->getPhotoSafe(), []) ?>
+                        </div>
+                        <h2>
                             <?= $product->langAttribute('name') ?>
-                        </a>
-                    </h2>
+                        </h2>
+                    </a>
                     <?php if ($product->hasDiscount) { ?>
                         <span class="badge">
                                     <?= $translationService->translate('Скидка') ?>
