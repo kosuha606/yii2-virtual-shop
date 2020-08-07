@@ -80,7 +80,12 @@ class AdminController extends Controller implements AdminControllerInterface
             ->addRoutesLoader(new ShopRoutesLoader())
             ->addRoutesLoader(new AdminDefaultRoutesLoader())
         ;
-        $processor->loadConfig();
+        $processor->loadConfig(null, function($config) {
+            unset($config['routes']['article']);
+            unset($config['routes']['article_category']);
+
+            return $config;
+        });
         $processor->setController($this);
 
         $response = new AdminResponseDTO('', []);

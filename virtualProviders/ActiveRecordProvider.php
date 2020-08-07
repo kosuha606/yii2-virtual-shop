@@ -2,7 +2,7 @@
 
 namespace app\virtualProviders;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 use kosuha606\VirtualModel\VirtualModelProvider;
 use LogicException;
 use yii\db\ActiveQuery;
@@ -55,7 +55,7 @@ class ActiveRecordProvider extends VirtualModelProvider
      * @throws \Exception
      * @throws \Throwable
      */
-    public function delete(VirtualModel $model)
+    public function delete(VirtualModelEntity $model)
     {
         $modelClass = get_class($model);
         $this->ensureHaveRelation($modelClass);
@@ -168,6 +168,12 @@ class ActiveRecordProvider extends VirtualModelProvider
         return $models;
     }
 
+    /**
+     * @param $modelClass
+     * @param $config
+     * @return int|string
+     * @throws \Exception
+     */
     public function count($modelClass, $config)
     {
         $this->ensureHaveRelation($modelClass);

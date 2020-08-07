@@ -22,6 +22,10 @@ class AutoTranslateProvider extends MemoryModelProvider implements AutoTranslato
      */
     public function autoTranslate($fromLang, $toLang, $string)
     {
+        if (!$toLang) {
+            return $string;
+        }
+
         $tr = new GoogleTranslate();
         $tr->setSource($fromLang);
         $tr->setTarget($toLang);

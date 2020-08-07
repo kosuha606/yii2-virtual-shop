@@ -3,6 +3,7 @@
 namespace app\virtualProviders;
 
 use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 use Yii;
 use kosuha606\VirtualAdmin\Model\Session;
 use kosuha606\VirtualModel\Example\MemoryModelProvider;
@@ -40,7 +41,7 @@ class SessionProvider extends MemoryModelProvider
         return parent::flush();
     }
 
-    public function delete(VirtualModel $model)
+    public function delete(VirtualModelEntity $model)
     {
         Yii::$app->session->remove($model->key);
 

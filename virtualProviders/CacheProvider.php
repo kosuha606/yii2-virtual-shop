@@ -33,6 +33,11 @@ class CacheProvider extends VirtualModelProvider implements CacheProviderInterfa
         return [];
     }
 
+    public function updateData($caller, $tableName, $whereConfig)
+    {
+        // TODO: Implement updateData() method.
+    }
+
     public function buildColumnsByData($caller, $data)
     {
         $fieldsConfig = [];
