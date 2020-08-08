@@ -49,6 +49,7 @@ use kosuha606\VirtualModel\VirtualModel; ?>
 
                         <div>
                             <detail
+                                    tab-prefix="base"
                                     :id="_admin.model.id"
                                     :detail-config="_admin.detail_config"
                                     :save-url="'/admin/'+_admin.entity+'/detail'"

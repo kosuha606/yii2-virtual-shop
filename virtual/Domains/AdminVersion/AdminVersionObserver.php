@@ -10,7 +10,7 @@ use kosuha606\VirtualModelHelppack\ServiceManager;
 
 class AdminVersionObserver
 {
-    const MAX_VERSIONS_COUNT = 3;
+    const MAX_VERSIONS_COUNT = 5;
 
     /**
      * Если модель сохранена из админ панели, то создается

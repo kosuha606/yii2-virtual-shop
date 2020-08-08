@@ -41,10 +41,14 @@ class AdminVersionService
             ]]))
             ->setConfig(function ($inModel) use ($model) {
                 $stringService = ServiceManager::getInstance()->get(StringService::class);
-                $adminModels = VirtualModelEntity::allToArray(AdminVersionVm::many(['where' => [
-                    ['=', 'entity_id', $model->id],
-                    ['=', 'entity_class', get_class($model)]
-                ]]));
+                $adminModels = VirtualModelEntity::allToArray(AdminVersionVm::many([
+                    'where' => [
+                        ['=', 'entity_id', $model->id],
+                        ['=', 'entity_class', get_class($model)]
+                    ],
+                    'orderBy' => ['created_at' => SORT_DESC],
+                    'offset' => 1,
+                ]));
 
                 return [
                     [

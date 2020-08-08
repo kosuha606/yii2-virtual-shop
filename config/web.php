@@ -232,6 +232,10 @@ $config = [
         ],
         'db' => $db,
 
+        'assetManager' => [
+            'linkAssets' => true,
+        ],
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
