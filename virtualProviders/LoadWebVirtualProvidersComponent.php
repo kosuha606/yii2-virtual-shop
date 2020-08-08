@@ -22,25 +22,19 @@ class LoadWebVirtualProvidersComponent extends Component
         $arProvider->relations = $this->arRelations;
         VirtualModelManager::getInstance()->setProvider($arProvider);
 
-        VirtualModelManager::getInstance()->setProvider(new SystemAlertProvider());
-
-        VirtualModelManager::getInstance()->setProvider(new PermissionProvider());
-
-        VirtualModelManager::getInstance()->setProvider(new RequestProvider());
-
-        VirtualModelManager::getInstance()->setProvider(new SessionProvider());
-
-        VirtualModelManager::getInstance()->setProvider(new CacheProvider());
-
-        VirtualModelManager::getInstance()->setProvider(new CookieProvider());
-
-        VirtualModelManager::getInstance()->setProvider(new SettingsProvider());
-
-        VirtualModelManager::getInstance()->setProvider(new SitemapProvider());
-
-        VirtualModelManager::getInstance()->setProvider(new TransactionProvider());
-
-        VirtualModelManager::getInstance()->setProvider(new AutoTranslateProvider());
+        VirtualModelManager::getInstance()
+            ->setProvider(new SystemAlertProvider())
+            ->setProvider(new FrameworkProvider())
+            ->setProvider(new PermissionProvider())
+            ->setProvider(new RequestProvider())
+            ->setProvider(new SessionProvider())
+            ->setProvider(new CacheProvider())
+            ->setProvider(new CookieProvider())
+            ->setProvider(new SettingsProvider())
+            ->setProvider(new SitemapProvider())
+            ->setProvider(new TransactionProvider())
+            ->setProvider(new AutoTranslateProvider())
+        ;
 
         $zendProvider = new ZendLuceneSearchProvider();
         $zendProvider->zendService->setIndexPath('@runtime/zend_index');

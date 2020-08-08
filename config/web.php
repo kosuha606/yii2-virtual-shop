@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Action;
+use app\models\AdminVersion;
 use app\models\Article;
 use app\models\Cache;
 use app\models\Category;
@@ -35,6 +36,7 @@ use app\models\Version;
 use app\models\Widget;
 use app\modules\pub\Module;
 use app\urlRules\SeoUrlRule;
+use app\virtual\Domains\AdminVersion\AdminVersionVm;
 use app\virtualProviders\LoadWebVirtualProvidersComponent;
 use kosuha606\VirtualAdmin\Domains\Cache\CacheVm;
 use kosuha606\VirtualAdmin\Domains\Comment\CommentVm;
@@ -93,6 +95,9 @@ $config = [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,
             'arRelations' => [
+                AdminVersionVm::class => [
+                    'ar' => AdminVersion::class,
+                ],
                 CategoryVm::class => [
                     'ar' => Category::class
                 ],
