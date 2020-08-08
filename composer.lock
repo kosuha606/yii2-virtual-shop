@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb909658e5150f7ed546130eec71d49f",
+    "content-hash": "9d2340f5c778a10c4b5fb56b3f66a5e3",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -549,12 +549,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kosuha606/virtual-admin.git",
-                "reference": "c8483a1450fb378c054320e9a5fb2d59259c8fdf"
+                "reference": "8baf1dfd64a2bfdf31fee825db1a55eeb945843d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kosuha606/virtual-admin/zipball/c8483a1450fb378c054320e9a5fb2d59259c8fdf",
-                "reference": "c8483a1450fb378c054320e9a5fb2d59259c8fdf",
+                "url": "https://api.github.com/repos/kosuha606/virtual-admin/zipball/8baf1dfd64a2bfdf31fee825db1a55eeb945843d",
+                "reference": "8baf1dfd64a2bfdf31fee825db1a55eeb945843d",
                 "shasum": ""
             },
             "require": {
@@ -579,7 +579,7 @@
                 }
             ],
             "description": "VirtualAdmin",
-            "time": "2020-08-07T13:06:54+00:00"
+            "time": "2020-08-08T18:38:44+00:00"
         },
         {
             "name": "kosuha606/virtual-content",
@@ -5727,7 +5727,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0"
+        "php": ">=7.0",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"
