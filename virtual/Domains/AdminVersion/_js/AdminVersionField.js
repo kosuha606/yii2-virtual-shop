@@ -77,6 +77,7 @@ window.Vue.component('AdminVersionField', {
     methods: {
         onSelectVersion(vers) {
             this.vers = vers;
+            this.formConfig = JSON.parse(vers.form_config);
             this.formData = JSON.parse(vers.form_data);
 
             this.restoreAdmin.config.forEach((item) => {
@@ -88,14 +89,20 @@ window.Vue.component('AdminVersionField', {
                     return;
                 }
 
+                addItem.dataConfig = [];
+
                 let data = this.formData.secondary_form[addItem.relationClass];
 
-                addItem.dataConfig.forEach((dataConfigItem, index) => {
-                    let realDataItem = data[index];
-                    dataConfigItem.forEach((dataConfigItemField) => {
-                        dataConfigItemField.value = realDataItem[dataConfigItemField.field];
+                data.forEach((realDataItem, index) => {
+                    let initialConfig = JSON.parse(JSON.stringify(addItem.initialConfig));
+
+                    initialConfig.forEach((dataItemConfigField) => {
+                        dataItemConfigField.value = realDataItem[dataItemConfigField.field];
                     });
+
+                    addItem.dataConfig[index] = initialConfig;
                 });
+
             });
 
             this.counter++;
