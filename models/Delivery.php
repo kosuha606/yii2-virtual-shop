@@ -2,18 +2,16 @@
 
 namespace app\models;
 
-use kosuha606\VirtualModel\VirtualModel;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-/**
- * Вариант доставки
- * @package kosuha606\Model\iteration2\model
- */
 class Delivery extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -25,12 +23,18 @@ class Delivery extends ActiveRecord
         ];
     }
 
-    public static function tableName()
+    /**
+     * @return string
+     */
+    public static function tableName(): string
     {
         return 'delivery';
     }
 
-    public function rules()
+    /**
+     * @return array[]
+     */
+    public function rules(): array
     {
         return [
             [

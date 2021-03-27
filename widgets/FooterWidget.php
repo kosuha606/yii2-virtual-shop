@@ -6,9 +6,12 @@ use yii\base\Widget;
 
 class FooterWidget extends Widget
 {
-    public $menus = [];
+    public array $menus = [];
 
-    public function run()
+    /**
+     * @return string
+     */
+    public function run(): string
     {
         return $this->render('footer', [
             'menus' => $this->menus,

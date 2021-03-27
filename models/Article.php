@@ -9,7 +9,10 @@ use yii\helpers\Inflector;
 
 class Article extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -21,17 +24,28 @@ class Article extends ActiveRecord
         ];
     }
 
-    public static function tableName()
+    /**
+     * @return string
+     */
+    public static function tableName(): string
     {
         return 'article';
     }
 
-    public function beforeSave($insert)
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
     {
         $this->slug = Inflector::slug($this->title);
+
         return parent::beforeSave($insert);
     }
 
+    /**
+     * @return array[]
+     */
     public function rules(): array
     {
         return [

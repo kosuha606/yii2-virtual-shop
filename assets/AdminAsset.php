@@ -6,13 +6,11 @@ use yii\web\AssetBundle;
 
 class AdminAsset extends AssetBundle
 {
-    public $sourcePath = __DIR__.'/resources/admin';
-
-    public $js = [
+    public string $sourcePath = __DIR__.'/resources/admin';
+    public array $js = [
         'script.js',
     ];
-
-    public $css = [
+    public array $css = [
         'style.css',
     ];
 }

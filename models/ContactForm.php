@@ -5,29 +5,23 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
-/**
- * ContactForm is the model behind the contact form.
- */
+// @FIXME перенести в формы
 class ContactForm extends Model
 {
-    public $name;
-    public $email;
-    public $subject;
-    public $body;
-    public $verifyCode;
-
+    public string $name;
+    public string $email;
+    public string $subject;
+    public string $body;
+    public string $verifyCode;
 
     /**
      * @return array the validation rules.
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            // name, email, subject and body are required
             [['name', 'email', 'subject', 'body'], 'required'],
-            // email has to be a valid email address
             ['email', 'email'],
-            // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
         ];
     }
@@ -35,7 +29,7 @@ class ContactForm extends Model
     /**
      * @return array customized attribute labels
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'verifyCode' => 'Verification Code',
@@ -47,7 +41,7 @@ class ContactForm extends Model
      * @param string $email the target email address
      * @return bool whether the model passes validation
      */
-    public function contact($email)
+    public function contact($email): bool
     {
         if ($this->validate()) {
             Yii::$app->mailer->compose()
@@ -60,6 +54,7 @@ class ContactForm extends Model
 
             return true;
         }
+
         return false;
     }
 }

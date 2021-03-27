@@ -2,18 +2,16 @@
 
 namespace app\models;
 
-use kosuha606\VirtualModel\VirtualModel;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-/**
- * Вариант оплаты
- * @package kosuha606\Model\iteration2\model
- */
 class Payment extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -25,11 +23,17 @@ class Payment extends ActiveRecord
         ];
     }
 
-    public static function tableName()
+    /**
+     * @return string
+     */
+    public static function tableName(): string
     {
         return 'payment';
     }
 
+    /**
+     * @return array[]
+     */
     public function rules(): array
     {
         return [

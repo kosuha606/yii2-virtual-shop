@@ -9,7 +9,10 @@ use yii\helpers\Inflector;
 
 class SeoFilter extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -21,11 +24,17 @@ class SeoFilter extends ActiveRecord
         ];
     }
 
-    public static function tableName()
+    /**
+     * @return string
+     */
+    public static function tableName(): string
     {
         return 'seo_filter';
     }
 
+    /**
+     * @return array
+     */
     public function rules(): array
     {
         return [
@@ -44,17 +53,11 @@ class SeoFilter extends ActiveRecord
         ];
     }
 
-    public function setSlug()
-    {
-        $this->slug = '123';
-    }
-
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    public function beforeSave($insert)
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
     {
         $this->slug = Inflector::slug($this->value);
         return parent::beforeSave($insert);

@@ -3,17 +3,16 @@
 namespace app\widgets;
 
 use kosuha606\VirtualContent\Domains\Text\Models\TextVm;
-use yii\base\Widget;use function Symfony\Component\String\u;
+use yii\base\Widget;
 
 class TextWidget extends Widget
 {
-    public $code;
+    public string $code;
 
     /**
-     * @return mixed
-     * @throws \Exception
+     * @return string
      */
-    public function run()
+    public function run(): string
     {
         $text = TextVm::one([
             'where' => [['=', 'code', $this->code]]

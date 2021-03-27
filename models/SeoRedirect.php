@@ -8,7 +8,10 @@ use yii\db\Expression;
 
 class SeoRedirect extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -20,11 +23,17 @@ class SeoRedirect extends ActiveRecord
         ];
     }
 
-    public static function tableName()
+    /**
+     * @return string
+     */
+    public static function tableName(): string
     {
         return 'seo_redirect';
     }
 
+    /**
+     * @return array[]
+     */
     public function rules(): array
     {
         return [

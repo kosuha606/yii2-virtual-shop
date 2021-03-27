@@ -2,22 +2,17 @@
 
 namespace app\models;
 
-
-
-use kosuha606\VirtualModel\VirtualModel;
-use kosuha606\VirtualModel\Example\Shop\ServiceManager;
-use kosuha606\VirtualModel\Example\Shop\Services\ProductService;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\helpers\Inflector;
 
-/**
- * Продукт
- */
 class Product extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -29,11 +24,17 @@ class Product extends ActiveRecord
         ];
     }
 
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return 'product';
     }
 
+    /**
+     * @return array[]
+     */
     public function rules(): array
     {
         return [
@@ -59,9 +60,14 @@ class Product extends ActiveRecord
         ];
     }
 
-    public function beforeSave($insert)
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
     {
         $this->slug = Inflector::slug($this->name);
+
         return parent::beforeSave($insert);
     }
 }

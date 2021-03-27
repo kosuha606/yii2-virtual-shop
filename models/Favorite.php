@@ -2,18 +2,17 @@
 
 namespace app\models;
 
-use kosuha606\VirtualModel\VirtualModel;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
-use yii\helpers\Json;
 
-/**
- *
- */
 class Favorite extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -25,12 +24,18 @@ class Favorite extends ActiveRecord
         ];
     }
 
-    public static function tableName()
+    /**
+     * @return string
+     */
+    public static function tableName(): string
     {
         return 'favorite';
     }
 
-    public function rules()
+    /**
+     * @return array[]
+     */
+    public function rules(): array
     {
         return [
             [
@@ -43,12 +48,18 @@ class Favorite extends ActiveRecord
         ];
     }
 
-    public function getProduct()
+    /**
+     * @return ActiveQuery
+     */
+    public function getProduct(): ActiveQuery
     {
         return $this->hasOne(Product::class, ['id' => 'product_id']);
     }
 
-    public function getUser()
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }

@@ -6,9 +6,12 @@ use yii\base\Widget;
 
 class RawWidget extends Widget
 {
-    public $raw;
+    public string $raw;
 
-    public function run()
+    /**
+     * @return string
+     */
+    public function run(): string
     {
         return $this->raw;
     }

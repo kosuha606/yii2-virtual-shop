@@ -6,9 +6,15 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
+/**
+ * @package app\models
+ */
 class Widget extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -20,11 +26,17 @@ class Widget extends ActiveRecord
         ];
     }
 
-    public static function tableName()
+    /**
+     * @return string
+     */
+    public static function tableName(): string
     {
         return 'widget';
     }
 
+    /**
+     * @return array[]
+     */
     public function rules(): array
     {
         return [

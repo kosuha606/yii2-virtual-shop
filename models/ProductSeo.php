@@ -8,7 +8,10 @@ use yii\db\Expression;
 
 class ProductSeo extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -20,11 +23,17 @@ class ProductSeo extends ActiveRecord
         ];
     }
 
-    public static function tableName()
+    /**
+     * @return string
+     */
+    public static function tableName(): string
     {
         return 'product_seo';
     }
 
+    /**
+     * @return array[]
+     */
     public function rules(): array
     {
         return [

@@ -7,9 +7,12 @@ use yii\base\Widget;
 
 class MenuWidget extends Widget
 {
-    public $code;
+    public string $code;
 
-    public function run()
+    /**
+     * @return string
+     */
+    public function run(): string
     {
         $menu = MenuVm::one([
             'where' => [['=', 'code', $this->code]],

@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
 
 /**
  * @property $username
@@ -12,9 +13,12 @@ use yii\db\ActiveRecord;
  * @property $authKey
  * @property $accessToken
  */
-class User extends ActiveRecord implements \yii\web\IdentityInterface
+class User extends ActiveRecord implements IdentityInterface
 {
-    public function rules()
+    /**
+     * @return array
+     */
+    public function rules(): array
     {
         return [
             [
@@ -38,14 +42,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     }
 
     /**
-     * @throws \yii\base\Exception
-     */
-    public function toHash()
-    {
-        $this->password = Yii::$app->security->generatePasswordHash($this->password);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public static function findIdentity($id)
@@ -58,24 +54,18 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public static function findIdentityByAccessToken($token, $type = null)
+    public static function findIdentityByAccessToken($token, $type = null): ?IdentityInterface
     {
-        $user = self::findOne(['accessToken' => $token]);
-
-        return $user;
+        return self::findOne(['accessToken' => $token]);
     }
 
     /**
-     * Finds user by username
-     *
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByUsername($username): ?User
     {
-        $user = self::findOne(['username' => $username]);
-
-        return $user;
+        return self::findOne(['username' => $username]);
     }
 
     /**
@@ -89,7 +79,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function getAuthKey()
+    public function getAuthKey(): string
     {
         return $this->authKey;
     }
@@ -97,19 +87,17 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function validateAuthKey($authKey)
+    public function validateAuthKey($authKey): bool
     {
         return $this->authKey === $authKey;
     }
 
     /**
-     * Validates password
-     *
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      * @throws \yii\base\Exception
      */
-    public function validatePassword($password)
+    public function validatePassword($password): bool
     {
         return Yii::$app->security->validatePassword($password, $this->password);
     }

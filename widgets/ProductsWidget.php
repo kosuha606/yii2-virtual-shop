@@ -11,13 +11,13 @@ use Yii;
 
 class ProductsWidget extends Widget
 {
-    public $categoryId;
+    public int $categoryId;
 
     /**
-     * @return mixed
-     * @throws \Exception
+     * @return string
+     * @FIXME упростить
      */
-    public function run()
+    public function run(): string
     {
         $page = Yii::$app->request->get('page');
         $order = Yii::$app->request->get('order');

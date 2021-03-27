@@ -2,19 +2,20 @@
 
 namespace app\models;
 
-use kosuha606\VirtualModel\VirtualModel;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\helpers\Json;
 
 /**
- * Акция для продукта
  * @package kosuha606\Model\iteration2\model
  */
 class Action extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -26,12 +27,18 @@ class Action extends ActiveRecord
         ];
     }
 
-    public static function tableName()
+    /**
+     * @return string
+     */
+    public static function tableName(): string
     {
         return 'action';
     }
 
-    public function rules()
+    /**
+     * @return array[]
+     */
+    public function rules(): array
     {
         return [
             [
@@ -45,10 +52,11 @@ class Action extends ActiveRecord
         ];
     }
 
-    public function getProductIds()
+    /**
+     * @return array|null
+     */
+    public function getProductIds(): ?array
     {
-        $result = Json::decode($this->attributes['productIds']);
-
-        return $result;
+        return Json::decode($this->attributes['productIds'], true);
     }
 }

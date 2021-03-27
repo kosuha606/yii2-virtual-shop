@@ -5,11 +5,13 @@ namespace app\models;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
-use yii\helpers\Inflector;
 
 class Comment extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -21,11 +23,17 @@ class Comment extends ActiveRecord
         ];
     }
 
-    public static function tableName()
+    /**
+     * @return string
+     */
+    public static function tableName(): string
     {
         return 'comment';
     }
 
+    /**
+     * @return array[]
+     */
     public function rules(): array
     {
         return [

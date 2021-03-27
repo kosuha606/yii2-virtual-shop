@@ -2,18 +2,17 @@
 
 namespace app\models;
 
-
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\helpers\Inflector;
 
-/**
- *
- */
 class Category extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -25,11 +24,17 @@ class Category extends ActiveRecord
         ];
     }
 
-    public static function tableName()
+    /**
+     * @return string
+     */
+    public static function tableName(): string
     {
         return 'category';
     }
 
+    /**
+     * @return array[]
+     */
     public function rules(): array
     {
         return [
@@ -49,7 +54,11 @@ class Category extends ActiveRecord
         ];
     }
 
-    public function beforeSave($insert)
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
     {
         $this->slug = Inflector::slug($this->name);
         return parent::beforeSave($insert);

@@ -2,18 +2,16 @@
 
 namespace app\models;
 
-use kosuha606\VirtualModel\VirtualModel;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-/**
- * Промокод для корзины
- * @package kosuha606\Model\iteration2\model
- */
 class Promocode extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -25,11 +23,17 @@ class Promocode extends ActiveRecord
         ];
     }
 
-    public static function tableName()
+    /**
+     * @return string
+     */
+    public static function tableName(): string
     {
         return 'promocode';
     }
 
+    /**
+     * @return array[]
+     */
     public function rules(): array
     {
         return [

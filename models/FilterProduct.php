@@ -8,7 +8,10 @@ use yii\db\Expression;
 
 class FilterProduct extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -20,12 +23,18 @@ class FilterProduct extends ActiveRecord
         ];
     }
 
-    public static function tableName()
+    /**
+     * @return string
+     */
+    public static function tableName(): string
     {
         return 'filter_product';
     }
 
-    public function rules()
+    /**
+     * @return array[]
+     */
+    public function rules(): array
     {
         return [
             [

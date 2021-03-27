@@ -6,9 +6,12 @@ use yii\base\Model;
 
 class RestoreForm extends Model
 {
-    public $email;
+    public string $email;
 
-    public function rules()
+    /**
+     * @return \string[][]
+     */
+    public function rules(): array
     {
         return [
             [

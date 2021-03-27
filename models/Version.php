@@ -8,7 +8,10 @@ use yii\db\Expression;
 
 class Version extends ActiveRecord
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             [
@@ -20,11 +23,17 @@ class Version extends ActiveRecord
         ];
     }
 
-    public static function tableName()
+    /**
+     * @return string
+     */
+    public static function tableName(): string
     {
         return 'version';
     }
 
+    /**
+     * @return array[]
+     */
     public function rules(): array
     {
         return [
