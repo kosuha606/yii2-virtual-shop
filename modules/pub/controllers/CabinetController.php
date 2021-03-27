@@ -10,17 +10,19 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
+use yii\web\Response;
 
-/**
- * @package app\modules\pub\controllers
- */
+// FIXME подумать как избавиться от сервис локатора
 class CabinetController extends Controller
 {
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
@@ -29,7 +31,7 @@ class CabinetController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'add-favorite' => ['post'],
                     'delete-favorite' => ['post'],
@@ -41,10 +43,8 @@ class CabinetController extends Controller
     /**
      * @param $action
      * @return bool
-     * @throws \yii\web\BadRequestHttpException
-     * @throws \Exception
      */
-    public function beforeAction($action)
+    public function beforeAction($action): bool
     {
         $cartData = Yii::$app->session->get('cart');
         ServiceManager::getInstance()->cartBuilder->unserialize($cartData);
@@ -55,9 +55,8 @@ class CabinetController extends Controller
 
     /**
      * @return string
-     * @throws \Exception
      */
-    public function actionOrders()
+    public function actionOrders(): string
     {
         $user = ServiceManager::getInstance()->userService->current();
         $orders = OrderVm::many([
@@ -74,9 +73,8 @@ class CabinetController extends Controller
 
     /**
      * @return string
-     * @throws \Exception
      */
-    public function actionFavorites()
+    public function actionFavorites(): string
     {
         $user = ServiceManager::getInstance()->userService->current();
         $favorites = FavoriteVm::many([
@@ -90,15 +88,18 @@ class CabinetController extends Controller
         ]);
     }
 
-    public function actionProfile()
+    /**
+     * @return string
+     */
+    public function actionProfile(): string
     {
         return $this->render('profile');
     }
 
     /**
-     * @throws \Exception
+     * @return Response
      */
-    public function actionDeleteFavorite()
+    public function actionDeleteFavorite(): Response
     {
         $productId = Yii::$app->request->post('product_id');
         $user = ServiceManager::getInstance()->userService->current();
@@ -110,10 +111,9 @@ class CabinetController extends Controller
     }
 
     /**
-     * @return \yii\web\Response
-     * @throws \Exception
+     * @return Response
      */
-    public function actionAddFavorite()
+    public function actionAddFavorite(): Response
     {
         $productId = Yii::$app->request->post('product_id');
         $product = ProductVm::one([

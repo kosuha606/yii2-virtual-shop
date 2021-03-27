@@ -6,16 +6,19 @@ use kosuha606\VirtualShop\Model\DeliveryVm;
 use kosuha606\VirtualShop\Model\PaymentVm;
 use kosuha606\VirtualShop\ServiceManager;
 use Yii;
-use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\helpers\Json;
 use yii\web\Controller;
+use yii\web\Response;
 
+// FIXME заменить Yii::$app на внедрение зависимости
 class CartController extends Controller
 {
-    const CART_SESS_KEY = 'cart';
+     public const CART_SESS_KEY = 'cart';
 
-    public function behaviors()
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
     {
         return [
             'verbs' => [
@@ -31,22 +34,18 @@ class CartController extends Controller
     /**
      * @param $action
      * @return bool
-     * @throws \yii\web\BadRequestHttpException
-     * @throws \Exception
      */
-    public function beforeAction($action)
+    public function beforeAction($action): bool
     {
         $cartData = Yii::$app->session->get(self::CART_SESS_KEY);
         ServiceManager::getInstance()->cartBuilder->unserialize($cartData);
-
         ServiceManager::getInstance()->userService->login(Yii::$app->user->id);
 
         return parent::beforeAction($action);
     }
 
     /**
-     * @return string|\yii\web\Response
-     * @throws \Exception
+     * @return string|Response
      */
     public function actionIndex()
     {
@@ -59,6 +58,7 @@ class CartController extends Controller
 
             return $this->goHome();
         }
+
         $cart = ServiceManager::getInstance()->cartBuilder->getCart();
         $deliveries = DeliveryVm::many([
             'where' => ['all']
@@ -75,8 +75,7 @@ class CartController extends Controller
     }
 
     /**
-     * @return string|\yii\web\Response
-     * @throws \Exception
+     * @return string|Response
      */
     public function actionCheckout()
     {
@@ -109,9 +108,8 @@ class CartController extends Controller
 
     /**
      * @return string
-     * @throws \Exception
      */
-    public function actionComplete()
+    public function actionComplete(): string
     {
         Yii::$app->session->set(self::CART_SESS_KEY, null);
         $cartBuilder = ServiceManager::getInstance()->cartBuilder;
@@ -133,10 +131,9 @@ class CartController extends Controller
     }
 
     /**
-     * @return \yii\web\Response
-     * @throws \Exception
+     * @return Response
      */
-    public function actionDelete()
+    public function actionDelete(): Response
     {
         $id = Yii::$app->request->get('id');
         ServiceManager::getInstance()->cartBuilder->deleteProductById($id);
@@ -146,7 +143,10 @@ class CartController extends Controller
         return $this->redirect(['/cart/index']);
     }
 
-    public function actionClearall()
+    /**
+     * @return Response
+     */
+    public function actionClearall(): Response
     {
         ServiceManager::getInstance()->cartBuilder->clear();
         Yii::$app->session->set(self::CART_SESS_KEY, ServiceManager::getInstance()->cartBuilder->serialize());

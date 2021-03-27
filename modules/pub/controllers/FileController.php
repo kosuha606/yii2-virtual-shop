@@ -12,15 +12,15 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\web\UploadedFile;
 
+// FIXME поправить дублирование
 class FileController extends Controller
 {
     public $enableCsrfValidation = false;
 
     /**
      * @return Response
-     * @throws \yii\base\Exception
      */
-    public function actionCkeditor()
+    public function actionCkeditor(): Response
     {
         $model = new CkeditorForm();
 
@@ -56,9 +56,8 @@ class FileController extends Controller
 
     /**
      * @return Response
-     * @throws \yii\base\Exception
      */
-    public function actionUploadDocument()
+    public function actionUploadDocument(): Response
     {
         $model = new UploadDocForm();
 
@@ -67,9 +66,8 @@ class FileController extends Controller
 
     /**
      * @return Response
-     * @throws \yii\base\Exception
      */
-    public function actionUploadImage()
+    public function actionUploadImage(): Response
     {
         $model = new UploadImageForm();
 
@@ -79,9 +77,8 @@ class FileController extends Controller
     /**
      * @param $model
      * @return Response
-     * @throws \yii\base\Exception
      */
-    private function commonUploadOneFile(Model $model, $attrName = 'file')
+    private function commonUploadOneFile(Model $model, $attrName = 'file'): Response
     {
         $userId = Yii::$app->user->identity->getId() ?: 'guest';
         $result = [
@@ -112,7 +109,10 @@ class FileController extends Controller
         return $this->asJson($result);
     }
 
-    public function actionDelete()
+    /**
+     * @return Response
+     */
+    public function actionDelete(): Response
     {
         return $this->asJson([
             'result' => true,

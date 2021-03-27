@@ -10,9 +10,8 @@ class ArticleController extends Controller
 {
     /**
      * @return string
-     * @throws \Exception
      */
-    public function actionList()
+    public function actionList(): string
     {
         $articles = ArticleVm::many([
             'where' => ['all'],
@@ -26,10 +25,8 @@ class ArticleController extends Controller
 
     /**
      * @return string
-     * @throws HttpException
-     * @throws \Exception
      */
-    public function actionDetail()
+    public function actionDetail(): string
     {
         $id = \Yii::$app->request->get('id');
         $slug = \Yii::$app->request->get('slug');

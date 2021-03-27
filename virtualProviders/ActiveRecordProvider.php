@@ -10,17 +10,20 @@ use yii\db\ActiveRecord;
 
 class ActiveRecordProvider extends VirtualModelProvider
 {
-    public $relations;
+    public array $relations;
 
+    /**
+     * @return string
+     */
     public function environemnt(): string
     {
         return 'ar';
     }
 
     /**
-     * @throws \Exception
+     * @return array
      */
-    public function flush()
+    public function flush(): array
     {
         $ids = [];
         /** @var VirtualModel $model */
@@ -32,16 +35,19 @@ class ActiveRecordProvider extends VirtualModelProvider
             /** @var ActiveRecord $ar */
             $ar = new $arClass();
             $ar->setAttributes($model->getAttributes());
+
             if ($model->hasAttribute('id') && $model->id) {
                 $ar->setIsNewRecord(false);
                 $ar->setOldAttributes(['id' => $model->id]);
                 $ar->id = $model->id;
             }
+
             if (!$ar->validate()) {
                 $message = $ar->getErrorSummary(true);
                 throw new LogicException(implode(',', $message));
             }
-            $result = $ar->save();
+
+            $ar->save();
             $ids[] = $ar->id;
         }
 
@@ -52,10 +58,8 @@ class ActiveRecordProvider extends VirtualModelProvider
 
     /**
      * @param VirtualModel $model
-     * @throws \Exception
-     * @throws \Throwable
      */
-    public function delete(VirtualModelEntity $model)
+    public function delete(VirtualModelEntity $model): void
     {
         $modelClass = get_class($model);
         $this->ensureHaveRelation($modelClass);
@@ -69,10 +73,9 @@ class ActiveRecordProvider extends VirtualModelProvider
     }
 
     /**
-     * @param $modelClass
-     * @param $config
-     * @return mixed|void
-     * @throws \Exception
+     * @param string $modelClass
+     * @param array $config
+     * @return array|mixed|ActiveRecord|null
      */
     protected function findOne($modelClass, $config)
     {
@@ -89,7 +92,10 @@ class ActiveRecordProvider extends VirtualModelProvider
         return $model;
     }
 
-    private function ensureHaveRelation($modelClass)
+    /**
+     * @param $modelClass
+     */
+    private function ensureHaveRelation($modelClass): void
     {
         if (!isset($this->relations[$modelClass])) {
             throw new \Exception("No such relation for class $modelClass in ActiveRecordProvider");
@@ -187,6 +193,9 @@ class ActiveRecordProvider extends VirtualModelProvider
         return $query->count();
     }
 
+    /**
+     * @return array
+     */
     public function getAvailableModelClasses()
     {
         return array_keys($this->relations);

@@ -8,7 +8,10 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class AutoTranslateProvider extends MemoryModelProvider implements AutoTranslatorProviderInterface
 {
-    public function type()
+    /**
+     * @return string
+     */
+    public function type(): string
     {
         return AutoTranslatorProviderInterface::class;
     }
@@ -18,9 +21,8 @@ class AutoTranslateProvider extends MemoryModelProvider implements AutoTranslato
      * @param $toLang
      * @param $string
      * @return string|null
-     * @throws \ErrorException
      */
-    public function autoTranslate($fromLang, $toLang, $string)
+    public function autoTranslate($fromLang, $toLang, $string): ?string
     {
         if (!$toLang) {
             return $string;

@@ -19,7 +19,7 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             'access' => [
@@ -45,7 +45,7 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function actions()
+    public function actions(): array
     {
         return [
             'error' => [
@@ -61,10 +61,8 @@ class SiteController extends Controller
     /**
      * @param $action
      * @return bool
-     * @throws \yii\web\BadRequestHttpException
-     * @throws \Exception
      */
-    public function beforeAction($action)
+    public function beforeAction($action): bool
     {
         $cartData = Yii::$app->session->get('cart');
         ServiceManager::getInstance()->cartBuilder->unserialize($cartData);
@@ -74,12 +72,9 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
-     *
      * @return string
-     * @throws \Exception
      */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $page = Yii::$app->request->get('page');
         $order = Yii::$app->request->get('order');
@@ -114,16 +109,18 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionSearch()
+    /**
+     * @return string
+     */
+    public function actionSearch(): string
     {
         return $this->render('search');
     }
 
     /**
      * @return string
-     * @throws \Exception
      */
-    public function actionView()
+    public function actionView(): string
     {
         $id = Yii::$app->request->get('id');
         $product = ProductVm::one([
@@ -138,11 +135,9 @@ class SiteController extends Controller
     }
 
     /**
-     * Logout action.
-     *
      * @return Response
      */
-    public function actionLogout()
+    public function actionLogout(): Response
     {
         Yii::$app->user->logout();
 
@@ -151,9 +146,6 @@ class SiteController extends Controller
 
     /**
      * @return Response
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \Exception
      */
     public function actionLang()
     {
@@ -164,6 +156,9 @@ class SiteController extends Controller
         return $this->redirect(Yii::$app->request->referrer);
     }
 
+    /**
+     * @return mixed
+     */
     public function actionSitemap()
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;

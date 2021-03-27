@@ -20,7 +20,6 @@ class SeoUrlRule extends BaseObject implements UrlRuleInterface
      * @param UrlManager $manager
      * @param Request $request
      * @return array|bool
-     * @throws \Exception
      */
     public function parseRequest($manager, $request)
     {
@@ -35,6 +34,7 @@ class SeoUrlRule extends BaseObject implements UrlRuleInterface
 
         if ($pathInfo === '' && isset($pathParts[1])) {
             $filter = [];
+
             if (isset($pathParts[1])) {
                 $filter = $seoFilterService->parseUrl($pathParts[1]);
             }
@@ -45,6 +45,7 @@ class SeoUrlRule extends BaseObject implements UrlRuleInterface
         if ($model = $seoService->findModelByUrl($pathInfo)) {
             if ($model instanceof CategoryVm) {
                 $filter = [];
+
                 if (isset($pathParts[1])) {
                     $filter = $seoFilterService->parseUrl($pathParts[1]);
                 }
@@ -68,7 +69,13 @@ class SeoUrlRule extends BaseObject implements UrlRuleInterface
         return false;
     }
 
-    public function createUrl($manager, $route, $params)
+    /**
+     * @param UrlManager $manager
+     * @param string $route
+     * @param array $params
+     * @return false
+     */
+    public function createUrl($manager, $route, $params): bool
     {
         return false;
     }

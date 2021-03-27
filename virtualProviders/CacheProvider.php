@@ -8,16 +8,16 @@ use kosuha606\VirtualModel\VirtualModelProvider;
 use Yii;
 use yii\db\Query;
 
-/**
- * Провайдер для логики кэша для ее использования в рамках Yii2
- */
 class CacheProvider extends VirtualModelProvider implements CacheProviderInterface
 {
-    public function type()
+    public function type(): string
     {
         return CacheVm::KEY;
     }
 
+    /**
+     * @return string
+     */
     public function environemnt(): string
     {
         return 'cache';
@@ -38,6 +38,11 @@ class CacheProvider extends VirtualModelProvider implements CacheProviderInterfa
         // TODO: Implement updateData() method.
     }
 
+    /**
+     * @param $caller
+     * @param $data
+     * @return array
+     */
     public function buildColumnsByData($caller, $data)
     {
         $fieldsConfig = [];
@@ -59,6 +64,11 @@ class CacheProvider extends VirtualModelProvider implements CacheProviderInterfa
         return $fieldsConfig;
     }
 
+    /**
+     * @param $caller
+     * @param $name
+     * @return string
+     */
     public function normalizeTableName($caller, $name)
     {
         return 'cache_'.$name;

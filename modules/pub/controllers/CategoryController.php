@@ -7,16 +7,15 @@ use kosuha606\VirtualShop\Model\CategoryVm;
 use kosuha606\VirtualShop\ServiceManager;
 use Yii;
 use yii\web\Controller;
+use yii\web\Response;
 
 class CategoryController extends Controller
 {
     /**
      * @param $action
      * @return bool
-     * @throws \yii\web\BadRequestHttpException
-     * @throws \Exception
      */
-    public function beforeAction($action)
+    public function beforeAction($action): bool
     {
         $cartData = Yii::$app->session->get('cart');
         ServiceManager::getInstance()->cartBuilder->unserialize($cartData);
@@ -25,12 +24,10 @@ class CategoryController extends Controller
         return parent::beforeAction($action);
     }
 
-    public function actionIndex()
-    {
-
-    }
-
-    public function actionCategory()
+    /**
+     * @return string
+     */
+    public function actionCategory(): string
     {
         $id = Yii::$app->request->get('id');
         $category = CategoryVm::one([
@@ -45,11 +42,9 @@ class CategoryController extends Controller
     }
 
     /**
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \Exception
+     * @return Response
      */
-    public function actionFilter()
+    public function actionFilter(): Response
     {
         $filters = Yii::$app->request->post('filter', []);
         $seoFilterService = \kosuha606\VirtualModelHelppack\ServiceManager::getInstance()->get(SeoFilterService::class);

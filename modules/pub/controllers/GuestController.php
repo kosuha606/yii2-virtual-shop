@@ -12,6 +12,9 @@ use yii\web\Response;
 
 class GuestController extends Controller
 {
+    /**
+     * @return string|Response
+     */
     public function actionRegister()
     {
         if (!Yii::$app->user->isGuest) {
@@ -19,6 +22,7 @@ class GuestController extends Controller
         }
 
         $model = new RegistrationForm();
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $user = new User();
             $user->username = $model->username;
@@ -35,6 +39,9 @@ class GuestController extends Controller
         ]);
     }
 
+    /**
+     * @return string|Response
+     */
     public function actionRestorePassword()
     {
         if (!Yii::$app->user->isGuest) {
@@ -42,6 +49,7 @@ class GuestController extends Controller
         }
 
         $model = new RestoreForm();
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             return $this->goBack();
         }
@@ -52,8 +60,6 @@ class GuestController extends Controller
     }
 
     /**
-     * Login action.
-     *
      * @return Response|string
      */
     public function actionLogin()
@@ -63,6 +69,7 @@ class GuestController extends Controller
         }
 
         $model = new LoginForm();
+
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }

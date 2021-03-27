@@ -8,7 +8,10 @@ use Yii;
 
 class CookieProvider extends VirtualModelProvider implements CookieProviderInterface
 {
-    public function type()
+    /**
+     * @return string
+     */
+    public function type(): string
     {
         return CookieProviderInterface::class;
     }
