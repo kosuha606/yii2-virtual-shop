@@ -6,13 +6,22 @@ use yii\web\AssetBundle;
 
 class AppAsset extends AssetBundle
 {
-    public string $basePath = '@webroot';
-    public string $baseUrl = '@web';
-    public array $css = [
+    /** @var string  */
+    public $basePath = '@webroot';
+
+    /** @var string  */
+    public $baseUrl = '@web';
+
+    /** @var array|string[]  */
+    public $css = [
         'css/site.css',
     ];
-    public array $js = [;
-    public array $depends = [
+
+    /** @var array  */
+    public $js = [];
+
+    /** @var array|string[]  */
+    public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];

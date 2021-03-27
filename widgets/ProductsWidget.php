@@ -11,7 +11,7 @@ use Yii;
 
 class ProductsWidget extends Widget
 {
-    public int $categoryId;
+    public ?int $categoryId = null;
 
     /**
      * @return string
