@@ -28,6 +28,11 @@ $this->registerJsVar('webpack_asset_path', $bundle->baseUrl.'/');
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
     <link rel="manifest" href="/admin/dist/mix-manifest.json">
+    <style>
+        html :not(body[style]) {
+            font-size: 1rem;
+        }
+    </style>
 </head>
 <body class="skin-blue">
 <?php $this->beginBody() ?>
