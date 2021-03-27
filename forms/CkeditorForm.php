@@ -6,7 +6,7 @@ use yii\base\Model;
 
 class CkeditorForm extends Model
 {
-    public string $upload;
+    public ?string $upload = null;
 
     /**
      * @return array[]

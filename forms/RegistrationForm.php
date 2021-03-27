@@ -6,10 +6,10 @@ use yii\base\Model;
 
 class RegistrationForm extends Model
 {
-    public string $username;
-    public string $email;
-    public string $password;
-    public string $repeatPassword;
+    public ?string $username = null;
+    public ?string $email = null;
+    public ?string $password = null;
+    public ?string $repeatPassword = null;
 
     /**
      * @return array

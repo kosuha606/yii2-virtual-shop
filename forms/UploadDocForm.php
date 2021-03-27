@@ -6,7 +6,7 @@ use yii\base\Model;
 
 class UploadDocForm extends Model
 {
-    public string $file;
+    public ?string $file = null;
 
     /**
      * @return array[]

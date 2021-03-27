@@ -3,14 +3,11 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\assets\AppAsset;
 use app\widgets\Alert;
 use kosuha606\VirtualAdmin\Domains\Design\DesignService;
 use kosuha606\VirtualShop\ServiceManager;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
 
 AppAsset::register($this);
 

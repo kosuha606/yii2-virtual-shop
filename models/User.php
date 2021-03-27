@@ -79,7 +79,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function getAuthKey(): string
+    public function getAuthKey(): ?string
     {
         return $this->authKey;
     }

@@ -6,7 +6,7 @@ use yii\base\Model;
 
 class RestoreForm extends Model
 {
-    public string $email;
+    public ?string $email = null;
 
     /**
      * @return \string[][]
