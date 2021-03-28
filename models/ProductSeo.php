@@ -2,27 +2,19 @@
 
 namespace app\models;
 
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use yii\db\Expression;
 
+/**
+ * @property int $id [int(11)]
+ * @property int $product_id [int(11)]
+ * @property string $meta_title [varchar(255)]
+ * @property string $meta_keywords [varchar(255)]
+ * @property string $meta_description [varchar(255)]
+ * @property string $created_at [datetime]
+ * @property string $updated_at [datetime]
+ */
 class ProductSeo extends ActiveRecord
 {
-    /**
-     * @return array[]
-     */
-    public function behaviors(): array
-    {
-        return [
-            [
-                'class'              => TimestampBehavior::className(),
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value'              => new Expression('NOW()'),
-            ],
-        ];
-    }
-
     /**
      * @return string
      */

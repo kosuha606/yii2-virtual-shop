@@ -2,27 +2,20 @@
 
 namespace app\models;
 
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use yii\db\Expression;
 
+/**
+ * @property int $id [int(11)]
+ * @property int $entity_id [int(11)]
+ * @property string $entity_class [varchar(255)]
+ * @property int $lang_id [int(11)]
+ * @property string $attribute [varchar(255)]
+ * @property string $data
+ * @property string $created_at [datetime]
+ * @property string $updated_at [datetime]
+ */
 class Translation extends ActiveRecord
 {
-    /**
-     * @return array[]
-     */
-    public function behaviors(): array
-    {
-        return [
-            [
-                'class'              => TimestampBehavior::className(),
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value'              => new Expression('NOW()'),
-            ],
-        ];
-    }
-
     /**
      * @return string
      */

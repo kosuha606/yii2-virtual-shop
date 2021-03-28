@@ -2,27 +2,30 @@
 
 namespace app\models;
 
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use yii\db\Expression;
 
+/**
+ * @property int $id [int(11)]
+ * @property int $entity_id [int(11)]
+ * @property string $entity_class [varchar(255)]
+ * @property string $title [varchar(255)]
+ * @property string $meta_keywords [varchar(255)]
+ * @property string $mata_description [varchar(255)]
+ * @property string $og_title [varchar(255)]
+ * @property string $og_description [varchar(255)]
+ * @property string $og_url [varchar(255)]
+ * @property string $og_image [varchar(255)]
+ * @property string $og_type [varchar(255)]
+ * @property string $canonical [varchar(255)]
+ * @property string $noindex [varchar(255)]
+ * @property string $created_at [datetime]
+ * @property string $updated_at [datetime]
+ * @property string $sitemap_importance [varchar(255)]
+ * @property string $sitemap_freq [varchar(255)]
+ * @property string $url [varchar(255)]
+ */
 class SeoPage extends ActiveRecord
 {
-    /**
-     * @return array[]
-     */
-    public function behaviors(): array
-    {
-        return [
-            [
-                'class'              => TimestampBehavior::className(),
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value'              => new Expression('NOW()'),
-            ],
-        ];
-    }
-
     /**
      * @return string
      */

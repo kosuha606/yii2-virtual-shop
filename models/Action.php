@@ -2,31 +2,18 @@
 
 namespace app\models;
 
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
-use yii\db\Expression;
 use yii\helpers\Json;
 
 /**
- * @package kosuha606\Model\iteration2\model
+ * @property-read null|array $productIds
+ * @property int $id [int(11)]
+ * @property int $percent [int(11)]
+ * @property string $userType [varchar(255)]
+ * @property string $created_at [datetime]
+ * @property string $updated_at [datetime]
  */
-class Action extends ActiveRecord
+class Action extends BaseActiveRecord
 {
-    /**
-     * @return array[]
-     */
-    public function behaviors(): array
-    {
-        return [
-            [
-                'class'              => TimestampBehavior::className(),
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value'              => new Expression('NOW()'),
-            ],
-        ];
-    }
-
     /**
      * @return string
      */

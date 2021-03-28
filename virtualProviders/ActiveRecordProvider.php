@@ -5,6 +5,7 @@ namespace app\virtualProviders;
 use kosuha606\VirtualModel\VirtualModelEntity;
 use kosuha606\VirtualModel\VirtualModelProvider;
 use LogicException;
+use yii\base\Event;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -89,6 +90,8 @@ class ActiveRecordProvider extends VirtualModelProvider
 
         $model = $query->asArray()->one();
 
+        Event::trigger($modelClass, 'afterFindOne');
+
         return $model;
     }
 
@@ -170,6 +173,8 @@ class ActiveRecordProvider extends VirtualModelProvider
         $this->processQuery($query, $config, $arConfig);
 
         $models = $query->asArray()->all();
+
+        Event::trigger($modelClass, 'afterFindMany');
 
         return $models;
     }

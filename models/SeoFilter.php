@@ -2,28 +2,20 @@
 
 namespace app\models;
 
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use yii\db\Expression;
 use yii\helpers\Inflector;
 
+/**
+ * @property int $id [int(11)]
+ * @property string $value [varchar(255)]
+ * @property string $type [varchar(255)]
+ * @property string $slug [varchar(255)]
+ * @property string $created_at [datetime]
+ * @property string $updated_at [datetime]
+ * @property int $order [int(11)]
+ */
 class SeoFilter extends ActiveRecord
 {
-    /**
-     * @return array[]
-     */
-    public function behaviors(): array
-    {
-        return [
-            [
-                'class'              => TimestampBehavior::className(),
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value'              => new Expression('NOW()'),
-            ],
-        ];
-    }
-
     /**
      * @return string
      */
@@ -60,6 +52,7 @@ class SeoFilter extends ActiveRecord
     public function beforeSave($insert): bool
     {
         $this->slug = Inflector::slug($this->value);
+
         return parent::beforeSave($insert);
     }
 }

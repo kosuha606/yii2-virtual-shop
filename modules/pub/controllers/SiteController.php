@@ -2,6 +2,7 @@
 
 namespace app\modules\pub\controllers;
 
+use app\models\Product;
 use kosuha606\VirtualAdmin\Domains\Multilang\LanguageService;
 use kosuha606\VirtualAdmin\Domains\Sitemap\SitemapVm;
 use kosuha606\VirtualShop\Model\FilterCategoryVm;
@@ -9,6 +10,10 @@ use kosuha606\VirtualShop\Model\FilterProductVm;
 use kosuha606\VirtualShop\Model\ProductVm;
 use kosuha606\VirtualShop\ServiceManager;
 use Yii;
+use yii\base\Component;
+use yii\base\Event;
+use yii\db\ActiveRecord;
+use yii\db\BaseActiveRecord;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;

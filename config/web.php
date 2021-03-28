@@ -22,10 +22,6 @@ $config = [
             'class' => Module::class,
         ]
     ],
-    'container' => [
-        'definitions' => [
-        ]
-    ],
     'components' => [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,

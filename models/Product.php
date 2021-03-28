@@ -2,28 +2,24 @@
 
 namespace app\models;
 
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use yii\db\Expression;
 use yii\helpers\Inflector;
 
+/**
+ * @property int $id [int(11)]
+ * @property string $name [varchar(255)]
+ * @property int $price [int(11)]
+ * @property int $price2B [int(11)]
+ * @property string $actions
+ * @property string $rests
+ * @property string $created_at [datetime]
+ * @property string $updated_at [datetime]
+ * @property string $slug [varchar(255)]
+ * @property string $photo [varchar(255)]
+ * @property int $category_id [int(11)]
+ */
 class Product extends ActiveRecord
 {
-    /**
-     * @return array[]
-     */
-    public function behaviors(): array
-    {
-        return [
-            [
-                'class'              => TimestampBehavior::className(),
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value'              => new Expression('NOW()'),
-            ],
-        ];
-    }
-
     /**
      * @return string
      */

@@ -2,27 +2,16 @@
 
 namespace app\models;
 
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
-use yii\db\Expression;
-
-class FilterProduct extends ActiveRecord
+/**
+ * @property int $id [int(11)]
+ * @property int $category_id [int(11)]
+ * @property int $product_id [int(11)]
+ * @property string $value [varchar(255)]
+ * @property string $created_at [datetime]
+ * @property string $updated_at [datetime]
+ */
+class FilterProduct extends BaseActiveRecord
 {
-    /**
-     * @return array[]
-     */
-    public function behaviors(): array
-    {
-        return [
-            [
-                'class'              => TimestampBehavior::className(),
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value'              => new Expression('NOW()'),
-            ],
-        ];
-    }
-
     /**
      * @return string
      */

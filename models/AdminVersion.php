@@ -2,27 +2,18 @@
 
 namespace app\models;
 
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
-use yii\db\Expression;
-
-class AdminVersion extends ActiveRecord
+/**
+ * @property int $id [int(11)]
+ * @property int $user_id [int(11)]
+ * @property string $entity_id [varchar(255)]
+ * @property string $entity_class [varchar(255)]
+ * @property string $form_data
+ * @property string $form_config
+ * @property string $created_at [datetime]
+ * @property string $updated_at [datetime]
+ */
+class AdminVersion extends BaseActiveRecord
 {
-    /**
-     * @return array[]
-     */
-    public function behaviors(): array
-    {
-        return [
-            [
-                'class'              => TimestampBehavior::className(),
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value'              => new Expression('NOW()'),
-            ],
-        ];
-    }
-
     /**
      * @return string
      */

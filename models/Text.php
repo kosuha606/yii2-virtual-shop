@@ -7,25 +7,15 @@ use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
- * @package app\models
+ * @property int $id [int(11)]
+ * @property string $description [varchar(255)]
+ * @property string $code [varchar(255)]
+ * @property string $content
+ * @property string $created_at [datetime]
+ * @property string $updated_at [datetime]
  */
 class Text extends ActiveRecord
 {
-    /**
-     * @return array[]
-     */
-    public function behaviors(): array
-    {
-        return [
-            [
-                'class'              => TimestampBehavior::className(),
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value'              => new Expression('NOW()'),
-            ],
-        ];
-    }
-
     /**
      * @return string
      */

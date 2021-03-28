@@ -3,10 +3,18 @@
 namespace app\models;
 
 use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-class Design extends ActiveRecord
+/**
+ * @property int $id [int(11)]
+ * @property string $name [varchar(255)]
+ * @property string $route [varchar(255)]
+ * @property int $priority [int(11)]
+ * @property string $template
+ * @property string $created_at [datetime]
+ * @property string $updated_at [datetime]
+ */
+class Design extends BaseActiveRecord
 {
     /**
      * @return array[]
