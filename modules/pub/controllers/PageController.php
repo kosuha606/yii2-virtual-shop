@@ -13,8 +13,8 @@ class PageController extends Controller
      */
     public function actionDetail(): string
     {
-        $id = \Yii::$app->request->get('id');
-        $slug = \Yii::$app->request->get('slug');
+        $id = $this->request->get('id');
+        $slug = $this->request->get('slug');
         $page = PageVm::one(['where' => [
             ['=', 'id', $id],
             ['=', 'slug', $slug]

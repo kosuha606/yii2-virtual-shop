@@ -2,7 +2,6 @@
 
 namespace app\modules\pub\controllers;
 
-use app\models\Product;
 use kosuha606\VirtualAdmin\Domains\Multilang\LanguageService;
 use kosuha606\VirtualAdmin\Domains\Sitemap\SitemapVm;
 use kosuha606\VirtualShop\Model\FilterCategoryVm;
@@ -10,14 +9,10 @@ use kosuha606\VirtualShop\Model\FilterProductVm;
 use kosuha606\VirtualShop\Model\ProductVm;
 use kosuha606\VirtualShop\ServiceManager;
 use Yii;
-use yii\base\Component;
-use yii\base\Event;
-use yii\db\ActiveRecord;
-use yii\db\BaseActiveRecord;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
-use yii\filters\VerbFilter;
 
 class SiteController extends Controller
 {
@@ -81,8 +76,8 @@ class SiteController extends Controller
      */
     public function actionIndex(): string
     {
-        $page = Yii::$app->request->get('page');
-        $order = Yii::$app->request->get('order');
+        $page = $this->request->get('page');
+        $order = $this->request->get('order');
 
         $filtersData = [];
         /** @var FilterCategoryVm[] $filterCategories */
@@ -127,7 +122,7 @@ class SiteController extends Controller
      */
     public function actionView(): string
     {
-        $id = Yii::$app->request->get('id');
+        $id = $this->request->get('id');
         $product = ProductVm::one([
             'where' => [
                 ['=', 'id', $id],
@@ -154,7 +149,7 @@ class SiteController extends Controller
      */
     public function actionLang()
     {
-        $l = Yii::$app->request->get('l', 'ru');
+        $l = $this->request->get('l', 'ru');
         $langService = \kosuha606\VirtualModelHelppack\ServiceManager::getInstance()->get(LanguageService::class);
         $langService->setLang($l);
 
@@ -166,8 +161,8 @@ class SiteController extends Controller
      */
     public function actionSitemap()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
-        Yii::$app->response->headers->add('Content-Type', 'text/xml');
+        $this->response->format = \yii\web\Response::FORMAT_RAW;
+        $this->response->headers->add('Content-Type', 'text/xml');
 
         return SitemapVm::getSitemapContent();
     }

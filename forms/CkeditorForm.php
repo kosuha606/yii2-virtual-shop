@@ -3,10 +3,11 @@
 namespace app\forms;
 
 use yii\base\Model;
+use yii\web\UploadedFile;
 
 class CkeditorForm extends Model
 {
-    public ?string $upload = null;
+    public ?UploadedFile $upload = null;
 
     /**
      * @return array[]

@@ -3,10 +3,11 @@
 namespace app\forms;
 
 use yii\base\Model;
+use yii\web\UploadedFile;
 
 class UploadImageForm extends Model
 {
-    public ?string $file = null;
+    public ?UploadedFile $file = null;
 
     /**
      * @return array[]

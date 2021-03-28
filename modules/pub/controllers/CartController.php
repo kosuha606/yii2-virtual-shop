@@ -2,18 +2,49 @@
 
 namespace app\modules\pub\controllers;
 
+use kosuha606\VirtualAdmin\Domains\User\UserService;
+use kosuha606\VirtualShop\Cart\CartBuilder;
 use kosuha606\VirtualShop\Model\DeliveryVm;
 use kosuha606\VirtualShop\Model\PaymentVm;
-use kosuha606\VirtualShop\ServiceManager;
+use kosuha606\VirtualShop\Services\OrderService;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\web\Session;
 
-// FIXME заменить Yii::$app на внедрение зависимости
 class CartController extends Controller
 {
-     public const CART_SESS_KEY = 'cart';
+    public const CART_SESS_KEY = 'cart';
+    private CartBuilder $cartBuilder;
+    private UserService $userService;
+    private Session $session;
+    private OrderService $orderService;
+
+    /**
+     * @param $id
+     * @param $module
+     * @param CartBuilder $cartBuilder
+     * @param UserService $userService
+     * @param OrderService $orderService
+     * @param Session $session
+     * @param array $config
+     */
+    public function __construct(
+        $id,
+        $module,
+        CartBuilder $cartBuilder,
+        UserService $userService,
+        OrderService $orderService,
+        Session $session,
+        $config = []
+    ) {
+        parent::__construct($id, $module, $config);
+        $this->cartBuilder = $cartBuilder;
+        $this->userService = $userService;
+        $this->session = $session;
+        $this->orderService = $orderService;
+    }
 
     /**
      * @return array[]
@@ -37,9 +68,9 @@ class CartController extends Controller
      */
     public function beforeAction($action): bool
     {
-        $cartData = Yii::$app->session->get(self::CART_SESS_KEY);
-        ServiceManager::getInstance()->cartBuilder->unserialize($cartData);
-        ServiceManager::getInstance()->userService->login(Yii::$app->user->id);
+        $cartData = $this->session->get(self::CART_SESS_KEY);
+        $this->cartBuilder->unserialize($cartData);
+        $this->userService->login(Yii::$app->user->id);
 
         return parent::beforeAction($action);
     }
@@ -49,17 +80,17 @@ class CartController extends Controller
      */
     public function actionIndex()
     {
-        if (Yii::$app->request->isPost) {
-            $productId = Yii::$app->request->post('product_id');
-            $qty = Yii::$app->request->post('qty');
-            ServiceManager::getInstance()->cartBuilder->addProductById($productId, $qty);
-            Yii::$app->session->set(self::CART_SESS_KEY, ServiceManager::getInstance()->cartBuilder->serialize());
-            Yii::$app->session->addFlash('success', 'Успешно добавлено в корзину');
+        if ($this->request->isPost) {
+            $productId = $this->request->post('product_id');
+            $qty = $this->request->post('qty');
+            $this->cartBuilder->addProductById($productId, $qty);
+            $this->session->set(self::CART_SESS_KEY, $this->cartBuilder->serialize());
+            $this->session->addFlash('success', 'Успешно добавлено в корзину');
 
             return $this->goHome();
         }
 
-        $cart = ServiceManager::getInstance()->cartBuilder->getCart();
+        $cart = $this->cartBuilder->getCart();
         $deliveries = DeliveryVm::many([
             'where' => ['all']
         ]);
@@ -79,21 +110,23 @@ class CartController extends Controller
      */
     public function actionCheckout()
     {
-        $promocode = Yii::$app->request->post('promocode');
-        $paymentId = Yii::$app->request->post('payment_id');
-        $deliveryId = Yii::$app->request->post('delivery_id');
+        $promocode = $this->request->post('promocode');
+        $paymentId = $this->request->post('payment_id');
+        $deliveryId = $this->request->post('delivery_id');
 
         if (!$paymentId) {
-            Yii::$app->session->addFlash('error', 'Необходимо указать способ оплаты');
+            $this->session->addFlash('error', 'Необходимо указать способ оплаты');
+
             return $this->redirect(['/cart/index']);
         }
 
         if (!$deliveryId) {
-            Yii::$app->session->addFlash('error', 'Необходимо указать способ доставки');
+            $this->session->addFlash('error', 'Необходимо указать способ доставки');
+
             return $this->redirect(['/cart/index']);
         }
 
-        $cartBuilder = ServiceManager::getInstance()->cartBuilder;
+        $cartBuilder = $this->cartBuilder;
         $cartBuilder->setDeliveryById($deliveryId);
         $cartBuilder->setPaymentById($paymentId);
 
@@ -111,17 +144,17 @@ class CartController extends Controller
      */
     public function actionComplete(): string
     {
-        Yii::$app->session->set(self::CART_SESS_KEY, null);
-        $cartBuilder = ServiceManager::getInstance()->cartBuilder;
+        $this->session->set(self::CART_SESS_KEY, null);
+        $cartBuilder = $this->cartBuilder;
         $cartData = [];
 
         if ($cartBuilder->getCart()->hasItems()) {
-            $cartData = Yii::$app->request->post('cart_data');
+            $cartData = $this->request->post('cart_data');
             $cartBuilder->clear();
             $cartBuilder->unserialize(json_decode($cartData, true));
             $cart = $cartBuilder->getCart();
-            $user = ServiceManager::getInstance()->userService->current();
-            ServiceManager::getInstance()->orderService->buildOrder($cart, $user);
+            $user = $this->userService->current();
+            $this->orderService->buildOrder($cart, $user);
         }
 
         return $this->render('complete', [
@@ -135,10 +168,10 @@ class CartController extends Controller
      */
     public function actionDelete(): Response
     {
-        $id = Yii::$app->request->get('id');
-        ServiceManager::getInstance()->cartBuilder->deleteProductById($id);
-        Yii::$app->session->set(self::CART_SESS_KEY, ServiceManager::getInstance()->cartBuilder->serialize());
-        Yii::$app->session->addFlash('success', 'Успешно удалено из корзины');
+        $id = $this->request->get('id');
+        $this->cartBuilder->deleteProductById($id);
+        $this->session->set(self::CART_SESS_KEY, $this->cartBuilder->serialize());
+        $this->session->addFlash('success', 'Успешно удалено из корзины');
 
         return $this->redirect(['/cart/index']);
     }
@@ -148,9 +181,9 @@ class CartController extends Controller
      */
     public function actionClearall(): Response
     {
-        ServiceManager::getInstance()->cartBuilder->clear();
-        Yii::$app->session->set(self::CART_SESS_KEY, ServiceManager::getInstance()->cartBuilder->serialize());
-        Yii::$app->session->addFlash('success', 'Из корзины удалены все товары');
+        $this->cartBuilder->clear();
+        $this->session->set(self::CART_SESS_KEY, $this->cartBuilder->serialize());
+        $this->session->addFlash('success', 'Из корзины удалены все товары');
 
         return $this->redirect(['cart/index']);
     }

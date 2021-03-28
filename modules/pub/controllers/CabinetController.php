@@ -2,19 +2,46 @@
 
 namespace app\modules\pub\controllers;
 
+use kosuha606\VirtualAdmin\Domains\User\UserService;
+use kosuha606\VirtualShop\Cart\CartBuilder;
 use kosuha606\VirtualShop\Model\FavoriteVm;
 use kosuha606\VirtualShop\Model\OrderVm;
 use kosuha606\VirtualShop\Model\ProductVm;
-use kosuha606\VirtualShop\ServiceManager;
+use kosuha606\VirtualShop\Services\FavoriteService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
 
-// FIXME подумать как избавиться от сервис локатора
 class CabinetController extends Controller
 {
+    private UserService $userService;
+    private CartBuilder $cartBuilder;
+    private FavoriteService $favoriteService;
+
+    /**
+     * @param $id
+     * @param $module
+     * @param UserService $userService
+     * @param CartBuilder $cartBuilder
+     * @param FavoriteService $favoriteService
+     * @param array $config
+     */
+    public function __construct(
+        $id,
+        $module,
+        UserService $userService,
+        CartBuilder $cartBuilder,
+        FavoriteService $favoriteService,
+        $config = []
+    ) {
+        parent::__construct($id, $module, $config);
+        $this->userService = $userService;
+        $this->cartBuilder = $cartBuilder;
+        $this->favoriteService = $favoriteService;
+    }
+
     /**
      * @return array[]
      */
@@ -47,8 +74,8 @@ class CabinetController extends Controller
     public function beforeAction($action): bool
     {
         $cartData = Yii::$app->session->get('cart');
-        ServiceManager::getInstance()->cartBuilder->unserialize($cartData);
-        ServiceManager::getInstance()->userService->login(Yii::$app->user->id);
+        $this->cartBuilder->unserialize($cartData);
+        $this->userService->login(Yii::$app->user->id);
 
         return parent::beforeAction($action);
     }
@@ -58,7 +85,7 @@ class CabinetController extends Controller
      */
     public function actionOrders(): string
     {
-        $user = ServiceManager::getInstance()->userService->current();
+        $user = $this->userService->current();
         $orders = OrderVm::many([
             'where' => [
                 ['=', 'user_id', $user->id]
@@ -76,7 +103,7 @@ class CabinetController extends Controller
      */
     public function actionFavorites(): string
     {
-        $user = ServiceManager::getInstance()->userService->current();
+        $user = $this->userService->current();
         $favorites = FavoriteVm::many([
             'where' => [
                 ['=', 'user_id', $user->id]
@@ -102,9 +129,9 @@ class CabinetController extends Controller
     public function actionDeleteFavorite(): Response
     {
         $productId = Yii::$app->request->post('product_id');
-        $user = ServiceManager::getInstance()->userService->current();
+        $user = $this->userService->current();
 
-        ServiceManager::getInstance()->favoriteService->deleteByProductAndUserId($productId, $user->id);
+        $this->favoriteService->deleteByProductAndUserId($productId, $user->id);
         Yii::$app->session->addFlash('success', 'Успешно удалено');
 
         return $this->redirect(['cabinet/favorites']);
@@ -122,8 +149,8 @@ class CabinetController extends Controller
             ]
         ]);
 
-        $user = ServiceManager::getInstance()->userService->current();
-        ServiceManager::getInstance()->favoriteService->addUserProduct($user, $product);
+        $user = $this->userService->current();
+        $this->favoriteService->addUserProduct($user, $product);
         Yii::$app->session->addFlash('success', 'Успешно добавлено в избранное');
 
         return $this->redirect(['cabinet/favorites']);

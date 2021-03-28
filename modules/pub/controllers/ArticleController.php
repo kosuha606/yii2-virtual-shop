@@ -28,8 +28,8 @@ class ArticleController extends Controller
      */
     public function actionDetail(): string
     {
-        $id = \Yii::$app->request->get('id');
-        $slug = \Yii::$app->request->get('slug');
+        $id = $this->request->get('id');
+        $slug = $this->request->get('slug');
         $article = ArticleVm::one(['where' => [
             ['=', 'id', $id],
             ['=', 'slug', $slug]

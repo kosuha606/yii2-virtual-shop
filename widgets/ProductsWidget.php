@@ -6,21 +6,39 @@ use kosuha606\VirtualShop\Model\CategoryVm;
 use kosuha606\VirtualShop\Model\FilterCategoryVm;
 use kosuha606\VirtualShop\Model\FilterProductVm;
 use kosuha606\VirtualShop\ServiceManager;
+use kosuha606\VirtualShop\Services\ProductService;
 use yii\base\Widget;
 use Yii;
+use yii\web\Request;
 
 class ProductsWidget extends Widget
 {
     public ?int $categoryId = null;
+    private ProductService $productService;
+    private Request $request;
+
+    /**
+     * @param ProductService $productService
+     * @param Request $request
+     * @param array $config
+     */
+    public function __construct(
+        ProductService $productService,
+        Request $request,
+        $config = []
+    ) {
+        parent::__construct($config);
+        $this->productService = $productService;
+        $this->request = $request;
+    }
 
     /**
      * @return string
-     * @FIXME упростить
      */
     public function run(): string
     {
-        $page = Yii::$app->request->get('page');
-        $order = Yii::$app->request->get('order');
+        $page = $this->request->get('page');
+        $order = $this->request->get('order');
 
         $filtersData = [];
         /** @var FilterCategoryVm[] $filterCategories */
@@ -34,7 +52,7 @@ class ProductsWidget extends Widget
             ]);
         }
 
-        $filters = ServiceManager::getInstance()->productService->processGetFilters(
+        $filters = $this->productService->processGetFilters(
             Yii::$app->request->get('filter')
         );
 
