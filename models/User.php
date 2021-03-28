@@ -51,6 +51,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $user ?: null;
     }
 
+    public function toHash(): void
+    {
+        $this->password = Yii::$app->security->generatePasswordHash($this->password);
+    }
+
     /**
      * {@inheritdoc}
      */

@@ -6,9 +6,6 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-/**
- * @package app\models
- */
 class Widget extends ActiveRecord
 {
     /**
