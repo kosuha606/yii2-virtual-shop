@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * @property int $id [int(11)]
  * @property int $productId [int(11)]
@@ -12,7 +10,7 @@ use yii\db\ActiveRecord;
  * @property string $created_at [datetime]
  * @property string $updated_at [datetime]
  */
-class ProductRests extends ActiveRecord
+class ProductRests extends BaseActiveRecord
 {
     /**
      * @return string

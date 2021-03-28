@@ -2,10 +2,6 @@
 
 namespace app\models;
 
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
-use yii\db\Expression;
-
 /**
  * @property int $id [int(11)]
  * @property string $description [varchar(255)]
@@ -14,7 +10,7 @@ use yii\db\Expression;
  * @property string $created_at [datetime]
  * @property string $updated_at [datetime]
  */
-class Text extends ActiveRecord
+class Text extends BaseActiveRecord
 {
     /**
      * @return string

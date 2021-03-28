@@ -3,7 +3,6 @@
 namespace app\models;
 
 use yii\behaviors\SluggableBehavior;
-use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -15,7 +14,7 @@ use yii\helpers\ArrayHelper;
  * @property string $updated_at [datetime]
  * @property int $order [int(11)]
  */
-class SeoFilter extends ActiveRecord
+class SeoFilter extends BaseActiveRecord
 {
     /**
      * @return array

@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * @property string $sys_version [varchar(5)]
  * @property string $mysql_version [varchar(6)]
@@ -13,7 +11,7 @@ use yii\db\ActiveRecord;
  * @property string $created_at [datetime]
  * @property string $updated_at [datetime]
  */
-class Version extends ActiveRecord
+class Version extends BaseActiveRecord
 {
     /**
      * @return string

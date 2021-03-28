@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * @property int $id [int(11)]
  * @property int $entity_id [int(11)]
@@ -24,7 +22,7 @@ use yii\db\ActiveRecord;
  * @property string $sitemap_freq [varchar(255)]
  * @property string $url [varchar(255)]
  */
-class SeoPage extends ActiveRecord
+class SeoPage extends BaseActiveRecord
 {
     /**
      * @return string

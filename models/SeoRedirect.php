@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * @property int $id [int(11)]
  * @property string $from_url [varchar(255)]
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property string $created_at [datetime]
  * @property string $updated_at [datetime]
  */
-class SeoRedirect extends ActiveRecord
+class SeoRedirect extends BaseActiveRecord
 {
     /**
      * @return string

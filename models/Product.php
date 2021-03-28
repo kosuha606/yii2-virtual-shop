@@ -3,7 +3,6 @@
 namespace app\models;
 
 use yii\behaviors\SluggableBehavior;
-use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -19,7 +18,7 @@ use yii\helpers\ArrayHelper;
  * @property string $photo [varchar(255)]
  * @property int $category_id [int(11)]
  */
-class Product extends ActiveRecord
+class Product extends BaseActiveRecord
 {
     /**
      * @return array
