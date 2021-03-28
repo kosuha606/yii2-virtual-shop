@@ -13,12 +13,14 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\web\Session;
 
 class CabinetController extends Controller
 {
     private UserService $userService;
     private CartBuilder $cartBuilder;
     private FavoriteService $favoriteService;
+    private Session $session;
 
     /**
      * @param $id
@@ -26,6 +28,7 @@ class CabinetController extends Controller
      * @param UserService $userService
      * @param CartBuilder $cartBuilder
      * @param FavoriteService $favoriteService
+     * @param Session $session
      * @param array $config
      */
     public function __construct(
@@ -34,12 +37,14 @@ class CabinetController extends Controller
         UserService $userService,
         CartBuilder $cartBuilder,
         FavoriteService $favoriteService,
+        Session $session,
         $config = []
     ) {
         parent::__construct($id, $module, $config);
         $this->userService = $userService;
         $this->cartBuilder = $cartBuilder;
         $this->favoriteService = $favoriteService;
+        $this->session = $session;
     }
 
     /**
@@ -73,7 +78,7 @@ class CabinetController extends Controller
      */
     public function beforeAction($action): bool
     {
-        $cartData = Yii::$app->session->get('cart');
+        $cartData = $this->session->get('cart');
         $this->cartBuilder->unserialize($cartData);
         $this->userService->login(Yii::$app->user->id);
 
@@ -132,7 +137,7 @@ class CabinetController extends Controller
         $user = $this->userService->current();
 
         $this->favoriteService->deleteByProductAndUserId($productId, $user->id);
-        Yii::$app->session->addFlash('success', 'Успешно удалено');
+        $this->session->addFlash('success', 'Успешно удалено');
 
         return $this->redirect(['cabinet/favorites']);
     }
@@ -151,7 +156,7 @@ class CabinetController extends Controller
 
         $user = $this->userService->current();
         $this->favoriteService->addUserProduct($user, $product);
-        Yii::$app->session->addFlash('success', 'Успешно добавлено в избранное');
+        $this->session->addFlash('success', 'Успешно добавлено в избранное');
 
         return $this->redirect(['cabinet/favorites']);
     }

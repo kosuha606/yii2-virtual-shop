@@ -4,11 +4,10 @@ namespace app\urlRules;
 
 use kosuha606\VirtualAdmin\Domains\Seo\SeoFilterService;
 use kosuha606\VirtualAdmin\Domains\Seo\SeoService;
-use kosuha606\VirtualModelHelppack\ServiceManager;
-use kosuha606\VirtualShop\Model\CategoryVm;
-use kosuha606\VirtualShop\Model\ProductVm;
 use kosuha606\VirtualContent\Domains\Article\Models\ArticleVm;
 use kosuha606\VirtualContent\Domains\Page\Models\PageVm;
+use kosuha606\VirtualShop\Model\CategoryVm;
+use kosuha606\VirtualShop\Model\ProductVm;
 use yii\base\BaseObject;
 use yii\web\Request;
 use yii\web\UrlManager;
@@ -16,6 +15,24 @@ use yii\web\UrlRuleInterface;
 
 class SeoUrlRule extends BaseObject implements UrlRuleInterface
 {
+    private SeoService $seoService;
+    private SeoFilterService $seoFilterService;
+
+    /**
+     * @param SeoService $seoService
+     * @param SeoFilterService $seoFilterService
+     * @param array $config
+     */
+    public function __construct(
+        SeoService $seoService,
+        SeoFilterService $seoFilterService,
+        $config = []
+    ) {
+        parent::__construct($config);
+        $this->seoService = $seoService;
+        $this->seoFilterService = $seoFilterService;
+    }
+
     /**
      * @param UrlManager $manager
      * @param Request $request
@@ -28,9 +45,8 @@ class SeoUrlRule extends BaseObject implements UrlRuleInterface
         $pathInfo = $pathParts[0];
         $pathInfo = rtrim($pathInfo, '/');
 
-        /** @var SeoService $seoService */
-        $seoService = ServiceManager::getInstance()->get(SeoService::class);
-        $seoFilterService = ServiceManager::getInstance()->get(SeoFilterService::class);
+        $seoService = $this->seoService;
+        $seoFilterService = $this->seoFilterService;
 
         if ($pathInfo === '' && isset($pathParts[1])) {
             $filter = [];

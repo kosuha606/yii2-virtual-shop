@@ -2,7 +2,6 @@
 
 
 use kosuha606\VirtualShop\Model\OrderVm;
-use yii\helpers\Html;
 
 /** @var OrderVm[] $orders */
 

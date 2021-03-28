@@ -4,10 +4,11 @@
 /** @var FavoriteVm[] $favorites */
 
 use kosuha606\VirtualShop\Model\FavoriteVm;
-use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
-use yii\widgets\ActiveForm; ?>
+use yii\widgets\ActiveForm;
+
+?>
 
 <h1>Избранное</h1>
 

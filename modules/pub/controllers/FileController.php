@@ -59,7 +59,7 @@ class FileController extends Controller
             'uploaded' => true,
         ];
 
-        if (Yii::$app->request->isPost) {
+        if ($this->request->isPost) {
             $model->{$attrName} = UploadedFile::getInstanceByName($attrName);
 
             if ($model->validate()) {

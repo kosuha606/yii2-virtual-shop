@@ -23,7 +23,7 @@ class GuestController extends Controller
 
         $model = new RegistrationForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load($this->request->post()) && $model->validate()) {
             $user = new User();
             $user->username = $model->username;
             $user->email = $model->email;
@@ -50,7 +50,7 @@ class GuestController extends Controller
 
         $model = new RestoreForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load($this->request->post()) && $model->validate()) {
             return $this->goBack();
         }
 
@@ -70,7 +70,7 @@ class GuestController extends Controller
 
         $model = new LoginForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load($this->request->post()) && $model->login()) {
             return $this->goBack();
         }
 

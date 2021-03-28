@@ -4,10 +4,10 @@ namespace app\modules\pub\controllers;
 
 use kosuha606\VirtualAdmin\Domains\Multilang\LanguageService;
 use kosuha606\VirtualAdmin\Domains\Sitemap\SitemapVm;
-use kosuha606\VirtualShop\Model\FilterCategoryVm;
-use kosuha606\VirtualShop\Model\FilterProductVm;
+use kosuha606\VirtualAdmin\Domains\User\UserService;
+use kosuha606\VirtualShop\Cart\CartBuilder;
 use kosuha606\VirtualShop\Model\ProductVm;
-use kosuha606\VirtualShop\ServiceManager;
+use kosuha606\VirtualShop\Services\ProductService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -16,6 +16,36 @@ use yii\web\Response;
 
 class SiteController extends Controller
 {
+    private LanguageService $languageService;
+    private CartBuilder $cartBuilder;
+    private UserService $userService;
+    private ProductService $productService;
+
+    /**
+     * @param $id
+     * @param $module
+     * @param LanguageService $languageService
+     * @param CartBuilder $cartBuilder
+     * @param UserService $userService
+     * @param ProductService $productService
+     * @param array $config
+     */
+    public function __construct(
+        $id,
+        $module,
+        LanguageService $languageService,
+        CartBuilder $cartBuilder,
+        UserService $userService,
+        ProductService $productService,
+        $config = []
+    ) {
+        parent::__construct($id, $module, $config);
+        $this->languageService = $languageService;
+        $this->cartBuilder = $cartBuilder;
+        $this->userService = $userService;
+        $this->productService = $productService;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -23,7 +53,7 @@ class SiteController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'only' => ['logout'],
                 'rules' => [
                     [
@@ -34,7 +64,7 @@ class SiteController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'logout' => ['get', 'post'],
                 ],
@@ -65,8 +95,8 @@ class SiteController extends Controller
     public function beforeAction($action): bool
     {
         $cartData = Yii::$app->session->get('cart');
-        ServiceManager::getInstance()->cartBuilder->unserialize($cartData);
-        ServiceManager::getInstance()->userService->login(Yii::$app->user->id);
+        $this->cartBuilder->unserialize($cartData);
+        $this->userService->login(Yii::$app->user->id);
 
         return parent::beforeAction($action);
     }
@@ -79,23 +109,11 @@ class SiteController extends Controller
         $page = $this->request->get('page');
         $order = $this->request->get('order');
 
-        $filtersData = [];
-        /** @var FilterCategoryVm[] $filterCategories */
-        $filterCategories = FilterCategoryVm::many(['where' => [['all']]]);
-
-        foreach ($filterCategories as $filterCategory) {
-            $filtersData[$filterCategory->name] = FilterProductVm::many([
-                'select' => 'category_id, value',
-                'where' => [['=', 'category_id', $filterCategory->id]],
-                'groupBy' => 'value, category_id',
-            ]);
-        }
-
-        $filters = ServiceManager::getInstance()->productService->processGetFilters(
+        $filters = $this->productService->processGetFilters(
             Yii::$app->request->get('filter')
         );
 
-        $dto = ServiceManager::getInstance()->productService->loadProductsWithActions(
+        $dto = $this->productService->loadProductsWithActions(
             $filters,
             $page,
             6,
@@ -103,9 +121,7 @@ class SiteController extends Controller
         );
 
         return $this->render('index', [
-            'products' => $dto->products,
             'pagination' => $dto->pagination,
-            'filtersData' => $filtersData,
         ]);
     }
 
@@ -150,7 +166,7 @@ class SiteController extends Controller
     public function actionLang()
     {
         $l = $this->request->get('l', 'ru');
-        $langService = \kosuha606\VirtualModelHelppack\ServiceManager::getInstance()->get(LanguageService::class);
+        $langService = $this->languageService;
         $langService->setLang($l);
 
         return $this->redirect(Yii::$app->request->referrer);
@@ -161,7 +177,7 @@ class SiteController extends Controller
      */
     public function actionSitemap()
     {
-        $this->response->format = \yii\web\Response::FORMAT_RAW;
+        $this->response->format = Response::FORMAT_RAW;
         $this->response->headers->add('Content-Type', 'text/xml');
 
         return SitemapVm::getSitemapContent();

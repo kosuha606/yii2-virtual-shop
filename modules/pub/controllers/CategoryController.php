@@ -3,23 +3,55 @@
 namespace app\modules\pub\controllers;
 
 use kosuha606\VirtualAdmin\Domains\Seo\SeoFilterService;
+use kosuha606\VirtualAdmin\Domains\User\UserService;
+use kosuha606\VirtualShop\Cart\CartBuilder;
 use kosuha606\VirtualShop\Model\CategoryVm;
-use kosuha606\VirtualShop\ServiceManager;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\web\Session;
 
 class CategoryController extends Controller
 {
+    private CartBuilder $cartBuilder;
+    private UserService $userService;
+    private Session $session;
+    private SeoFilterService $seoFilterService;
+
+    /**
+     * @param $id
+     * @param $module
+     * @param CartBuilder $cartBuilder
+     * @param UserService $userService
+     * @param SeoFilterService $seoFilterService
+     * @param Session $session
+     * @param array $config
+     */
+    public function __construct(
+        $id,
+        $module,
+        CartBuilder $cartBuilder,
+        UserService $userService,
+        SeoFilterService $seoFilterService,
+        Session $session,
+        $config = []
+    ) {
+        parent::__construct($id, $module, $config);
+        $this->cartBuilder = $cartBuilder;
+        $this->userService = $userService;
+        $this->session = $session;
+        $this->seoFilterService = $seoFilterService;
+    }
+
     /**
      * @param $action
      * @return bool
      */
     public function beforeAction($action): bool
     {
-        $cartData = Yii::$app->session->get('cart');
-        ServiceManager::getInstance()->cartBuilder->unserialize($cartData);
-        ServiceManager::getInstance()->userService->login(Yii::$app->user->id);
+        $cartData = $this->session->get('cart');
+        $this->cartBuilder->unserialize($cartData);
+        $this->userService->login(Yii::$app->user->id);
 
         return parent::beforeAction($action);
     }
@@ -29,7 +61,7 @@ class CategoryController extends Controller
      */
     public function actionCategory(): string
     {
-        $id = Yii::$app->request->get('id');
+        $id = $this->request->get('id');
         $category = CategoryVm::one([
             'where' => [
                 ['=', 'id', $id],
@@ -46,14 +78,15 @@ class CategoryController extends Controller
      */
     public function actionFilter(): Response
     {
-        $filters = Yii::$app->request->post('filter', []);
-        $seoFilterService = \kosuha606\VirtualModelHelppack\ServiceManager::getInstance()->get(SeoFilterService::class);
+        $filters = $this->request->post('filter', []);
+        $seoFilterService = $this->seoFilterService;
         $url = $seoFilterService->createUrl($filters);
-        $referer = Yii::$app->request->referrer;
+        $referer = $this->request->referrer;
 
         if ($url) {
             $referer = rtrim($referer, '/');
             $refererParts = explode('/filter-', $referer);
+
             return $this->redirect($refererParts[0].'/filter-'.$url);
         }
 

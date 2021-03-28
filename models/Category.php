@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use yii\helpers\Inflector;
+use yii\behaviors\SluggableBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * @property int $id [int(11)]
@@ -14,6 +15,19 @@ use yii\helpers\Inflector;
  */
 class Category extends BaseActiveRecord
 {
+    /**
+     * @return array
+     */
+    public function behaviors(): array
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            [
+                'class' => SluggableBehavior::class,
+                'attribute' => 'name',
+            ]
+        ]);
+    }
+
     /**
      * @return string
      */
@@ -42,16 +56,5 @@ class Category extends BaseActiveRecord
                 'safe'
             ]
         ];
-    }
-
-    /**
-     * @param bool $insert
-     * @return bool
-     */
-    public function beforeSave($insert): bool
-    {
-        $this->slug = Inflector::slug($this->name);
-
-        return parent::beforeSave($insert);
     }
 }

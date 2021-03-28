@@ -18,14 +18,14 @@ class CartController extends Controller
     public const CART_SESS_KEY = 'cart';
     private CartBuilder $cartBuilder;
     private UserService $userService;
-    private Session $session;
     private OrderService $orderService;
+    private Session $session;
 
     /**
      * @param $id
      * @param $module
-     * @param CartBuilder $cartBuilder
      * @param UserService $userService
+     * @param CartBuilder $cartBuilder
      * @param OrderService $orderService
      * @param Session $session
      * @param array $config
@@ -33,17 +33,17 @@ class CartController extends Controller
     public function __construct(
         $id,
         $module,
-        CartBuilder $cartBuilder,
         UserService $userService,
+        CartBuilder $cartBuilder,
         OrderService $orderService,
         Session $session,
         $config = []
     ) {
         parent::__construct($id, $module, $config);
-        $this->cartBuilder = $cartBuilder;
         $this->userService = $userService;
-        $this->session = $session;
+        $this->cartBuilder = $cartBuilder;
         $this->orderService = $orderService;
+        $this->session = $session;
     }
 
     /**
@@ -53,7 +53,7 @@ class CartController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'checkout' => ['post'],
                     'complete' => ['post'],
@@ -146,7 +146,6 @@ class CartController extends Controller
     {
         $this->session->set(self::CART_SESS_KEY, null);
         $cartBuilder = $this->cartBuilder;
-        $cartData = [];
 
         if ($cartBuilder->getCart()->hasItems()) {
             $cartData = $this->request->post('cart_data');
@@ -158,7 +157,6 @@ class CartController extends Controller
         }
 
         return $this->render('complete', [
-            'cartData' => $cartData,
             'cart' => $cartBuilder->getCart(),
         ]);
     }

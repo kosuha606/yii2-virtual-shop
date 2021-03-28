@@ -1,5 +1,10 @@
 <?php
 
+use app\models\User;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+
+/** @var User $model */
 
 $this->title = 'Восстановление пароля';
 $this->params['breadcrumbs'][] = [
@@ -8,9 +13,7 @@ $this->params['breadcrumbs'][] = [
 ];
 $this->params['breadcrumbs'][] = $this->title;
 
-use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
-use yii\helpers\Url; ?>
+?>
 
 
 <h1><?= Html::encode($this->title) ?></h1>

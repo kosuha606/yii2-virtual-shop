@@ -2,8 +2,9 @@
 
 namespace app\models;
 
+use yii\behaviors\SluggableBehavior;
 use yii\db\ActiveRecord;
-use yii\helpers\Inflector;
+use yii\helpers\ArrayHelper;
 
 /**
  * @property int $id [int(11)]
@@ -20,6 +21,19 @@ use yii\helpers\Inflector;
  */
 class Product extends ActiveRecord
 {
+    /**
+     * @return array
+     */
+    public function behaviors(): array
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            [
+                'class' => SluggableBehavior::class,
+                'attribute' => 'name',
+            ]
+        ]);
+    }
+
     /**
      * @return string
      */
@@ -54,16 +68,5 @@ class Product extends ActiveRecord
                 'safe'
             ]
         ];
-    }
-
-    /**
-     * @param bool $insert
-     * @return bool
-     */
-    public function beforeSave($insert): bool
-    {
-        $this->slug = Inflector::slug($this->name);
-
-        return parent::beforeSave($insert);
     }
 }

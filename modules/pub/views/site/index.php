@@ -5,13 +5,8 @@
 use app\widgets\ProductsWidget;
 use kosuha606\VirtualAdmin\Classes\Pagination;
 use kosuha606\VirtualAdmin\Domains\Multilang\TranslationService;
-use kosuha606\VirtualModel\Example\Shop\Model\Product;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 use kosuha606\VirtualShop\Model\ProductVm;
-use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\widgets\ActiveForm;
-use yii\widgets\LinkPager;
 
 /** @var ProductVm[] $products */
 /** @var Pagination $pagination */

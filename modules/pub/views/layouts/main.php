@@ -19,7 +19,7 @@ $designService = \kosuha606\VirtualModelHelppack\ServiceManager::getInstance()->
 $alert = Alert::widget();
 
 $content = $alert.$content;
-$route = \Yii::$app->requestedRoute ?: 'site/index';
+$route = Yii::$app->requestedRoute ?: 'site/index';
 
 ?>
 <?php $this->beginPage() ?>

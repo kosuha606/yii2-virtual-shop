@@ -3,6 +3,12 @@
 use app\modules\pub\Module;
 use app\urlRules\SeoUrlRule;
 use app\virtualProviders\LoadWebVirtualProvidersComponent;
+use kosuha606\VirtualAdmin\Domains\User\UserService;
+use kosuha606\VirtualShop\Cart\CartBuilder;
+use kosuha606\VirtualShop\ServiceManager;
+use kosuha606\VirtualShop\Services\FavoriteService;
+use kosuha606\VirtualShop\Services\OrderService;
+use kosuha606\VirtualShop\Services\ProductService;
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
@@ -21,6 +27,25 @@ $config = [
         'pub' => [
             'class' => Module::class,
         ]
+    ],
+    'container' => [
+        'definitions' => [
+            CartBuilder::class =>  function() {
+                return ServiceManager::getInstance()->cartBuilder;
+            },
+            UserService::class =>  function() {
+                return ServiceManager::getInstance()->userService;
+            },
+            OrderService::class =>  function() {
+                return ServiceManager::getInstance()->orderService;
+            },
+            FavoriteService::class => function() {
+                return ServiceManager::getInstance()->favoriteService;
+            },
+            ProductService::class => function() {
+                return ServiceManager::getInstance()->productService;
+            },
+        ],
     ],
     'components' => [
         'providers_loader' => [
