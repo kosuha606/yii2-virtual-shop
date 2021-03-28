@@ -135,5 +135,4 @@ class m200428_201759_data extends Migration
     public function safeDown()
     {
     }
-
 }

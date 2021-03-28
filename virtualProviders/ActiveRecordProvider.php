@@ -194,6 +194,19 @@ class ActiveRecordProvider extends VirtualModelProvider
     }
 
     /**
+     * @param $modelClass
+     * @param $config
+     */
+    public function deleteByCondition($modelClass, $config)
+    {
+        $this->ensureHaveRelation($modelClass);
+        $arConfig = $this->relations[$modelClass];
+        /** @var ActiveRecord $arClass */
+        $arClass = $arConfig['ar'];
+        $arClass::deleteAll($config['where']);
+    }
+
+    /**
      * @return array
      */
     public function getAvailableModelClasses()

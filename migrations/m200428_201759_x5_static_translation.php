@@ -1,8 +1,5 @@
 <?php
 
-use app\models\SeoPage;
-use app\models\SeoRedirect;
-use app\models\SeoUrl;
 use app\models\StaticTranslation;
 use yii\db\Migration;
 
@@ -30,5 +27,4 @@ class m200428_201759_x5_static_translation extends Migration
     {
         $this->dropTable(StaticTranslation::tableName());
     }
-
 }

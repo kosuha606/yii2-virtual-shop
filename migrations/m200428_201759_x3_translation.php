@@ -1,8 +1,5 @@
 <?php
 
-use app\models\Cache;
-use app\models\Comment;
-use app\models\Text;
 use app\models\Translation;
 use yii\db\Migration;
 
@@ -35,5 +32,4 @@ class m200428_201759_x3_translation extends Migration
     {
         $this->dropTable(Translation::tableName());
     }
-
 }

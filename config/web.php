@@ -22,6 +22,10 @@ $config = [
             'class' => Module::class,
         ]
     ],
+    'container' => [
+        'definitions' => [
+        ]
+    ],
     'components' => [
         'providers_loader' => [
             'class' => LoadWebVirtualProvidersComponent::class,
@@ -80,7 +84,7 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
-        'allowedIPs' => ['192.168.10.1', '::1'],
+        'allowedIPs' => ['*'],
     ];
 
     $config['bootstrap'][] = 'gii';

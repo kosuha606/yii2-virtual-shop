@@ -20,5 +20,4 @@ class m200428_201759_x8_seo_filter_order extends Migration
     {
         $this->dropColumn(SeoFilter::tableName(), 'order');
     }
-
 }

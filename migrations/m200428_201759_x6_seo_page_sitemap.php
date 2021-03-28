@@ -1,9 +1,6 @@
 <?php
 
 use app\models\SeoPage;
-use app\models\SeoRedirect;
-use app\models\SeoUrl;
-use app\models\StaticTranslation;
 use yii\db\Migration;
 
 class m200428_201759_x6_seo_page_sitemap extends Migration
@@ -25,5 +22,4 @@ class m200428_201759_x6_seo_page_sitemap extends Migration
         $this->dropColumn(SeoPage::tableName(), 'sitemap_importance');
         $this->dropColumn(SeoPage::tableName(), 'sitemap_freq');
     }
-
 }

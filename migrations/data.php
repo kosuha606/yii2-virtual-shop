@@ -6,6 +6,7 @@ return [
         [
             'id' => 2,
             'name' => 'Апельсины',
+            'slug' => 'oranges',
             'price' => '100',
             'price2B' => 50,
             'filters' => [
@@ -17,6 +18,7 @@ return [
         [
             'id' => 3,
             'name' => 'Мандарины',
+            'slug' => 'mandariny',
             'price' => '100',
             'price2B' => 50,
             'filters' => [
@@ -28,6 +30,7 @@ return [
         [
             'id' => 4,
             'name' => 'Виноград',
+            'slug' => 'vinograd',
             'price' => '100',
             'price2B' => 50,
             'filters' => [
@@ -39,6 +42,7 @@ return [
         [
             'id' => 5,
             'name' => 'Вишня',
+            'slug' => 'vishnya',
             'price' => '100',
             'price2B' => 50,
             'filters' => [
@@ -50,6 +54,7 @@ return [
         [
             'id' => 6,
             'name' => 'Крыжовник',
+            'slug' => 'krizhovnik',
             'price' => '100',
             'price2B' => 50,
             'filters' => [
@@ -61,6 +66,7 @@ return [
         [
             'id' => 7,
             'name' => 'Картофель',
+            'slug' => 'kartofel',
             'price' => '100',
             'price2B' => 50,
             'filters' => [
@@ -72,6 +78,7 @@ return [
         [
             'id' => 8,
             'name' => 'Помидор',
+            'slug' => 'pomidor',
             'price' => '100',
             'price2B' => 50,
             'filters' => [
@@ -83,6 +90,7 @@ return [
         [
             'id' => 9,
             'name' => 'Огурец',
+            'slug' => 'ogurec',
             'price' => '100',
             'price2B' => 50,
             'filters' => [
@@ -94,6 +102,7 @@ return [
         [
             'id' => 10,
             'name' => 'Свекла',
+            'slug' => 'svekla',
             'price' => '100',
             'price2B' => 50,
             'filters' => [
@@ -105,6 +114,7 @@ return [
         [
             'id' => 11,
             'name' => 'Морковь',
+            'slug' => 'morkov',
             'price' => '100',
             'price2B' => 50,
             'filters' => [
@@ -116,6 +126,7 @@ return [
         [
             'id' => 12,
             'name' => 'Редис',
+            'slug' => 'redis',
             'price' => '100',
             'price2B' => 50,
             'filters' => [
@@ -127,6 +138,7 @@ return [
         [
             'id' => 13,
             'name' => 'Имбирь',
+            'slug' => 'imbir',
             'price' => '100',
             'price2B' => 50,
             'filters' => [

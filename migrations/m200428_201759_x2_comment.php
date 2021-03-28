@@ -1,7 +1,6 @@
 <?php
 
 use app\models\Comment;
-use app\models\Text;
 use yii\db\Migration;
 
 class m200428_201759_x2_comment extends Migration
@@ -32,5 +31,4 @@ class m200428_201759_x2_comment extends Migration
     {
         $this->dropTable(Comment::tableName());
     }
-
 }

@@ -116,6 +116,7 @@ class m200428_201758_models extends Migration
             'price2B' => $this->integer(11),
             'actions' => $this->text(),
             'rests' => $this->text(),
+            'slug' => $this->string(255),
             'created_at' => $this->dateTime(),
             'updated_at' => $this->dateTime(),
         ]);
@@ -183,5 +184,4 @@ class m200428_201758_models extends Migration
         $this->dropTable(Menu::tableName());
         $this->dropTable(MenuItem::tableName());
     }
-
 }

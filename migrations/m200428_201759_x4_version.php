@@ -1,9 +1,6 @@
 <?php
 
-use app\models\Cache;
-use app\models\Comment;
 use app\models\Lang;
-use app\models\Text;
 use app\models\Version;
 use yii\db\Migration;
 
@@ -34,5 +31,4 @@ class m200428_201759_x4_version extends Migration
     {
         $this->dropTable(Lang::tableName());
     }
-
 }

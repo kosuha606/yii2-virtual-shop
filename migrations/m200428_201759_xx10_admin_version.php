@@ -1,7 +1,6 @@
 <?php
 
 use app\models\AdminVersion;
-use app\models\SeoFilter;
 use yii\db\Migration;
 
 class m200428_201759_xx10_admin_version extends Migration
@@ -32,5 +31,4 @@ class m200428_201759_xx10_admin_version extends Migration
     {
         $this->dropTable(AdminVersion::tableName());
     }
-
 }

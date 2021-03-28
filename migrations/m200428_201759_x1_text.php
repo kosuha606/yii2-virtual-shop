@@ -30,5 +30,4 @@ class m200428_201759_x1_text extends Migration
     {
         $this->dropTable(Text::tableName());
     }
-
 }

@@ -2,6 +2,7 @@
 
 use app\models\Design;
 use app\models\DesignWidget;
+use app\models\Lang;
 use app\models\Widget;
 use yii\db\Migration;
 
@@ -114,6 +115,12 @@ class m210328_074443_design_data extends Migration
                 '[{"code":"menus","type":"ConfigBuilderField","value":"[{\"code\":\"code\",\"type\":\"InputField\",\"value\":\"main\"},{\"code\":\"products\",\"type\":\
 "InputField\",\"value\":\"products\"}]"}]'
             ]
+        ]);
+
+        $this->insert(Lang::tableName(), [
+            'code' => 'ru',
+            'name' => 'Русский',
+            'is_default' => 1,
         ]);
     }
 

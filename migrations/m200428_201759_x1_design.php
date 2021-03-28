@@ -2,8 +2,6 @@
 
 use app\models\Design;
 use app\models\DesignWidget;
-use app\models\MenuItem;
-use app\models\ProductSeo;
 use app\models\Widget;
 use yii\db\Migration;
 
@@ -61,5 +59,4 @@ class m200428_201759_x1_design extends Migration
         $this->dropTable(DesignWidget::tableName());
         $this->dropTable(Widget::tableName());
     }
-
 }

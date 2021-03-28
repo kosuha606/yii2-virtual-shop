@@ -15,15 +15,18 @@ $user = ServiceManager::getInstance()->userService->current();
 $cart = ServiceManager::getInstance()->cartBuilder->getCart();
 
 $translationService = \kosuha606\VirtualModelHelppack\ServiceManager::getInstance()->get(TranslationService::class);
+$langsbar = '';
 
-$langsbar = '<li class="langs">';
+if (count($languages) > 1) {
+    $langsbar = '<li class="langs">';
 
-/** @var LangVm $language */
-foreach ($languages as $language) {
-    $langsbar .= Html::a($language->code, ['site/lang', 'l' => $language->code]);
+    /** @var LangVm $language */
+    foreach ($languages as $language) {
+        $langsbar .= Html::a($language->code, ['site/lang', 'l' => $language->code]);
+    }
+
+    $langsbar .= '</li>';
 }
-
-$langsbar .= '</li>';
 
 $settingsService = \kosuha606\VirtualModelHelppack\ServiceManager::getInstance()->get(SettingsService::class);
 

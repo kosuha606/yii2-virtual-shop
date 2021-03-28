@@ -1,13 +1,6 @@
 <?php
 
-use app\models\Category;
-use app\models\Comment;
-use app\models\Product;
 use app\models\SeoFilter;
-use app\models\SeoPage;
-use app\models\SeoRedirect;
-use app\models\SeoUrl;
-use app\models\StaticTranslation;
 use yii\db\Migration;
 
 class m200428_201759_x8_seo_filter extends Migration
@@ -36,5 +29,4 @@ class m200428_201759_x8_seo_filter extends Migration
     {
         $this->dropTable(SeoFilter::tableName());
     }
-
 }

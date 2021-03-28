@@ -1,14 +1,9 @@
 <?php
 
 use app\models\Article;
-use app\models\Design;
-use app\models\DesignWidget;
-use app\models\MenuItem;
 use app\models\Page;
-use app\models\ProductSeo;
 use app\models\SeoArticle;
 use app\models\SeoPage;
-use app\models\Widget;
 use yii\db\Migration;
 
 class m200428_201759_x1_article_page extends Migration
@@ -76,5 +71,4 @@ class m200428_201759_x1_article_page extends Migration
         $this->dropTable(Page::tableName());
         $this->dropTable(SeoPage::tableName());
     }
-
 }
