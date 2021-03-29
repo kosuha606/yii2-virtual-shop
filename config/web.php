@@ -61,6 +61,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'loginUrl' => [ 'guest/login' ],
         ],
         'errorHandler' => [
             'errorAction' => '/pub/site/error',

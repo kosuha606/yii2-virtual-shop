@@ -73,19 +73,6 @@ class CabinetController extends Controller
     }
 
     /**
-     * @param $action
-     * @return bool
-     */
-    public function beforeAction($action): bool
-    {
-        $cartData = $this->session->get('cart');
-        $this->cartBuilder->unserialize($cartData);
-        $this->userService->login(Yii::$app->user->id);
-
-        return parent::beforeAction($action);
-    }
-
-    /**
      * @return string
      */
     public function actionOrders(): string

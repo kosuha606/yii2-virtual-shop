@@ -3,13 +3,45 @@
 namespace app\modules\pub;
 
 use kosuha606\VirtualAdmin\Domains\Seo\SeoService;
-use kosuha606\VirtualModelHelppack\ServiceManager;
-use kosuha606\VirtualShop\ServiceManager as ShopServiceManager;
+use kosuha606\VirtualAdmin\Domains\User\UserService;
+use kosuha606\VirtualShop\Cart\CartBuilder;
 use Yii;
 use yii\base\Action;
+use yii\web\Application;
+use yii\web\Session;
 
 class Module extends \yii\base\Module
 {
+    private CartBuilder $cartBuilder;
+    private UserService $userService;
+    private Session $session;
+    private SeoService $seoService;
+
+    /**
+     * @param $id
+     * @param Application $parent
+     * @param CartBuilder $cartBuilder
+     * @param UserService $userService
+     * @param SeoService $seoService
+     * @param Session $session
+     * @param array $config
+     */
+    public function __construct(
+        $id,
+        $parent,
+        CartBuilder $cartBuilder,
+        UserService $userService,
+        SeoService $seoService,
+        Session $session,
+        $config = []
+    ) {
+        parent::__construct($id, $parent, $config);
+        $this->cartBuilder = $cartBuilder;
+        $this->userService = $userService;
+        $this->session = $session;
+        $this->seoService = $seoService;
+    }
+
     /**
      * @param Action $action
      * @return bool
@@ -17,17 +49,17 @@ class Module extends \yii\base\Module
     public function beforeAction($action): bool
     {
         $this->registerMetaData();
-        $cartData = Yii::$app->session->get('cart');
-        ShopServiceManager::getInstance()->cartBuilder->unserialize($cartData);
-        ShopServiceManager::getInstance()->userService->login(Yii::$app->user->id);
+        $cartData = $this->session->get('cart');
+        $this->cartBuilder->unserialize($cartData);
+        $this->userService->login(Yii::$app->user->id);
 
         return parent::beforeAction($action);
     }
 
     private function registerMetaData(): void
     {
-        $url = '/' . Yii::$app->request->pathInfo;
-        $seoPage = ServiceManager::getInstance()->get(SeoService::class)->findSeoPageByUrl($url);
+        $url = '/' . $this->request->pathInfo;
+        $seoPage = $this->seoService->findSeoPageByUrl($url);
         $view = Yii::$app->controller->getView();
         $view->title = $seoPage->title;
         $view->registerMetaTag(['name' => 'keywords', 'content' => $seoPage->meta_keywords]);

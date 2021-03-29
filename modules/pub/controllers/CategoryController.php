@@ -6,7 +6,6 @@ use kosuha606\VirtualAdmin\Domains\Seo\SeoFilterService;
 use kosuha606\VirtualAdmin\Domains\User\UserService;
 use kosuha606\VirtualShop\Cart\CartBuilder;
 use kosuha606\VirtualShop\Model\CategoryVm;
-use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\web\Session;
@@ -41,19 +40,6 @@ class CategoryController extends Controller
         $this->userService = $userService;
         $this->session = $session;
         $this->seoFilterService = $seoFilterService;
-    }
-
-    /**
-     * @param $action
-     * @return bool
-     */
-    public function beforeAction($action): bool
-    {
-        $cartData = $this->session->get('cart');
-        $this->cartBuilder->unserialize($cartData);
-        $this->userService->login(Yii::$app->user->id);
-
-        return parent::beforeAction($action);
     }
 
     /**

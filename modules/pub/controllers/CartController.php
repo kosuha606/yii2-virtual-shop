@@ -7,7 +7,6 @@ use kosuha606\VirtualShop\Cart\CartBuilder;
 use kosuha606\VirtualShop\Model\DeliveryVm;
 use kosuha606\VirtualShop\Model\PaymentVm;
 use kosuha606\VirtualShop\Services\OrderService;
-use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
@@ -60,19 +59,6 @@ class CartController extends Controller
                 ],
             ],
         ];
-    }
-
-    /**
-     * @param $action
-     * @return bool
-     */
-    public function beforeAction($action): bool
-    {
-        $cartData = $this->session->get(self::CART_SESS_KEY);
-        $this->cartBuilder->unserialize($cartData);
-        $this->userService->login(Yii::$app->user->id);
-
-        return parent::beforeAction($action);
     }
 
     /**

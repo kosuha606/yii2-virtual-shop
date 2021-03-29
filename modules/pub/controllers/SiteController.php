@@ -4,8 +4,6 @@ namespace app\modules\pub\controllers;
 
 use kosuha606\VirtualAdmin\Domains\Multilang\LanguageService;
 use kosuha606\VirtualAdmin\Domains\Sitemap\SitemapVm;
-use kosuha606\VirtualAdmin\Domains\User\UserService;
-use kosuha606\VirtualShop\Cart\CartBuilder;
 use kosuha606\VirtualShop\Model\ProductVm;
 use kosuha606\VirtualShop\Services\ProductService;
 use Yii;
@@ -17,16 +15,12 @@ use yii\web\Response;
 class SiteController extends Controller
 {
     private LanguageService $languageService;
-    private CartBuilder $cartBuilder;
-    private UserService $userService;
     private ProductService $productService;
 
     /**
      * @param $id
      * @param $module
      * @param LanguageService $languageService
-     * @param CartBuilder $cartBuilder
-     * @param UserService $userService
      * @param ProductService $productService
      * @param array $config
      */
@@ -34,15 +28,11 @@ class SiteController extends Controller
         $id,
         $module,
         LanguageService $languageService,
-        CartBuilder $cartBuilder,
-        UserService $userService,
         ProductService $productService,
         $config = []
     ) {
         parent::__construct($id, $module, $config);
         $this->languageService = $languageService;
-        $this->cartBuilder = $cartBuilder;
-        $this->userService = $userService;
         $this->productService = $productService;
     }
 
@@ -86,19 +76,6 @@ class SiteController extends Controller
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
-    }
-
-    /**
-     * @param $action
-     * @return bool
-     */
-    public function beforeAction($action): bool
-    {
-        $cartData = Yii::$app->session->get('cart');
-        $this->cartBuilder->unserialize($cartData);
-        $this->userService->login(Yii::$app->user->id);
-
-        return parent::beforeAction($action);
     }
 
     /**
@@ -163,7 +140,7 @@ class SiteController extends Controller
     /**
      * @return Response
      */
-    public function actionLang()
+    public function actionLang(): Response
     {
         $l = $this->request->get('l', 'ru');
         $langService = $this->languageService;
