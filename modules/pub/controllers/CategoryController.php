@@ -3,8 +3,6 @@
 namespace app\modules\pub\controllers;
 
 use kosuha606\VirtualAdmin\Domains\Seo\SeoFilterService;
-use kosuha606\VirtualAdmin\Domains\User\UserService;
-use kosuha606\VirtualShop\Cart\CartBuilder;
 use kosuha606\VirtualShop\Model\CategoryVm;
 use yii\web\Controller;
 use yii\web\Response;
@@ -12,16 +10,12 @@ use yii\web\Session;
 
 class CategoryController extends Controller
 {
-    private CartBuilder $cartBuilder;
-    private UserService $userService;
     private Session $session;
     private SeoFilterService $seoFilterService;
 
     /**
      * @param $id
      * @param $module
-     * @param CartBuilder $cartBuilder
-     * @param UserService $userService
      * @param SeoFilterService $seoFilterService
      * @param Session $session
      * @param array $config
@@ -29,15 +23,11 @@ class CategoryController extends Controller
     public function __construct(
         $id,
         $module,
-        CartBuilder $cartBuilder,
-        UserService $userService,
         SeoFilterService $seoFilterService,
         Session $session,
         $config = []
     ) {
         parent::__construct($id, $module, $config);
-        $this->cartBuilder = $cartBuilder;
-        $this->userService = $userService;
         $this->session = $session;
         $this->seoFilterService = $seoFilterService;
     }
