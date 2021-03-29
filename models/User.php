@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
@@ -64,7 +65,7 @@ use yii\web\IdentityInterface;
  * @property string $accessToekn [varchar(255)]
  * @property int $personalDiscount [int(2)]
  */
-class User extends BaseActiveRecord implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface
 {
     /**
      * @return array

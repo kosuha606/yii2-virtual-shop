@@ -64,9 +64,9 @@ class AdminController extends Controller implements AdminControllerInterface
     }
 
     /**
-     * @return string
+     * @return string|Response
      */
-    public function actionProcessor(): string
+    public function actionProcessor()
     {
         $controller = $this->request->get('route');
         $action = $this->request->get('act');
