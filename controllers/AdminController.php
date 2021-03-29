@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\virtual\AppRoutesLoader;
+use Exception;
 use kosuha606\VirtualAdmin\Classes\AdminDefaultRoutesLoader;
 use kosuha606\VirtualAdmin\Domains\User\UserService;
 use kosuha606\VirtualAdmin\Domains\Version\VersionService;
@@ -10,50 +11,67 @@ use kosuha606\VirtualAdmin\Dto\AdminResponseDTO;
 use kosuha606\VirtualAdmin\Interfaces\AdminControllerInterface;
 use kosuha606\VirtualAdmin\Processors\AdminRequestProcessor;
 use kosuha606\VirtualContent\ContentRoutesLoader;
-use kosuha606\VirtualModel\VirtualModel;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 use kosuha606\VirtualShop\ShopRoutesLoader;
 use Yii;
 use yii\web\Controller;
+use yii\web\Response;
 
 class AdminController extends Controller implements AdminControllerInterface
 {
-    public $layout = 'admin';
+    public array $menu = [];
+    private UserService $userService;
+    private AdminRequestProcessor $adminRequestProcessor;
 
-    public $menu = [];
-
-    public $enableCsrfValidation = false;
+    /**
+     * @param $id
+     * @param $module
+     * @param UserService $userService
+     * @param AdminRequestProcessor $adminRequestProcessor
+     * @param array $config
+     */
+    public function __construct(
+        $id,
+        $module,
+        UserService $userService,
+        AdminRequestProcessor $adminRequestProcessor,
+        $config = []
+    ) {
+        parent::__construct($id, $module, $config);
+        $this->userService = $userService;
+        $this->adminRequestProcessor = $adminRequestProcessor;
+        $this->enableCsrfValidation = false;
+        $this->layout = 'admin';
+    }
 
     /**
      * @param $action
      * @return bool
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \yii\web\BadRequestHttpException
-     * @throws \Exception
      */
-    public function beforeAction($action)
+    public function beforeAction($action): bool
     {
-        ServiceManager::getInstance()->get(UserService::class)->login(Yii::$app->user->id);
+        $this->userService->login(Yii::$app->user->id);
 
         return parent::beforeAction($action);
     }
 
-    public function actionIndex()
+    /**
+     * @return Response
+     */
+    public function actionIndex(): Response
     {
         return $this->redirect('/admin/order/list');
     }
 
     /**
      * @return string
-     * @throws \Exception
      */
-    public function actionProcessor()
+    public function actionProcessor(): string
     {
-        $controller = Yii::$app->request->get('route');
-        $action = Yii::$app->request->get('act');
+        $controller = $this->request->get('route');
+        $action = $this->request->get('act');
 
-        $post = Yii::$app->request->post();
+        $post = $this->request->post();
         $delete = false;
 
         if (isset($post['delete'])) {
@@ -62,18 +80,18 @@ class AdminController extends Controller implements AdminControllerInterface
         }
 
         $requestData = [
-            'get' => Yii::$app->request->get(),
+            'get' => $this->request->get(),
             'post' => $post,
             'delete' => $delete,
         ];
 
-        if (Yii::$app->request->get('sortField')) {
+        if ($this->request->get('sortField')) {
             $requestData['get']['order'] = [
-                Yii::$app->request->get('sortField') => Yii::$app->request->get('sortDir') == 'desc' ? SORT_DESC : SORT_ASC,
+                $this->request->get('sortField') => $this->request->get('sortDir') == 'desc' ? SORT_DESC : SORT_ASC,
             ];
         }
 
-        $processor = ServiceManager::getInstance()->get(AdminRequestProcessor::class);
+        $processor = $this->adminRequestProcessor;
         $processor
             ->addRoutesLoader(new AppRoutesLoader())
             ->addRoutesLoader(new ContentRoutesLoader())
@@ -87,21 +105,22 @@ class AdminController extends Controller implements AdminControllerInterface
             return $config;
         });
         $processor->setController($this);
-
         $response = new AdminResponseDTO('', []);
+
         try {
             $response = $processor->process($controller, $action, $requestData);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $response->json['result'] = false;
             $response->json['errors'][] = $exception->getMessage();
 
-            if (!Yii::$app->request->isAjax) {
+            if (!$this->request->isAjax) {
                 throw $exception;
             }
         }
+
         $this->menu = $processor->getMenu();
 
-        if (Yii::$app->request->isAjax) {
+        if ($this->request->isAjax) {
             return $this->asJson($response->json);
         }
 
@@ -112,17 +131,16 @@ class AdminController extends Controller implements AdminControllerInterface
         ]);
     }
 
-    private function handleAlerts()
+    private function handleAlerts(): void
     {
         $alerts = Yii::$app->session->getAllFlashes(true);
         $this->getView()->registerJsVar('_alerts', $alerts);
     }
 
     /**
-     * @return \yii\web\Response
-     * @throws \Exception
+     * @return Response
      */
-    public function actionVersionRestore()
+    public function actionVersionRestore(): Response
     {
         $result = [
             'result' => true,
@@ -134,7 +152,12 @@ class AdminController extends Controller implements AdminControllerInterface
         return $this->asJson($result);
     }
 
-    public function renderView($view, $args)
+    /**
+     * @param $view
+     * @param $args
+     * @return string
+     */
+    public function renderView($view, $args): string
     {
         return $this->renderPartial($view, $args);
     }
